@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-tfg"
+    }
+  },
+  "defaultProject": "angular-tfg",
+  "cli": {
+    "analytics": "b518065b-51bf-45a2-b93a-c1d5070e8d19"
+  }
 }
