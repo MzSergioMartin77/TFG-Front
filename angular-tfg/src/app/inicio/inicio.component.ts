@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Pelicula } from '../models/pelicula';
+import { Serie } from '../models/serie';
 import { PeliculaService } from '../services/pelicula.service';
+import { SerieService } from '../services/serie.service';
 import {FormControl} from '@angular/forms';
 import { Observable } from 'rxjs';
 
@@ -9,14 +11,16 @@ import { Observable } from 'rxjs';
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.scss'],
-  providers: [PeliculaService]
+  providers: [PeliculaService, SerieService]
 })
 export class InicioComponent implements OnInit {
   public peliculas: Pelicula[];
-  constructor(private _peliculaService: PeliculaService) {}
+  public series: Serie[];
+  constructor(private _peliculaService: PeliculaService, private _serieService: SerieService) {}
 
   ngOnInit(): void {
     this.getPeliculas();
+    this.getSeries();
   }
 
   getPeliculas(){
@@ -25,6 +29,20 @@ export class InicioComponent implements OnInit {
         console.log(response);
         if (response.pelicula){
           this.peliculas = response.pelicula;
+        }
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  getSeries(){
+    this._serieService.getSeries().subscribe(
+      response => {
+        console.log(response);
+        if (response.serie){
+          this.series = response.serie;
         }
       },
       error => {

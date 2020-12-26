@@ -15,6 +15,12 @@ export class PeliculaService {
     this.url = "http://localhost:3700/";
   }
 
+  getSeries() :Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    
+    return this._http.get(this.url+'series', {headers:headers});
+  }
+
   getPeliculas() :Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
     
