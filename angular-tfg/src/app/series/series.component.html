@@ -1,1 +1,29 @@
-<p>series works!</p>
+<h1>Información</h1>
+<div class="container">
+    <div class="imagen">
+        <img src="{{serie.imagen}}" alt="Imagen del cartel de la película">
+    </div>
+    <div class="datos">
+        <h2>{{serie.titulo}}</h2>
+        <p>Inicio: {{serie.inicio | date:"dd/MM/yyyy"}}</p>
+        <p>Final: {{serie.final | date:"dd/MM/yyyy"}}</p>
+        <p>{{serie.sinopsis}}</p>
+        <p>Generos:</p>
+        <li *ngFor="let genero of serie.generos">
+            <p>{{genero}}</p>
+        </li>
+        <p>Temporadas: {{serie.temporadas}}</p>
+        <p>Capitulos: {{serie.capitulos}}</p>
+        <p>Creadores:</p>
+        <li *ngFor="let creador of serie.creadores">
+            <a href="">{{creador}}</a>
+        </li>
+    </div>
+    <div class="actor">
+        <p>Actores:</p>
+        <li *ngFor="let actor of serie.actores">
+            <a href="">{{actor.nombre}}</a>
+            <p>{{actor.personaje}}</p>
+        </li>
+    </div>
+</div>

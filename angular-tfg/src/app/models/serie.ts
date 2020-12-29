@@ -8,8 +8,8 @@ export class Serie {
         public imagen: String,
         public temporadas: Number,
         public capitulos: Number,
-        public inicio: Number,
-        public final: Number,
+        public inicio: Date,
+        public final: Date,
         public actores: [{
             nombre: String,
             personaje: String

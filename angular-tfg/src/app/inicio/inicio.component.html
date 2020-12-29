@@ -3,14 +3,14 @@
 <h2>Películas</h2>
 <div class="container">
     <li *ngFor="let pelicula of peliculas">
-        <a href="">{{pelicula.titulo}} </a> <br>
+        <a [routerLink]="['/pelicula', pelicula._id]">{{pelicula.titulo}} </a> <br>
         <img src={{pelicula.imagen}} alt="Imagen de la pelicula">
     </li>
 </div>
 <h2>Series</h2>
 <div class="container">
     <li *ngFor="let serie of series">
-        <a href="">{{serie.titulo}} </a> <br>
+        <a [routerLink]="['/serie', serie._id]">{{serie.titulo}} </a> <br>
         <img src={{serie.imagen}} alt="Imagen de la serie">
     </li>
 </div>
