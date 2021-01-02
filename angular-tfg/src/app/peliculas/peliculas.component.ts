@@ -46,4 +46,15 @@ export class PeliculasComponent implements OnInit {
     )
   }
 
+  /*getPeliculaT(titulo){
+    this._peliculaService.getPeliculaT(titulo).subscribe(
+      response => {
+        this.pelicula = response.pelicula;
+        console.log(this.pelicula);
+        this.updateVideoUrl(response.pelicula.trailer);
+      },
+      
+    )
+  }*/
+
 }

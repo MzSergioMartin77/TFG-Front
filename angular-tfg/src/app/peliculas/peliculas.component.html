@@ -8,20 +8,24 @@
         <p>Duración: {{pelicula.duracion}} minutos</p>
         <p>Estreno: {{pelicula.fecha_estreno | date:"dd/MM/yyyy"}}</p>
         <p>{{pelicula.sinopsis}}</p>
+        <p>Generos:</p>
+        <ul *ngFor="let genero of pelicula.generos">
+            <li>{{genero}}</li>
+        </ul>
         <li *ngFor="let director of pelicula.directores">
-            <a href="">{{director}}</a>
+            <a [routerLink]="['/profesional/n', director]">{{director}}</a>
         </li>
     </div>
     <div class="actor">
         <p>Actores:</p>
         <li *ngFor="let actor of pelicula.actores">
-            <a href="">{{actor.nombre}}</a>
+            <a [routerLink]="['/profesional/n', actor.nombre]">{{actor.nombre}}</a>
             <p>{{actor.personaje}}</p>
         </li>
     </div>
 </div>
 <div class="video">
     <p>{{pelicula.trailer}}</p>
-    <iframe width="853" height="480" [src]="videoUrl" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="853" height="480" [src]="videoUrl" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 

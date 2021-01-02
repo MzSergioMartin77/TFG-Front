@@ -19,9 +19,9 @@ export class ProfesionalService {
     return this._http.get(this.url+'profesional/'+id, {headers:headers});
   }
 
-  getProfesionalT(titulo) :Observable<any>{
+  getProfesionalN(nombre) :Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
 
-    return this._http.get(this.url+'profesional/t/'+titulo, {headers:headers});
+    return this._http.get(this.url+'profesional/n/'+nombre, {headers:headers});
   }
 }
