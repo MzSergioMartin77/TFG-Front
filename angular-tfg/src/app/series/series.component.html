@@ -16,13 +16,13 @@
         <p>Capitulos: {{serie.capitulos}}</p>
         <p>Creadores:</p>
         <li *ngFor="let creador of serie.creadores">
-            <a [routerLink]="['/profesional/n', creador]">{{creador}}</a>
+            <a (click)=getProfesional(creador)>{{creador}}</a>
         </li>
     </div>
     <div class="actor">
         <p>Actores:</p>
         <li *ngFor="let actor of serie.actores">
-            <a [routerLink]="['/profesional/n', actor.nombre]">{{actor.nombre}}</a>
+            <a (click)=getProfesional(actor.nombre)>{{actor.nombre}}</a>
             <p>{{actor.personaje}}</p>
         </li>
     </div>

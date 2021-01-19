@@ -2,21 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import { Serie } from '../models/serie';
 import { SerieService } from '../services/serie.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Profesional } from '../models/profesional';
+import { ProfesionalService } from '../services/profesional.service';
 
 @Component({
   selector: 'app-series',
   templateUrl: './series.component.html',
-  styleUrls: ['./series.component.scss'],
-  providers: [SerieService]
+  styleUrls: ['./series.component.scss']
 })
 export class SeriesComponent implements OnInit {
 
   public serie: Serie;
+  public profesionales: Profesional[];
+  public profesional: Profesional;
 
   constructor(
     private _route: ActivatedRoute,
-    private _serieService: SerieService
-    ) { }
+    private _serieService: SerieService,
+    private _profesionalService: ProfesionalService,
+    private _router: Router
+    ) {}
 
   ngOnInit(): void {
     this._route.params.subscribe(params => {
@@ -34,6 +39,23 @@ export class SeriesComponent implements OnInit {
         console.log(<any>error);
       }
     )
+  }
+
+  getProfesionalN(nombre){
+    this._profesionalService.getProfesionalN(nombre).subscribe(
+      response => {
+        this.profesionales = response.profesional;
+        this.profesional = this.profesionales[0];
+        this._router.navigate(['/profesional/',this.profesional._id]);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  getProfesional(nombre){
+    this.getProfesionalN(nombre);
   }
 
 }

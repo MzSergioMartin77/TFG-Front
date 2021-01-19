@@ -14,7 +14,7 @@ import { SerieService } from '../services/serie.service';
 })
 export class ProfesionalesComponent implements OnInit {
 
-  public profesionales: Profesional[];
+  //public profesionales: Profesional[];
   public profesional: Profesional;
   public peliculas: Pelicula[];
   public pelicula: Pelicula;
@@ -31,13 +31,24 @@ export class ProfesionalesComponent implements OnInit {
 
   ngOnInit(): void {
     this._route.params.subscribe(params => {
-      let nombre = params.nombre;
-      this.getProfesionalN(nombre);
+      let id = params.id;
+      this.getProfesional(id);
       console.log(this.profesional);
     });
   }
 
-  getProfesionalN(nombre){
+  getProfesional(id){
+    this._profesionalService.getProfesionalId(id).subscribe(
+      response => {
+        this.profesional = response.profesional;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  /*getProfesionalN(nombre){
     this._profesionalService.getProfesionalN(nombre).subscribe(
       response => {
         this.profesionales = response.profesional;
@@ -47,7 +58,7 @@ export class ProfesionalesComponent implements OnInit {
         console.log(<any>error);
       }
     )
-  }
+  }*/
 
   getPeliculaT(titulo){
     this._peliculaService.getPeliculaT(titulo).subscribe(

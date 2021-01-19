@@ -1,8 +1,30 @@
 <div class="menu">
-  <a [routerLink]="'/'" id="nombre">RFilm</a>
+  <a routerLink='/' id="nombre">RFilm</a>
   <input type="search">
-  <a>Iniciar sesión</a>
-  <a href="">Registro</a>
+  <div class="sesion" *ngIf='!identidad'>
+    <a routerLink='/login'>Iniciar sesión</a>
+    <a routerLink='/registro'>Registro</a>
+  </div>
+  <div class="usuario" *ngIf="identidad">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <p>{{identidad.nick}}</p>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list>
+          <a mat-list-item routerLink='/perfil'>
+            Perfil
+          </a>
+          <a mat-list-item (click)="logout()">
+            Cerrar sesión
+          </a>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+  </div>
 </div>
 
 <router-outlet></router-outlet>

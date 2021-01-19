@@ -12,14 +12,15 @@
         <ul *ngFor="let genero of pelicula.generos">
             <li>{{genero}}</li>
         </ul>
+        <p>Directores:</p>
         <li *ngFor="let director of pelicula.directores">
-            <a [routerLink]="['/profesional/n', director]">{{director}}</a>
+            <a (click)=getProfesional(director)>{{director}}</a>
         </li>
     </div>
     <div class="actor">
         <p>Actores:</p>
         <li *ngFor="let actor of pelicula.actores">
-            <a [routerLink]="['/profesional/n', actor.nombre]">{{actor.nombre}}</a>
+            <a (click)=getProfesional(actor.nombre)>{{actor.nombre}}</a>
             <p>{{actor.personaje}}</p>
         </li>
     </div>

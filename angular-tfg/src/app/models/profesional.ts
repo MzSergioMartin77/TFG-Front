@@ -1,6 +1,7 @@
 
 export class Profesional {
     constructor(
+        public _id: String,
         public nombre: String,
         public biografia: String,
         public imagen: String,
