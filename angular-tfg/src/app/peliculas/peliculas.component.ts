@@ -5,6 +5,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { Profesional } from '../models/profesional';
 import { ProfesionalService } from '../services/profesional.service';
+import { Usuario } from '../models/usuario';
+import { UsuarioService } from '../services/usuario.service';
 
 @Component({
   selector: 'app-peliculas',
@@ -17,11 +19,13 @@ export class PeliculasComponent implements OnInit {
   videoUrl: SafeResourceUrl;
   public profesionales: Profesional[];
   public profesional: Profesional;
+  public usuario: Usuario;
 
   constructor(
     private sanitizer: DomSanitizer,
     private _peliculaService: PeliculaService,
     private _profesionalService: ProfesionalService,
+    private _usuarioService: UsuarioService,
     private _route: ActivatedRoute,
     private _router: Router
   ) {}
@@ -67,6 +71,16 @@ export class PeliculasComponent implements OnInit {
 
   getProfesional(nombre){
     this.getProfesionalN(nombre);
+  }
+
+  addCritica(){
+    this.usuario = this._usuarioService.getIdentidad();
+    if(this.usuario == null){
+      alert("Necesitas iniciar sesión");
+      this._router.navigate(['/login']);
+    }else {
+      this._router.navigate(['/addcriticaP/',this.pelicula._id]);
+    }
   }
 
 }

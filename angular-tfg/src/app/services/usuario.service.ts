@@ -47,10 +47,11 @@ export class UsuarioService {
   }
 
   getToken(){
-    let localToken = JSON.parse(localStorage.getItem('token'));
+    let localToken = localStorage.getItem('token');
 
     if(localToken != 'undefined'){
-      this.token = localToken;
+      this.token = localToken.toString();
+      console.log(this.token);
     }else{
       this.token = null;
     }

@@ -4,6 +4,8 @@ import { SerieService } from '../services/serie.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Profesional } from '../models/profesional';
 import { ProfesionalService } from '../services/profesional.service';
+import { Usuario } from '../models/usuario';
+import { UsuarioService } from '../services/usuario.service';
 
 @Component({
   selector: 'app-series',
@@ -15,12 +17,14 @@ export class SeriesComponent implements OnInit {
   public serie: Serie;
   public profesionales: Profesional[];
   public profesional: Profesional;
+  public usuario: Usuario;
 
   constructor(
     private _route: ActivatedRoute,
     private _serieService: SerieService,
     private _profesionalService: ProfesionalService,
-    private _router: Router
+    private _router: Router,
+    private _usuarioService: UsuarioService
     ) {}
 
   ngOnInit(): void {
@@ -56,6 +60,16 @@ export class SeriesComponent implements OnInit {
 
   getProfesional(nombre){
     this.getProfesionalN(nombre);
+  }
+
+  addCritica(){
+    this.usuario = this._usuarioService.getIdentidad();
+    if(this.usuario == null){
+      alert("Necesitas iniciar sesión");
+      this._router.navigate(['/login']);
+    }else {
+      this._router.navigate(['/addcriticaS/',this.serie._id]);
+    }
   }
 
 }

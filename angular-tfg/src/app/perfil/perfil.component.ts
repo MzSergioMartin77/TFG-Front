@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../services/usuario.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Usuario } from '../models/usuario';
 
 @Component({
   selector: 'app-perfil',
@@ -8,12 +10,22 @@ import { UsuarioService } from '../services/usuario.service';
 })
 export class PerfilComponent implements OnInit {
 
-  public identidad;
+  //public identidad;
+  public nombre = String;
+  public usuario: Usuario;
 
-  constructor(private _usuarioService: UsuarioService) { }
+  constructor(
+    private _usuarioService: UsuarioService,
+    private _router: Router
+    ) { }
 
   ngOnInit(): void {
-    this.identidad = this._usuarioService.getIdentidad();
+    this.usuario = this._usuarioService.getIdentidad();
+    console.log(this.usuario);
+    if(this.usuario == null){
+      alert("Necesitas iniciar sesión");
+      this._router.navigate(['/login']);
+    } 
   }
 
 }

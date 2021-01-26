@@ -7,6 +7,9 @@
         <h2>{{serie.titulo}}</h2>
         <p>Inicio: {{serie.inicio | date:"dd/MM/yyyy"}}</p>
         <p>Final: {{serie.final | date:"dd/MM/yyyy"}}</p>
+        <p *ngIf="serie.nota_media != null">
+            Nota: {{serie.nota_media}}
+        </p>
         <p>{{serie.sinopsis}}</p>
         <p>Generos:</p>
         <ul *ngFor="let genero of serie.generos">
@@ -25,5 +28,16 @@
             <a (click)=getProfesional(actor.nombre)>{{actor.nombre}}</a>
             <p>{{actor.personaje}}</p>
         </li>
+    </div>
+    <div class="criticas">
+        <button (click)=addCritica() >Escribir crítica</button>
+        <div>
+            <p>Críticas: </p>
+            <li *ngFor="let critica of serie.criticas">
+                <h2>{{critica.titulo}}</h2>
+                <p>{{critica.nota}}</p>
+                <p>{{critica.texto}}</p>
+            </li>
+        </div>
     </div>
 </div>

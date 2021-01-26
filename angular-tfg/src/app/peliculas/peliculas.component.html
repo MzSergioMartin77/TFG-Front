@@ -7,6 +7,9 @@
         <h2>{{pelicula.titulo}}</h2>
         <p>Duración: {{pelicula.duracion}} minutos</p>
         <p>Estreno: {{pelicula.fecha_estreno | date:"dd/MM/yyyy"}}</p>
+        <p *ngIf="pelicula.nota_media != null">
+            Nota: {{pelicula.nota_media}}
+        </p>
         <p>{{pelicula.sinopsis}}</p>
         <p>Generos:</p>
         <ul *ngFor="let genero of pelicula.generos">
@@ -28,5 +31,17 @@
 <div class="video">
     <p>{{pelicula.trailer}}</p>
     <iframe width="853" height="480" [src]="videoUrl" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+<div class="criticas">
+    <button (click)=addCritica() >Escribir crítica</button>
+    <div>
+        <p>Críticas: </p>
+        <li *ngFor="let critica of pelicula.criticas">
+            <h2>{{critica.titulo}}</h2>
+            <p>{{critica.nota}}</p>
+            <p>{{critica.texto}}</p>
+        </li>
+    </div>
 </div>
 

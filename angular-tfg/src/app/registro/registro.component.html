@@ -14,70 +14,70 @@
                 <mat-error *ngIf="nombre.errors.required">
                     El nombre es obligatorio
                 </mat-error>
-                <span *ngIf="nombre.errors.maxlength">
+                <mat-error *ngIf="nombre.errors.maxlength">
                     El nombre debe de terner menos de 50 carácteres
-                </span>
+                </mat-error>
             </div>
         </div>
         <div class="form-group">
             <label>Nick: </label>
             <input type="text" class="form-control" id="nick" name="nick" formControlName="nick">
             <div *ngIf="nick.invalid && (nick.dirty || nick.touched)" class="alert alert-danger">
-                <span *ngIf="nick.errors.required">
+                <mat-error *ngIf="nick.errors.required">
                     El nick es obligatorio
-                </span>
+                </mat-error>
             </div>
         </div>
         <div class="form-group">
             <label>Email: </label>
             <input type="email" class="form-control" id="email" name="email" formControlName="email">
             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
-                <span *ngIf="email.errors.required">
+                <mat-error *ngIf="email.errors.required">
                     El email es obligatorio
-                </span>
-                <span *ngIf="email.errors.email">
+                </mat-error>
+                <mat-error *ngIf="email.errors.email">
                     El email no es valido
-                </span>
+                </mat-error>
             </div>
         </div>
         <div class="form-group">
             <label>Contraseña: </label>
             <input type="password" class="form-control" id="pass" name="pass" formControlName="pass">
             <div *ngIf="pass.invalid && (pass.dirty || pass.touched)" class="alert alert-danger">
-                <span *ngIf="pass.errors.required">
+                <mat-error *ngIf="pass.errors.required">
                     La contraseña es obligatoria
-                </span>
-                <span *ngIf="pass.errors.minlength">
+                </mat-error>
+                <mat-error *ngIf="pass.errors.minlength">
                     La contraseña debe de tener al menos 8 carácteres <br>
-                </span>
-                <span *ngIf="pass.errors.maxLength">
+                </mat-error>
+                <mat-error *ngIf="pass.errors.maxLength">
                     La contraseña no puede tener más de 50 carácteres
-                </span>
-                <span *ngIf="pass.errors.pattern">
+                </mat-error>
+                <mat-error *ngIf="pass.errors.pattern">
                     La contraseña debe contener al menos una mayúscula, una minúscula y un número
-                </span>
+                </mat-error>
             </div>
         </div>
         <div class="form-group">
             <label>Confirmar Contraseña: </label>
             <input type="password" class="form-control" id="confirmPass" formControlName="confirmPass">
             <div *ngIf="confirmPass.invalid && (confirmPass.dirty || confirmPass.touched)" class="alert alert-danger">
-                <span *ngIf="confirmPass.errors.required">
+                <mat-error *ngIf="confirmPass.errors.required">
                     La confrimación de la contraseña es obligatoria
-                </span>
+                </mat-error>
             </div>
         </div>
-        <div class="message_fail" *ngIf="passMatch == 'false'">
+        <mat-error class="message_fail" *ngIf="passMatch == 'false'">
             Las contraseñas no son iguales
-        </div>
+        </mat-error>
         <div class="form-group">
             <label>(Opcional) Descripción: </label>
             <textarea type="text" class="form-control" id="descripcion" name="descripcion"
                 formControlName="descripcion"></textarea>
             <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)" class="alert alert-danger">
-                <span *ngIf="descripcion.errors.minlength">
+                <mat-error *ngIf="descripcion.errors.minlength">
                     La descripción debe de tener como mínimo 8 carácteres
-                </span>
+                </mat-error>
             </div>
         </div>
         <button type="submit" [disabled]="!registroForm.valid">Registrarse</button>

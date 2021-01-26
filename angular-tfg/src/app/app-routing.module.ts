@@ -8,6 +8,8 @@ import { ProfesionalesComponent } from './profesionales/profesionales.component'
 import { RegistroComponent } from './registro/registro.component';
 import { LoginComponent } from './login/login.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { AddCriticaComponent } from './add-critica/add-critica.component';
+import { AddCriticaSerieComponent } from './add-critica-serie/add-critica-serie.component';
 
 const routes: Routes = [
   {path: '', component: InicioComponent},
@@ -16,7 +18,9 @@ const routes: Routes = [
   {path: 'profesional/:id', component: ProfesionalesComponent},
   {path: 'registro', component: RegistroComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'perfil', component: PerfilComponent}
+  {path: 'perfil', component: PerfilComponent},
+  {path: 'addcriticaP/:id', component: AddCriticaComponent},
+  {path: 'addcriticaS/:id', component: AddCriticaSerieComponent}
 ];
 
 @NgModule({

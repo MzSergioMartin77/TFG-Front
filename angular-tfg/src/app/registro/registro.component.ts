@@ -56,11 +56,6 @@ export class RegistroComponent implements OnInit {
       this.passMatch = 'false';
     }
     else {
-     /* this.usuario.nombre = this.nombre.value;
-      this.usuario.nick = this.nick.value;
-      this.usuario.pass = this.pass.value;
-      this.usuario.email = this.email.value;
-      this.usuario.descripcion = this.descripcion.value;*/
       this._usuarioService.registro(this.registroForm.value).subscribe(
         response => {
           console.log(response);

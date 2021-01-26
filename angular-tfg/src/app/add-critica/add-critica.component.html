@@ -1,0 +1,43 @@
+<div class="container" *ngIf='usuario'>
+    <h1>Escribir una crítica</h1>
+    <form [formGroup]="criticaForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label>Nota: </label>
+            <input type="number" class="form-control" id="nota" name="nota" formControlName="nota" required>
+            <div *ngIf="nota.invalid && (nota.dirty || nota.touched)" class="alert-danger">
+                <mat-error *ngIf="nota.errors.required">
+                    La nota es obligatoria y tiene que ser un número
+                </mat-error>
+                <mat-error *ngIf="nota.errors.min">
+                    La nota tienes que ser mayor de 0
+                </mat-error>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Título: </label>
+            <input type="text" class="form-control" id="titulo" name="titulo" formControlName="titulo" required>
+            <div *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)" class="alert-danger">
+                <mat-error *ngIf="titulo.errors.required">
+                    El título es obligatorio
+                </mat-error>
+                <mat-error *ngIf="titulo.errors.maxlength">
+                    El título debe de terner menos de 50 carácteres
+                </mat-error>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Crítica: </label>
+            <textarea type="text" class="form-control" id="texto" name="texto" formControlName="texto" required></textarea>
+            <div *ngIf="texto.invalid && (texto.dirty || texto.touched)" class="alert-danger">
+                <mat-error *ngIf="texto.errors.required">
+                    Es obligatorio escribir una crítica
+                </mat-error>
+                <mat-error *ngIf="texto.errors.minlength">
+                    La crítica debe de tener como mínimo 140 carácteres
+                </mat-error>
+            </div>
+        </div>
+        <button type="submit" [disabled]="!criticaForm.valid">Publicar crítica</button>
+    </form>
+
+</div>

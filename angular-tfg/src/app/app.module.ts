@@ -14,6 +14,8 @@ import { LoginComponent } from './login/login.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import {BrowserAnimationsModule} from'@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
+import { AddCriticaComponent } from './add-critica/add-critica.component';
+import { AddCriticaSerieComponent } from './add-critica-serie/add-critica-serie.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { MaterialModule } from './material/material.module';
     InicioComponent,
     RegistroComponent,
     LoginComponent,
-    PerfilComponent
+    PerfilComponent,
+    AddCriticaComponent,
+    AddCriticaSerieComponent
   ],
   imports: [
     BrowserModule,

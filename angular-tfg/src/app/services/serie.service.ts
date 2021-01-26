@@ -30,4 +30,11 @@ export class SerieService {
 
     return this._http.get(this.url+'serie/t/'+titulo, {headers:headers});
   }
+
+  saveCritica(critica, token) :Observable<any>{
+    let params = JSON.stringify(critica);
+    let headers = new HttpHeaders().set('Content-Type','application/json').set('Authorization', token);
+
+    return this._http.post(this.url+'serieCritica', params, {headers: headers});
+  }
 }
