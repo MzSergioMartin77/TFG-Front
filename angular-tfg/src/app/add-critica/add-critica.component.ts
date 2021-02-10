@@ -17,6 +17,7 @@ export class AddCriticaComponent implements OnInit {
   public newCritica: Object;
   public token: String;
   public peliculaId: String;
+  public identidad;
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -24,7 +25,9 @@ export class AddCriticaComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private fb: FormBuilder
-  ) {}
+  ) { 
+    //this.usuario = new Usuario('','','','','','','', null, null, null, null);
+  }
 
   ngOnInit(): void {
     this._route.params.subscribe(params => {
@@ -33,7 +36,7 @@ export class AddCriticaComponent implements OnInit {
     this.usuario = this._usuarioService.getIdentidad();
     this.token = this._usuarioService.getToken();
     console.log(this.usuario);
-    if(this.usuario == null){
+    if (this.usuario == null) {
       alert("Necesitas iniciar sesión");
       this._router.navigate(['/login']);
     }
@@ -50,7 +53,23 @@ export class AddCriticaComponent implements OnInit {
     });
   }
 
-  onSubmit(): void{
+
+  reloadUsuario(){
+    this._usuarioService.getUsuario(this.usuario._id, this.token).subscribe(
+      response => {
+        this.identidad = response;
+        console.log(this.identidad);
+        localStorage.setItem('identidad', JSON.stringify(this.identidad.usuario));
+        alert('La crítica se ha guardado correctamente');
+        this._router.navigate(['/pelicula', this.peliculaId]);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  onSubmit(): void {
     this.newCritica = {
       nota: this.nota.value,
       titulo: this.titulo.value,
@@ -61,15 +80,15 @@ export class AddCriticaComponent implements OnInit {
     this._peliculaService.saveCritica(this.newCritica, this.token).subscribe(
       response => {
         console.log(response);
-        if(response == 'Guardado'){
+        if (response.message == 'Guardado') {
           console.log('Entro');
+          this.reloadUsuario();
         }
       },
       error => {
         console.log(<any>error);
       }
     );
-    console.log('Bien');
   }
 
   get titulo() { return this.criticaForm.get('titulo'); }

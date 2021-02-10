@@ -1,3 +1,22 @@
+.evaluar{
+    border: solid black 1px;
+}
+
+.evaluar .botones{
+    display: flex;
+    padding: 10px;
+}
+
+.evaluar .botones p{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.evaluar .botones .boton:hover{
+    color: blue;
+    cursor: pointer;
+}
+
 .criticas{
     border: solid black 1px;
 }

@@ -18,6 +18,7 @@ export class SeriesComponent implements OnInit {
   public profesionales: Profesional[];
   public profesional: Profesional;
   public usuario: Usuario;
+  public status: String;
 
   constructor(
     private _route: ActivatedRoute,
@@ -28,6 +29,7 @@ export class SeriesComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
+    this.status = 'critica';
     this._route.params.subscribe(params => {
       let id = params.id;
       this.getSerie(id);
@@ -70,6 +72,14 @@ export class SeriesComponent implements OnInit {
     }else {
       this._router.navigate(['/addcriticaS/',this.serie._id]);
     }
+  }
+
+  statusCritica(){
+    this.status = 'critica';
+  }
+
+  statusComentario(){
+    this.status = 'comentario';
   }
 
 }

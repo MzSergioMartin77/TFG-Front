@@ -33,15 +33,38 @@
     <iframe width="853" height="480" [src]="videoUrl" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
-<div class="criticas">
-    <button (click)=addCritica() >Escribir crítica</button>
-    <div>
-        <p>Críticas: </p>
-        <li *ngFor="let critica of pelicula.criticas">
-            <h2>{{critica.titulo}}</h2>
-            <p>{{critica.nota}}</p>
-            <p>{{critica.texto}}</p>
-        </li>
+<div class="evaluar">
+    <div class="botones">
+        <p class="boton" (click)=statusCritica()>Críticas</p>
+        <p> | </p>
+        <p class="boton" (click)=statusComentario()>Comentarios</p>
+    </div>
+    <div *ngIf="status == 'critica'" class="criticas">
+        <button (click)=addCritica() >Escribir crítica</button>
+        <div>
+            <p>Críticas: </p>
+            <li *ngFor="let critica of pelicula.criticas">
+                <h2>{{critica.titulo}}</h2>
+                <p>{{critica.nota}}</p>
+                <p>{{critica.nick}}</p>
+                <p>{{critica.texto}}</p>
+            </li>
+        </div>
+    </div>
+    <div *ngIf="status == 'comentario'" class="comentario">
+            <input type="text" id="texto" name="texto" [formControl]="texto" placeholder="Escribe un comentario" maxlength="250">
+            <mat-error *ngIf="texto.invalid">
+                No se puede escribir un comentario de más de 250 carácteres 
+            </mat-error>
+            <button (click)=addComentario()>Comentar</button>
+        <div>
+            <p>Comentarios: </p>
+            <li *ngFor="let comentario of pelicula.comentarios">
+                <p>{{comentario.nick}}</p>
+                <p>{{comentario.texto}}</p>
+            </li>
+        </div>
     </div>
 </div>
+
 

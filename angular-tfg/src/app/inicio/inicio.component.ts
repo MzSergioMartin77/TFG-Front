@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.scss']
- // providers: [PeliculaService, SerieService]
 })
 export class InicioComponent implements OnInit {
   public peliculas: Pelicula[];

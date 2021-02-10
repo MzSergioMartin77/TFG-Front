@@ -18,11 +18,13 @@ export class Serie {
         public criticas: [{
             nota: Number,
             titulo: String,
+            nick: String,
             texto: String,
             fecha: Date,
             usuario: String
         }],
         public comentarios: [{
+            nick: String,
             texto: String,
             fecha: Date,
             usuario: String,

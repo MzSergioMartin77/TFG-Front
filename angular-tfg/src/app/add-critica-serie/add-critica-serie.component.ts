@@ -17,6 +17,7 @@ export class AddCriticaSerieComponent implements OnInit {
   public newCritica: Object;
   public token: String;
   public serieId: String;
+  public identidad;
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -50,6 +51,21 @@ export class AddCriticaSerieComponent implements OnInit {
     });
   }
 
+  reloadUsuario(){
+    this._usuarioService.getUsuario(this.usuario._id, this.token).subscribe(
+      response => {
+        this.identidad = response;
+        console.log(this.identidad);
+        localStorage.setItem('identidad', JSON.stringify(this.identidad.usuario));
+        alert('La crítica se ha guardado correctamente');
+        this._router.navigate(['/serie',this.serieId]);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
   onSubmit(): void{
     this.newCritica = {
       nota: this.nota.value,
@@ -61,6 +77,10 @@ export class AddCriticaSerieComponent implements OnInit {
     this._serieService.saveCritica(this.newCritica, this.token).subscribe(
       response => {
         console.log(response);
+        if(response.message == 'Guardado'){
+          console.log('Entro');
+          this.reloadUsuario();
+        }
       },
       error => {
         console.log(<any>error);

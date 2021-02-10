@@ -7,6 +7,7 @@ import { Profesional } from '../models/profesional';
 import { ProfesionalService } from '../services/profesional.service';
 import { Usuario } from '../models/usuario';
 import { UsuarioService } from '../services/usuario.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-peliculas',
@@ -20,6 +21,12 @@ export class PeliculasComponent implements OnInit {
   public profesionales: Profesional[];
   public profesional: Profesional;
   public usuario: Usuario;
+  public status: String;
+  public newComentario: Object;
+  public peliculaId: String;
+  public token: String;
+  public comentarioForm: FormGroup;
+  public texto = new FormControl('');
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -27,14 +34,18 @@ export class PeliculasComponent implements OnInit {
     private _profesionalService: ProfesionalService,
     private _usuarioService: UsuarioService,
     private _route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    this.status = 'critica';
     this._route.params.subscribe(params => {
-      let id = params.id;
-      this.getPelicula(id);
+      this.peliculaId = params.id;
+      this.getPelicula(this.peliculaId);
     });
+    this.usuario = this._usuarioService.getIdentidad();
+    this.token = this._usuarioService.getToken();
   }
 
   updateVideoUrl(trailer: string) {
@@ -74,13 +85,47 @@ export class PeliculasComponent implements OnInit {
   }
 
   addCritica(){
-    this.usuario = this._usuarioService.getIdentidad();
+    //this.usuario = this._usuarioService.getIdentidad();
     if(this.usuario == null){
       alert("Necesitas iniciar sesión");
       this._router.navigate(['/login']);
     }else {
       this._router.navigate(['/addcriticaP/',this.pelicula._id]);
     }
+  }
+
+  statusCritica(){
+    this.status = 'critica';
+  }
+
+  statusComentario(){
+    this.status = 'comentario';
+  }
+
+  addComentario(): void{
+    if(this.usuario == null){
+      alert("Necesitas iniciar sesión");
+      this._router.navigate(['/login']);
+    }else{
+      this.newComentario = {
+        texto: this.texto.value,
+        usuarioId: this.usuario._id,
+        peliculaId: this.peliculaId
+      }
+      this._peliculaService.saveComentario(this.newComentario, this.token).subscribe(
+        response => {
+          console.log(response);
+          if (response.message == 'Guardado') {
+            console.log('nada');
+            window.location.reload(); 
+          }
+        },
+        error => {
+          console.log(<any>error);
+        }
+      );
+    }
+    
   }
 
 }

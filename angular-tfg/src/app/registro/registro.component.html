@@ -1,8 +1,14 @@
 <div class="container">
     <h1>Registro</h1>
-    <div *ngIf="status == 'false'">
-        Ha ocurrido un error al registrarse, es posible que el email o el nick ya esten en uso
-    </div>
+    <mat-error *ngIf="status == 'false'">
+        Ha ocurrido un error inesperado al registrarse, por favor vuelva a intentarlo
+    </mat-error>
+    <mat-error *ngIf="status == 'false-email'">
+        Ya hay un usuario registrado con este email en la plataforma
+    </mat-error>
+    <mat-error *ngIf="status == 'false-nick'">
+        El nick utilizado ya esta en usuario
+    </mat-error>
     <div *ngIf="status == 'true'">
         Se ha registrado correctamente para iniciar sesión pulse <a routerLink='/login'>aqui</a>
     </div>

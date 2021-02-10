@@ -62,7 +62,13 @@ export class RegistroComponent implements OnInit {
           if(response.usuario && response.usuario._id){
             this.status = 'true';
           }else{
-            this.status = 'false';
+            if(response.message == 'Email-Error'){
+              this.status = 'false-email';
+            }
+            else if(response.message == 'Nick-Error'){
+              this.status = 'false-nick';
+            }
+            else{ this.status = 'false'}
           }
         },
         error => {
