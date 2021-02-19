@@ -1,3 +1,17 @@
+.actor span{
+    display: flex;
+}
+
+.actor span a{
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.actor span a:hover{
+    color: blue;
+    cursor: pointer;
+}
+
 .evaluar{
     border: solid black 1px;
 }

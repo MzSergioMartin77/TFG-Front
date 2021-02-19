@@ -12,17 +12,17 @@ export class Usuario {
             nick: String,
             usuario: String
         }],
-        seguidos: [{
+        public seguidos: [{
             nick: String,
             usuario: String
         }],
-        peliculas: [{
+        public peliculas: [{
             pelicula: String,
             titulo: String,
             imagen: String,
             nota: Number
         }],
-        series: [{
+        public series: [{
             serie: String,
             titulo: String,
             imagen: String,

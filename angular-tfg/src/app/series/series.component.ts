@@ -6,6 +6,7 @@ import { Profesional } from '../models/profesional';
 import { ProfesionalService } from '../services/profesional.service';
 import { Usuario } from '../models/usuario';
 import { UsuarioService } from '../services/usuario.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-series',
@@ -19,6 +20,14 @@ export class SeriesComponent implements OnInit {
   public profesional: Profesional;
   public usuario: Usuario;
   public status: String;
+  public newComentario: Object;
+  public serieId: String;
+  public token: String;
+  public comentarioForm: FormGroup;
+  public texto = new FormControl('');
+  public criticaUsuario = false;
+  public miCritica: Object;
+  public identidad;
 
   constructor(
     private _route: ActivatedRoute,
@@ -31,15 +40,29 @@ export class SeriesComponent implements OnInit {
   ngOnInit(): void {
     this.status = 'critica';
     this._route.params.subscribe(params => {
-      let id = params.id;
-      this.getSerie(id);
+      this.serieId = params.id;
+      this.getSerie();
+    });
+    this.usuario = this._usuarioService.getIdentidad();
+    this.token = this._usuarioService.getToken();
+  }
+
+  usuarioSerie(){
+    this.serie.criticas.forEach(element => {
+      if(element.usuario == this.usuario._id){
+        if(element.texto){
+          this.criticaUsuario = true;
+          this.miCritica = element;
+        }
+      }
     });
   }
 
-  getSerie(id){
-    this._serieService.getSerieId(id).subscribe(
+  getSerie(){
+    this._serieService.getSerieId(this.serieId).subscribe(
       response => {
         this.serie = response.serie;
+        this.usuarioSerie();
       },
       error => {
         console.log(<any>error);
@@ -65,12 +88,43 @@ export class SeriesComponent implements OnInit {
   }
 
   addCritica(){
-    this.usuario = this._usuarioService.getIdentidad();
+    //this.usuario = this._usuarioService.getIdentidad();
     if(this.usuario == null){
       alert("Necesitas iniciar sesión");
       this._router.navigate(['/login']);
     }else {
       this._router.navigate(['/addcriticaS/',this.serie._id]);
+    }
+  }
+
+  reloadUsuario(){
+    this._usuarioService.getUsuario(this.usuario._id, this.token).subscribe(
+      response => {
+        this.identidad = response;
+        console.log(this.identidad);
+        localStorage.setItem('identidad', JSON.stringify(this.identidad.usuario));
+        alert('La crítica se ha eliminado correctamente');
+        window.location.reload();
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  deleteCritica(){
+    if(window.confirm('¿Estas seguro de eliminar la crítica?')){
+      console.log('borrar');
+      this._serieService.deleteCritica(this.serieId, this.usuario._id, this.token).subscribe(
+        response => {
+          if(response.message == 'Eliminada'){
+            this.reloadUsuario();
+          }
+        },
+        error => {
+          console.log(<any>error);
+        }
+      )
     }
   }
 
@@ -80,6 +134,32 @@ export class SeriesComponent implements OnInit {
 
   statusComentario(){
     this.status = 'comentario';
+  }
+
+  addComentario(): void{
+    if(this.usuario == null){
+      alert("Necesitas iniciar sesión");
+      this._router.navigate(['/login']);
+    }else{
+      this.newComentario = {
+        texto: this.texto.value,
+        usuarioId: this.usuario._id,
+        serieId: this.serieId
+      }
+      this._serieService.saveComentario(this.newComentario, this.token).subscribe(
+        response => {
+          console.log(response);
+          if (response.message == 'Guardado') {
+            console.log('nada');
+            window.location.reload(); 
+          }
+        },
+        error => {
+          console.log(<any>error);
+        }
+      );
+    }
+    
   }
 
 }

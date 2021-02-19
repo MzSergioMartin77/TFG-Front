@@ -3,34 +3,39 @@ import { Usuario } from '../models/usuario';
 import { UsuarioService } from '../services/usuario.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { PeliculaService } from '../services/pelicula.service';
+import { SerieService } from '../services/serie.service';
+import { Serie } from '../models/serie';
 
 @Component({
-  selector: 'app-add-critica',
-  templateUrl: './add-critica.component.html',
-  styleUrls: ['./add-critica.component.scss']
+  selector: 'app-update-critica-serie',
+  templateUrl: '../update-critica-peli/update-critica-peli.component.html',
+  styleUrls: ['../update-critica-peli/update-critica-peli.component.scss']
 })
-export class AddCriticaComponent implements OnInit {
+export class UpdateCriticaSerieComponent implements OnInit {
 
   public usuario: Usuario;
+  public serie: Serie;
   public criticaForm: FormGroup;
-  public newCritica: Object;
   public token: String;
-  public peliculaId: String;
+  public serieId: String;
+  public criticaId: String;
+  public critica: Object;
+  public newCritica: Object;
   public identidad;
 
   constructor(
     private _usuarioService: UsuarioService,
-    private _peliculaService: PeliculaService,
+    private _serieService: SerieService,
     private _route: ActivatedRoute,
-    private _router: Router,
-    private fb: FormBuilder
-  ) { 
-  }
+    private _router: Router
+  ) {
+   }
 
   ngOnInit(): void {
     this._route.params.subscribe(params => {
-      this.peliculaId = params.id;
+      this.serieId = params.serie;
+      this.criticaId = params.critica;
+      this.getCritica();
     });
     this.usuario = this._usuarioService.getIdentidad();
     this.token = this._usuarioService.getToken();
@@ -39,19 +44,20 @@ export class AddCriticaComponent implements OnInit {
       alert("Necesitas iniciar sesión");
       this._router.navigate(['/login']);
     }
-    this.criticaForm = this.fb.group({
-      titulo: ['', Validators.compose([
-        Validators.required, Validators.maxLength(50)
-      ])],
-      texto: ['', Validators.compose([
-        Validators.required, Validators.minLength(140)
-      ])],
-      nota: ['', Validators.compose([
-        Validators.required, Validators.min(1)
-      ])]
-    });
   }
 
+  getCritica(){
+    console.log('entra');
+    this._serieService.getCritica(this.serieId, this.criticaId).subscribe(
+      response => {
+        this.critica = response.critica;
+        console.log(this.critica);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
 
   reloadUsuario(){
     this._usuarioService.getUsuario(this.usuario._id, this.token).subscribe(
@@ -60,7 +66,7 @@ export class AddCriticaComponent implements OnInit {
         console.log(this.identidad);
         localStorage.setItem('identidad', JSON.stringify(this.identidad.usuario));
         alert('La crítica se ha guardado correctamente');
-        this._router.navigate(['/pelicula', this.peliculaId]);
+        this._router.navigate(['/serie', this.serieId]);
       },
       error => {
         console.log(<any>error);
@@ -69,14 +75,13 @@ export class AddCriticaComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log('entra');
     this.newCritica = {
-      nota: this.nota.value,
-      titulo: this.titulo.value,
-      texto: this.texto.value,
-      usuarioId: this.usuario._id,
-      peliculaId: this.peliculaId
+      serieId: this.serieId
     }
-    this._peliculaService.saveCritica(this.newCritica, this.token).subscribe(
+    Object.assign(this.critica, this.newCritica);
+    console.log(this.critica);
+    this._serieService.updateCritica(this.critica, this.token).subscribe(
       response => {
         console.log(response);
         if (response.message == 'Guardado') {
@@ -89,9 +94,5 @@ export class AddCriticaComponent implements OnInit {
       }
     );
   }
-
-  get titulo() { return this.criticaForm.get('titulo'); }
-  get texto() { return this.criticaForm.get('texto'); }
-  get nota() { return this.criticaForm.get('nota'); }
 
 }

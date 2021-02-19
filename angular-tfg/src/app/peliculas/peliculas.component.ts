@@ -27,6 +27,9 @@ export class PeliculasComponent implements OnInit {
   public token: String;
   public comentarioForm: FormGroup;
   public texto = new FormControl('');
+  public criticaUsuario = false;
+  public miCritica: Object;
+  public identidad;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -34,18 +37,28 @@ export class PeliculasComponent implements OnInit {
     private _profesionalService: ProfesionalService,
     private _usuarioService: UsuarioService,
     private _route: ActivatedRoute,
-    private _router: Router,
-    private fb: FormBuilder
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
     this.status = 'critica';
     this._route.params.subscribe(params => {
       this.peliculaId = params.id;
-      this.getPelicula(this.peliculaId);
+      this.getPelicula();
     });
     this.usuario = this._usuarioService.getIdentidad();
     this.token = this._usuarioService.getToken();
+  }
+
+  usuarioPelicula(){
+    this.pelicula.criticas.forEach(element => {
+      if(element.usuario == this.usuario._id){
+        if(element.texto){
+          this.criticaUsuario = true;
+          this.miCritica = element;
+        }
+      }
+    });
   }
 
   updateVideoUrl(trailer: string) {
@@ -54,12 +67,14 @@ export class PeliculasComponent implements OnInit {
         this.sanitizer.bypassSecurityTrustResourceUrl(trailer);
   }
 
-  getPelicula(id){
-    this._peliculaService.getPeliculaId(id).subscribe(
+  getPelicula(){
+    this._peliculaService.getPeliculaId(this.peliculaId).subscribe(
       response => {
         this.pelicula = response.pelicula;
-        console.log(this.pelicula);
         this.updateVideoUrl(response.pelicula.trailer);
+        if(this.usuario){
+          this.usuarioPelicula();
+        }
       },
       error => {
         console.log(<any>error);
@@ -91,6 +106,37 @@ export class PeliculasComponent implements OnInit {
       this._router.navigate(['/login']);
     }else {
       this._router.navigate(['/addcriticaP/',this.pelicula._id]);
+    }
+  }
+
+  reloadUsuario(){
+    this._usuarioService.getUsuario(this.usuario._id, this.token).subscribe(
+      response => {
+        this.identidad = response;
+        console.log(this.identidad);
+        localStorage.setItem('identidad', JSON.stringify(this.identidad.usuario));
+        alert('La crítica se ha eliminado correctamente');
+        window.location.reload();
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  deleteCritica(){
+    if(window.confirm('¿Estas seguro de eliminar la crítica?')){
+      console.log('borrar');
+      this._peliculaService.deleteCritica(this.peliculaId, this.usuario._id, this.token).subscribe(
+        response => {
+          if(response.message == 'Eliminada'){
+            this.reloadUsuario();
+          }
+        },
+        error => {
+          console.log(<any>error);
+        }
+      )
     }
   }
 

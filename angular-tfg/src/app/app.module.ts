@@ -16,6 +16,9 @@ import {BrowserAnimationsModule} from'@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { AddCriticaComponent } from './add-critica/add-critica.component';
 import { AddCriticaSerieComponent } from './add-critica-serie/add-critica-serie.component';
+import { UpdateCriticaPeliComponent } from './update-critica-peli/update-critica-peli.component';
+import { UpdateCriticaSerieComponent } from './update-critica-serie/update-critica-serie.component';
+import { UpdatePerfilComponent } from './update-perfil/update-perfil.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { AddCriticaSerieComponent } from './add-critica-serie/add-critica-serie.
     LoginComponent,
     PerfilComponent,
     AddCriticaComponent,
-    AddCriticaSerieComponent
+    AddCriticaSerieComponent,
+    UpdateCriticaPeliComponent,
+    UpdateCriticaSerieComponent,
+    UpdatePerfilComponent
   ],
   imports: [
     BrowserModule,

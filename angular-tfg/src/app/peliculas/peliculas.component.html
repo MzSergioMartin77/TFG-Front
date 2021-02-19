@@ -21,16 +21,25 @@
         </li>
     </div>
     <div class="actor">
-        <p>Actores:</p>
+        <h3>Reparto:</h3>
         <li *ngFor="let actor of pelicula.actores">
-            <a (click)=getProfesional(actor.nombre)>{{actor.nombre}}</a>
-            <p>{{actor.personaje}}</p>
+            <span><a (click)=getProfesional(actor.nombre)>{{actor.nombre}} </a> ................... <p>
+                    {{actor.personaje}}</p></span>
         </li>
     </div>
 </div>
 <div class="video">
-    <p>{{pelicula.trailer}}</p>
-    <iframe width="853" height="480" [src]="videoUrl" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="853" height="480" [src]="videoUrl" frameborder="0"
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+<div *ngIf="criticaUsuario == true">
+    <h2>Mi Crítica</h2>
+    <p>{{miCritica.titulo}}</p>
+    <p>{{miCritica.nota}}</p>
+    <p>{{miCritica.texto}}</p>
+    <button (click)=deleteCritica()>Eliminar</button>
+    <button routerLink="/updatecriticaP/{{pelicula._id}}/{{miCritica._id}}">Modificar</button>
 </div>
 
 <div class="evaluar">
@@ -40,7 +49,7 @@
         <p class="boton" (click)=statusComentario()>Comentarios</p>
     </div>
     <div *ngIf="status == 'critica'" class="criticas">
-        <button (click)=addCritica() >Escribir crítica</button>
+        <button *ngIf="criticaUsuario == false" (click)=addCritica()>Escribir crítica</button>
         <div>
             <p>Críticas: </p>
             <li *ngFor="let critica of pelicula.criticas">
@@ -52,11 +61,12 @@
         </div>
     </div>
     <div *ngIf="status == 'comentario'" class="comentario">
-            <input type="text" id="texto" name="texto" [formControl]="texto" placeholder="Escribe un comentario" maxlength="250">
-            <mat-error *ngIf="texto.invalid">
-                No se puede escribir un comentario de más de 250 carácteres 
-            </mat-error>
-            <button (click)=addComentario()>Comentar</button>
+        <input type="text" id="texto" name="texto" [formControl]="texto" placeholder="Escribe un comentario"
+            maxlength="250">
+        <mat-error *ngIf="texto.invalid">
+            No se puede escribir un comentario de más de 250 carácteres
+        </mat-error>
+        <button (click)=addComentario()>Comentar</button>
         <div>
             <p>Comentarios: </p>
             <li *ngFor="let comentario of pelicula.comentarios">
@@ -66,5 +76,3 @@
         </div>
     </div>
 </div>
-
-

@@ -23,12 +23,22 @@
         </li>
     </div>
     <div class="actor">
-        <p>Actores:</p>
+        <h3>Reparto:</h3>
         <li *ngFor="let actor of serie.actores">
-            <a (click)=getProfesional(actor.nombre)>{{actor.nombre}}</a>
-            <p>{{actor.personaje}}</p>
+            <span><a (click)=getProfesional(actor.nombre)>{{actor.nombre}} </a> ................... <p>
+                    {{actor.personaje}}</p></span>
         </li>
     </div>
+
+    <div *ngIf="criticaUsuario == true">
+        <h2>Mi Crítica</h2>
+        <p>{{miCritica.titulo}}</p>
+        <p>{{miCritica.nota}}</p>
+        <p>{{miCritica.texto}}</p>
+        <button (click)=deleteCritica()>Eliminar</button>
+        <button routerLink="/updatecriticaS/{{serie._id}}/{{miCritica._id}}">Modificar</button>
+    </div>
+    
 </div>
 <div class="evaluar">
     <div class="botones">
@@ -37,7 +47,7 @@
         <p class="boton" (click)=statusComentario()>Comentarios</p>
     </div>
     <div *ngIf="status == 'critica'" class="criticas">
-        <button (click)=addCritica() >Escribir crítica</button>
+        <button (click)=addCritica()>Escribir crítica</button>
         <div>
             <p>Críticas: </p>
             <li *ngFor="let critica of serie.criticas">
@@ -49,10 +59,12 @@
         </div>
     </div>
     <div *ngIf="status == 'comentario'" class="comentario">
-        <form>
-            <input type="text" placeholder="Escribe un comentario">
-            <button type="submit">Comentar</button>
-        </form>
+        <input type="text" id="texto" name="texto" [formControl]="texto" placeholder="Escribe un comentario"
+            maxlength="250">
+        <mat-error *ngIf="texto.invalid">
+            No se puede escribir un comentario de más de 250 carácteres
+        </mat-error>
+        <button (click)=addComentario()>Comentar</button>
         <div>
             <p>Comentarios: </p>
             <li *ngFor="let comentario of serie.comentarios">
