@@ -59,10 +59,35 @@ export class UsuarioService {
     return this.token;
   }
 
-  getUsuario(usuarioId, token){
+  getPerfil(usuarioId, token) :Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json').set('Authorization', token);
 
     return this._http.get(this.url+'usuario/'+usuarioId, {headers:headers});
+  }
+
+  getUsuario(usuarioId) :Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+
+    return this._http.get(this.url+'otroUsuario/'+usuarioId, {headers:headers});
+  }
+
+  getUpdateUsuario(usuario, usuarioId, token) :Observable<any>{
+    let params = JSON.stringify(usuario);
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
+
+    return this._http.put(this.url+'updateUsuario/'+usuarioId, params, {headers: headers});
+  }
+
+  seguirUsuario(identificadorId, usuarioId, token) :Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
+
+    return this._http.get(this.url+'seguir/'+identificadorId+'/'+usuarioId, {headers:headers});
+  }
+
+  dejarSeguir(identificadorId, usuarioId, token) :Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
+
+    return this._http.delete(this.url+'dejarSeguir/'+identificadorId+'/'+usuarioId, {headers:headers});
   }
 
 }

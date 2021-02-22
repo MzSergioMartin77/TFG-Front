@@ -55,7 +55,7 @@
             <li *ngFor="let critica of pelicula.criticas">
                 <h2>{{critica.titulo}}</h2>
                 <p>{{critica.nota}}</p>
-                <p>{{critica.nick}}</p>
+                <a routerLink='/usuario/{{critica.usuario}}'>{{critica.nick}}</a>
                 <p>{{critica.texto}}</p>
             </li>
         </div>

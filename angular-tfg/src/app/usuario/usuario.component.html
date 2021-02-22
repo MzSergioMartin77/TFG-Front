@@ -1,0 +1,34 @@
+<div class="container" *ngIf="usuario">
+    <h1>Nombre: {{usuario.nombre}}</h1>
+    <p> Nick: {{usuario.nick}}</p>
+    <div *ngIf="usuario.imagen == null">
+        <img src="../../assets/perfil.png" alt="No sale">
+    </div>
+    <p>Descripción: {{usuario.descripcion}}</p>
+    <div *ngIf="status == 'noSeguido'">
+        <button (click)=seguirUsuario()>Seguir</button>
+    </div>
+    <div *ngIf="status == 'seguido'">
+        <button (click)=dejarSeguir()>Dejar de seguir</button>
+    </div>
+    <div class="critica">
+        <h2>Crítica de películas: </h2>
+        <ul>
+            <li *ngFor="let pelicula of usuario.peliculas">
+                <h3>{{pelicula.titulo}}</h3>
+                <p>{{pelicula.nota}}</p>
+                <img src="{{pelicula.imagen}}" alt="Imagen de la película">
+            </li>
+        </ul>
+    </div>
+    <div class="critica">
+        <h2>Críticas de series</h2>
+        <ul>
+            <li *ngFor="let serie of usuario.series">
+                <h3>{{serie.titulo}}</h3>
+                <p>{{serie.nota}}</p>
+                <img src="{{serie.imagen}}" alt="Imagen de la película">
+            </li>
+        </ul>
+    </div>
+</div>

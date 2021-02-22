@@ -62,7 +62,9 @@ export class SeriesComponent implements OnInit {
     this._serieService.getSerieId(this.serieId).subscribe(
       response => {
         this.serie = response.serie;
-        this.usuarioSerie();
+        if(this.usuario){
+          this.usuarioSerie();
+        }
       },
       error => {
         console.log(<any>error);
@@ -98,7 +100,7 @@ export class SeriesComponent implements OnInit {
   }
 
   reloadUsuario(){
-    this._usuarioService.getUsuario(this.usuario._id, this.token).subscribe(
+    this._usuarioService.getPerfil(this.usuario._id, this.token).subscribe(
       response => {
         this.identidad = response;
         console.log(this.identidad);

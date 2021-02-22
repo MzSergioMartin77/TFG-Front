@@ -4,14 +4,28 @@
     <div *ngIf="usuario.imagen == null">
         <img src="../../assets/perfil.png" alt="No sale">
     </div>
+    <button routerLink='/updatePerfil/{{usuario._id}}'>Modificar Perfil</button>
     <p>Email: {{usuario.email}}</p>
+    <p>Descripción: {{usuario.descripcion}}</p>
+    <p>Seguidos:</p>
+    <ul>
+        <li *ngFor="let seguido of usuario.seguidos">
+            <a routerLink='/usuario/{{seguido.usuario}}'>{{seguido.nick}}</a>
+        </li>
+    </ul>
+    <p>Seguidores:</p>
+    <ul>
+        <li *ngFor="let seguidores of usuario.seguidores">
+            <a routerLink='/usuario/{{seguidores.usuario}}'>{{seguidores.nick}}</a>
+        </li>
+    </ul>
     <div class="critica">
         <h2>Crítica de películas: </h2>
         <ul>
             <li *ngFor="let pelicula of usuario.peliculas">
-                <h3>{{pelicula.titulo}}</h3>
+                <h3 routerLink='/pelicula/{{pelicula.pelicula}}'>{{pelicula.titulo}}</h3>
                 <p>{{pelicula.nota}}</p>
-                <img src="{{pelicula.imagen}}" alt="Imagen de la película">
+                <img routerLink='/pelicula/{{pelicula.pelicula}}' src="{{pelicula.imagen}}" alt="Imagen de la película">
             </li>
         </ul>
     </div>
@@ -19,9 +33,9 @@
         <h2>Críticas de series</h2>
         <ul>
             <li *ngFor="let serie of usuario.series">
-                <h3>{{serie.titulo}}</h3>
+                <h3 routerLink='/serie/{{serie.serie}}'>{{serie.titulo}}</h3>
                 <p>{{serie.nota}}</p>
-                <img src="{{serie.imagen}}" alt="Imagen de la película">
+                <img routerLink='/serie/{{serie.serie}}' src="{{serie.imagen}}" alt="Imagen de la película">
             </li>
         </ul>
     </div>

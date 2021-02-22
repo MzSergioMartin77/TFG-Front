@@ -110,7 +110,7 @@ export class PeliculasComponent implements OnInit {
   }
 
   reloadUsuario(){
-    this._usuarioService.getUsuario(this.usuario._id, this.token).subscribe(
+    this._usuarioService.getPerfil(this.usuario._id, this.token).subscribe(
       response => {
         this.identidad = response;
         console.log(this.identidad);

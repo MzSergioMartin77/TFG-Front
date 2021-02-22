@@ -12,6 +12,8 @@ import { AddCriticaComponent } from './add-critica/add-critica.component';
 import { AddCriticaSerieComponent } from './add-critica-serie/add-critica-serie.component';
 import { UpdateCriticaPeliComponent} from './update-critica-peli/update-critica-peli.component';
 import { UpdateCriticaSerieComponent} from './update-critica-serie/update-critica-serie.component';
+import { UsuarioComponent } from './usuario/usuario.component';
+import { UpdatePerfilComponent } from './update-perfil/update-perfil.component';
 
 const routes: Routes = [
   {path: '', component: InicioComponent},
@@ -24,7 +26,9 @@ const routes: Routes = [
   {path: 'addcriticaP/:id', component: AddCriticaComponent},
   {path: 'addcriticaS/:id', component: AddCriticaSerieComponent},
   {path: 'updatecriticaP/:pelicula/:critica', component: UpdateCriticaPeliComponent},
-  {path: 'updatecriticaS/:serie/:critica', component: UpdateCriticaSerieComponent}
+  {path: 'updatecriticaS/:serie/:critica', component: UpdateCriticaSerieComponent},
+  {path: 'usuario/:id', component: UsuarioComponent},
+  {path: 'updatePerfil/:id', component: UpdatePerfilComponent}
 ];
 
 @NgModule({
