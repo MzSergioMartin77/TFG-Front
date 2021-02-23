@@ -71,6 +71,12 @@ export class UsuarioService {
     return this._http.get(this.url+'otroUsuario/'+usuarioId, {headers:headers});
   }
 
+  getUsuarioNick(nick) :Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+
+    return this._http.get(this.url+'usuarioNick/'+nick, {headers:headers});
+  }
+
   getUpdateUsuario(usuario, usuarioId, token) :Observable<any>{
     let params = JSON.stringify(usuario);
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);

@@ -152,7 +152,6 @@ export class SeriesComponent implements OnInit {
         response => {
           console.log(response);
           if (response.message == 'Guardado') {
-            console.log('nada');
             window.location.reload(); 
           }
         },

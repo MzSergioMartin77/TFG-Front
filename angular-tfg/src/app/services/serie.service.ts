@@ -31,6 +31,12 @@ export class SerieService {
     return this._http.get(this.url+'serie/t/'+titulo, {headers:headers});
   }
 
+  getBuscarSerie(titulo) :Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+
+    return this._http.get(this.url+'buscarSerie/'+titulo, {headers:headers});
+  }
+
   getCritica(serie, critica) :Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
 

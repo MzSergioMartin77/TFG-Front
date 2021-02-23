@@ -1,6 +1,9 @@
 <div class="menu">
   <a routerLink='/' id="nombre">RFilm</a>
-  <input type="search">
+  <div>
+    <input id="titulo" name="titulo" [formControl]="titulo" placeholder="Buscardor de la plataforma" type="search">
+    <button routerLink='/buscar/{{titulo.value}}'>Buscar</button>
+  </div>
   <div class="sesion" *ngIf='!identidad'>
     <a routerLink='/login'>Iniciar sesión</a>
     <a routerLink='/registro'>Registro</a>

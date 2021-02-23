@@ -1,0 +1,32 @@
+<h1>Buscador</h1>
+<p>Se ha buscado: {{titulo}}</p>
+
+<h2>Películas</h2>
+<div class="container">
+    <div *ngFor="let pelicula of peliculas">
+        <a routerLink='/pelicula/{{pelicula._id}}'>{{pelicula.titulo}} </a> <br>
+        <img routerLink='/pelicula/{{pelicula._id}}' src={{pelicula.imagen}} alt="Imagen de la pelicula">
+    </div>
+</div>
+<h2>Series</h2>
+<div class="container">
+    <li *ngFor="let serie of series">
+        <a routerLink='/serie/{{serie._id}}'>{{serie.titulo}} </a> <br>
+        <img routerLink='/serie/{{serie._id}}' src={{serie.imagen}} alt="Imagen de la serie">
+    </li>
+</div>
+
+<h2>Profesionales</h2>
+<div class="container">
+    <li *ngFor="let profesional of profesionales">
+        <a routerLink='/profesional/{{profesional._id}}'>{{profesional.nombre}} </a> <br>
+        <img routerLink='/profesional/{{profesional._id}}' src={{profesional.imagen}} alt="Imagen de la serie">
+    </li>
+</div>
+
+<h2>Usuarios</h2>
+<div class="container">
+    <li *ngFor="let usuario of usuarios">
+        <a routerLink='/usuario/{{usuario._id}}'>{{usuario.nick}}</a>
+    </li>
+</div>

@@ -44,11 +44,11 @@ export class UpdatePerfilComponent implements OnInit {
       email: [this.usuario.email, Validators.compose([
         Validators.required, Validators.email
       ])],
-      pass: [this.usuario.pass, Validators.compose([
+      pass: ['', Validators.compose([
         Validators.required, Validators.minLength(8), Validators.pattern(this.mayuscula), Validators.maxLength(50),
         Validators.pattern(this.numero), Validators.pattern(this.minuscula)
       ])],
-      confirmPass: [this.usuario.pass, Validators.required],
+      confirmPass: ['', Validators.required],
       descripcion: [this.usuario.descripcion, Validators.compose([
         Validators.minLength(8), Validators.maxLength(150)
       ])]
