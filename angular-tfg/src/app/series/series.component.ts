@@ -48,14 +48,23 @@ export class SeriesComponent implements OnInit {
   }
 
   usuarioSerie(){
-    this.serie.criticas.forEach(element => {
+    for(let i=0; i<this.serie.criticas.length; i++){
+      if(this.serie.criticas[i].usuario == this.usuario._id){
+        if(this.serie.criticas[i].texto){
+          this.criticaUsuario = true;
+          this.miCritica = this.serie.criticas[i];
+        }
+        break;
+      }
+    }
+    /*this.serie.criticas.forEach(element => {
       if(element.usuario == this.usuario._id){
         if(element.texto){
           this.criticaUsuario = true;
           this.miCritica = element;
         }
       }
-    });
+    });*/
   }
 
   getSerie(){
@@ -68,6 +77,10 @@ export class SeriesComponent implements OnInit {
       },
       error => {
         console.log(<any>error);
+        if(error.status === 404 || error.status === 500){
+          alert('Esta serie no se encuentra en la base de datos');
+          this._router.navigate(['/']);
+        }
       }
     )
   }

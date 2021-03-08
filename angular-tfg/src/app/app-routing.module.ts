@@ -15,6 +15,7 @@ import { UpdateCriticaSerieComponent} from './update-critica-serie/update-critic
 import { UsuarioComponent } from './usuario/usuario.component';
 import { UpdatePerfilComponent } from './update-perfil/update-perfil.component';
 import { BuscadorComponent } from './buscador/buscador.component';
+import { ErrorComponent } from './error/error.component';
 
 const routes: Routes = [
   {path: '', component: InicioComponent},
@@ -30,7 +31,8 @@ const routes: Routes = [
   {path: 'updatecriticaS/:serie/:critica', component: UpdateCriticaSerieComponent},
   {path: 'usuario/:id', component: UsuarioComponent},
   {path: 'updatePerfil/:id', component: UpdatePerfilComponent},
-  {path: 'buscar/:titulo', component:BuscadorComponent}
+  {path: 'buscar/:titulo', component:BuscadorComponent},
+  {path: '**', component:ErrorComponent}
 ];
 
 @NgModule({

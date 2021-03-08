@@ -15,9 +15,9 @@
         <h2>Crítica de películas: </h2>
         <ul>
             <li *ngFor="let pelicula of usuario.peliculas">
-                <h3>{{pelicula.titulo}}</h3>
+                <h3 routerLink='/pelicula/{{pelicula.pelicula}}'>{{pelicula.titulo}}</h3>
                 <p>{{pelicula.nota}}</p>
-                <img src="{{pelicula.imagen}}" alt="Imagen de la película">
+                <img routerLink='/pelicula/{{pelicula.pelicula}}' src="{{pelicula.imagen}}" alt="Imagen de la película">
             </li>
         </ul>
     </div>
@@ -25,9 +25,9 @@
         <h2>Críticas de series</h2>
         <ul>
             <li *ngFor="let serie of usuario.series">
-                <h3>{{serie.titulo}}</h3>
+                <h3 routerLink='/serie/{{serie.serie}}'>{{serie.titulo}}</h3>
                 <p>{{serie.nota}}</p>
-                <img src="{{serie.imagen}}" alt="Imagen de la película">
+                <img routerLink='/serie/{{serie.serie}}' src="{{serie.imagen}}" alt="Imagen de la película">
             </li>
         </ul>
     </div>

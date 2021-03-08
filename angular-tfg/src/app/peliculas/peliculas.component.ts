@@ -51,14 +51,23 @@ export class PeliculasComponent implements OnInit {
   }
 
   usuarioPelicula(){
-    this.pelicula.criticas.forEach(element => {
+    for(let i=0; i<this.pelicula.criticas.length; i++){
+      if(this.pelicula.criticas[i].usuario == this.usuario._id){
+        if(this.pelicula.criticas[i].texto){
+          this.criticaUsuario = true;
+          this.miCritica = this.pelicula.criticas[i];
+        }
+        break;
+      }
+    }
+    /*this.pelicula.criticas.forEach(element => {
       if(element.usuario == this.usuario._id){
         if(element.texto){
           this.criticaUsuario = true;
           this.miCritica = element;
         }
       }
-    });
+    });*/
   }
 
   updateVideoUrl(trailer: string) {
@@ -78,6 +87,10 @@ export class PeliculasComponent implements OnInit {
       },
       error => {
         console.log(<any>error);
+        if(error.status === 404 || error.status === 500){
+          alert('Esta película no se encuentra en la base de datos');
+          this._router.navigate(['/']);
+        }
       }
     )
   }

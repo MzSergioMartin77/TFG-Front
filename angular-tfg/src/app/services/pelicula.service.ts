@@ -46,6 +46,12 @@ export class PeliculaService {
     return this._http.get(this.url+'buscarPeli/'+titulo, {headers:headers});
   }
 
+  getCriticaUser(pelicula, usuario) :Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+
+    return this._http.get(this.url+'criticaPeliUser/'+pelicula+'/'+usuario, {headers:headers});
+  }
+
   getCritica(pelicula, critica) :Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
 

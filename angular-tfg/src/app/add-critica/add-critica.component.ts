@@ -4,6 +4,7 @@ import { UsuarioService } from '../services/usuario.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PeliculaService } from '../services/pelicula.service';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-add-critica',
@@ -25,35 +26,57 @@ export class AddCriticaComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private fb: FormBuilder
-  ) { 
+  ) {
   }
 
   ngOnInit(): void {
-    this._route.params.subscribe(params => {
-      this.peliculaId = params.id;
-    });
     this.usuario = this._usuarioService.getIdentidad();
-    this.token = this._usuarioService.getToken();
-    console.log(this.usuario);
     if (this.usuario == null) {
       alert("Necesitas iniciar sesión");
       this._router.navigate(['/login']);
     }
-    this.criticaForm = this.fb.group({
-      titulo: ['', Validators.compose([
-        Validators.required, Validators.maxLength(50)
-      ])],
-      texto: ['', Validators.compose([
-        Validators.required, Validators.minLength(140)
-      ])],
-      nota: ['', Validators.compose([
-        Validators.required, Validators.min(1)
-      ])]
-    });
+    else {
+      this._route.params.subscribe(params => {
+        this.peliculaId = params.id;
+        this.getCritica();
+      });
+      this.token = this._usuarioService.getToken();
+      console.log(this.usuario);
+
+      this.criticaForm = this.fb.group({
+        titulo: ['', Validators.compose([
+          Validators.required, Validators.maxLength(50)
+        ])],
+        texto: ['', Validators.compose([
+          Validators.required, Validators.minLength(140)
+        ])],
+        nota: ['', Validators.compose([
+          Validators.required, Validators.min(1)
+        ])]
+      });
+    }
+  }
+
+  getCritica(){
+    this._peliculaService.getCriticaUser(this.peliculaId, this.usuario._id).subscribe(
+      response => {
+        if(response.critica){
+          alert('Este usuario ya ha escrito una crítica');
+          this._router.navigate(['/pelicula/'+this.peliculaId]);
+        }
+      },
+      error => {
+        console.log(<any>error);
+        if(error.status === 404 || error.status === 500){
+          alert('Esta película no se encuentra en la base de datos');
+          this._router.navigate(['/']);
+        }
+      }
+    )
   }
 
 
-  reloadUsuario(){
+  reloadUsuario() {
     this._usuarioService.getPerfil(this.usuario._id, this.token).subscribe(
       response => {
         this.identidad = response;

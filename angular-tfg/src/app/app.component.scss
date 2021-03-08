@@ -3,7 +3,7 @@
     padding: 50px;
     display: flex;
     justify-content: space-between;
-    height: 30px;
+    height: 120px;
 }
 
 .menu a  {
@@ -30,10 +30,22 @@
     margin-right: 50px;
     display: inline;
 }
+.usuario{
+    display: flex;
+}
 
 .usuario a, p{
     font-size: 20px;
     color: black;
+}
+
+.usuario img{
+    width: 45px;
+    height: 45px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin-top: 2px;
+    margin-right: 10px;
 }
 
 #nombre {

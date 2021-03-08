@@ -1,3 +1,6 @@
+<input class="form-control form-control-lg" type="text" placeholder=".form-control-lg" aria-label=".form-control-lg example">
+<input class="form-control" type="text" placeholder="Default input" aria-label="default input example">
+<input class="form-control form-control-sm" type="text" placeholder=".form-control-sm" aria-label=".form-control-sm example">
 <div class="container">
     <h1>Registro</h1>
     <mat-error *ngIf="status == 'false'">
@@ -13,8 +16,8 @@
         Se ha registrado correctamente para iniciar sesión pulse <a routerLink='/login'>aqui</a>
     </div>
     <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label>Nombre: </label>
+        <div class="mb-3">
+            <label class="form-label">Nombre: </label>
             <input type="text" class="form-control" id="nombre" name="nombre" formControlName="nombre" required>
             <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-danger">
                 <mat-error *ngIf="nombre.errors.required">

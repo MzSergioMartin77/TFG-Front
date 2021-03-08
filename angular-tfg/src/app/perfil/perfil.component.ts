@@ -13,6 +13,7 @@ export class PerfilComponent implements OnInit {
   //public identidad;
   public nombre = String;
   public usuario: Usuario;
+  public url = 'http://localhost:3700/';
 
   constructor(
     private _usuarioService: UsuarioService,

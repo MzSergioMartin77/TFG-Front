@@ -13,6 +13,7 @@ export class AppComponent implements OnInit, DoCheck{
   title = 'angular-tfg';
   public identidad;
   public titulo = new FormControl('');
+  public url = 'http://localhost:3700/';
 
   constructor(
     private _usuarioService: UsuarioService,

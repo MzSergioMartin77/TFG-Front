@@ -16,9 +16,12 @@ export class UpdatePerfilComponent implements OnInit {
   public mayuscula: any = /[A-Z]/;
   public numero: any = /\d/;
   public minuscula: any = /[a-z]/;
-  public passMatch: String;
-  public status: String;
-  public token: String;
+  public passMatch: string;
+  public status: string;
+  public token: string;
+  public userUp: Object;
+  public filesToUpload: Array<File>;
+  public url = 'http://localhost:3700/';
 
   constructor(
     private _route: ActivatedRoute,
@@ -38,9 +41,9 @@ export class UpdatePerfilComponent implements OnInit {
       nombre: [this.usuario.nombre, Validators.compose([
         Validators.required, Validators.maxLength(50)
       ])],
-      nick: [this.usuario.nick, Validators.compose([
+      /*nick: [this.usuario.nick, Validators.compose([
         Validators.required, Validators.minLength(4), Validators.maxLength(50)
-      ])],
+      ])],*/
       email: [this.usuario.email, Validators.compose([
         Validators.required, Validators.email
       ])],
@@ -51,7 +54,8 @@ export class UpdatePerfilComponent implements OnInit {
       confirmPass: ['', Validators.required],
       descripcion: [this.usuario.descripcion, Validators.compose([
         Validators.minLength(8), Validators.maxLength(150)
-      ])]
+      ])],
+      imagen: [this.usuario.imagen]
     });
     
   }
@@ -61,13 +65,28 @@ export class UpdatePerfilComponent implements OnInit {
       this.passMatch = 'false';
     }
     else {
-      this._usuarioService.getUpdateUsuario(this.registroForm.value, this.usuario._id, this.token).subscribe(
+      console.log(this.nombre.value);
+      this.userUp = {
+        nombre: this.nombre.value,
+        email: this.email.value,
+        pass: this.pass.value,
+        descripcion: this.descripcion.value
+      }
+      this._usuarioService.getUpdateUsuario(this.userUp, this.usuario._id, this.token).subscribe(
         response => {
           console.log(response);
           if(response.userUpdate){
-            localStorage.setItem('identidad', JSON.stringify(response.userUpdate));
-            alert('Se han guardado los cambios correctamente');
-            this._router.navigate(['/perfil']);
+            //Actualizar imagen de perfil
+            this._usuarioService.imagenFile(this.url+'uploadImagen/'+response.userUpdate._id, [], this.filesToUpload, this.token, 'imagen')
+              .then((result: any) => {
+                console.log('entra');
+                console.log(result);
+                response.userUpdate.imagen = result.userUpdate.imagen;
+                localStorage.setItem('identidad', JSON.stringify(response.userUpdate));
+                alert('Se han guardado los cambios correctamente');
+                //this._router.navigate(['/perfil']);
+              });
+
           }else{
             if(response.message == 'Email-Error'){
               this.status = 'false-email';
@@ -85,8 +104,12 @@ export class UpdatePerfilComponent implements OnInit {
     }
   }
 
+  fileChangeEvent(fileInput: any){
+    this.filesToUpload = <Array<File>>fileInput.target.files;
+  }
+
   get nombre() { return this.registroForm.get('nombre'); }
-  get nick() { return this.registroForm.get('nick'); }
+  //get nick() { return this.registroForm.get('nick'); }
   get email() { return this.registroForm.get('email'); }
   get pass() { return this.registroForm.get('pass'); }
   get confirmPass() { return this.registroForm.get('confirmPass'); }

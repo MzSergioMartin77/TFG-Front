@@ -33,19 +33,21 @@ export class UpdateCriticaPeliComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this._route.params.subscribe(params => {
-      this.peliculaId = params.pelicula;
-      this.criticaId = params.critica;
-      this.getCritica();
-    });
     this.usuario = this._usuarioService.getIdentidad();
-    this.token = this._usuarioService.getToken();
-    console.log(this.usuario);
     if (this.usuario == null) {
       alert("Necesitas iniciar sesión");
       this._router.navigate(['/login']);
+    } else{
+      this._route.params.subscribe(params => {
+        this.peliculaId = params.pelicula;
+        this.criticaId = params.critica;
+        this.getCritica();
+      });
+      this.token = this._usuarioService.getToken();
+      console.log(this.usuario);
     }
   }
+    
 
   getCritica(){
     this._peliculaService.getCritica(this.peliculaId, this.criticaId).subscribe(
@@ -54,6 +56,10 @@ export class UpdateCriticaPeliComponent implements OnInit {
         console.log(this.critica);
       },
       error => {
+        if(error.status === 404 || error.status === 500){
+          alert('Este usuario no ha realizado una crítica en esta película o no existe la película');
+          this._router.navigate(['/']);
+        }
         console.log(<any>error);
       }
     )

@@ -21,6 +21,7 @@ import { UpdateCriticaSerieComponent } from './update-critica-serie/update-criti
 import { UpdatePerfilComponent } from './update-perfil/update-perfil.component';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { BuscadorComponent } from './buscador/buscador.component';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { BuscadorComponent } from './buscador/buscador.component';
     UpdateCriticaSerieComponent,
     UpdatePerfilComponent,
     UsuarioComponent,
-    BuscadorComponent
+    BuscadorComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

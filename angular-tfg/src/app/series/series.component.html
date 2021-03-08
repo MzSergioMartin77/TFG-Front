@@ -47,7 +47,7 @@
         <p class="boton" (click)=statusComentario()>Comentarios</p>
     </div>
     <div *ngIf="status == 'critica'" class="criticas">
-        <button (click)=addCritica()>Escribir crítica</button>
+        <button *ngIf="criticaUsuario == false" (click)=addCritica()>Escribir crítica</button>
         <div>
             <p>Críticas: </p>
             <li *ngFor="let critica of serie.criticas">

@@ -9,6 +9,7 @@
     <a routerLink='/registro'>Registro</a>
   </div>
   <div class="usuario" *ngIf="identidad">
+    <img *ngIf="identidad.imagen != null" src="{{url+'getImagen/'+identidad.imagen}}" alt="Imagen del usuario">
     <mat-accordion>
       <mat-expansion-panel>
         <mat-expansion-panel-header>

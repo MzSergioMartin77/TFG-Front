@@ -28,37 +28,55 @@ export class AddCriticaSerieComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._route.params.subscribe(params => {
-      this.serieId = params.id;
-    });
     this.usuario = this._usuarioService.getIdentidad();
-    this.token = this._usuarioService.getToken();
-    console.log(this.usuario);
-    if(this.usuario == null){
+    if (this.usuario == null) {
       alert("Necesitas iniciar sesión");
       this._router.navigate(['/login']);
+    } else {
+      this._route.params.subscribe(params => {
+        this.serieId = params.id;
+      });
+      this.token = this._usuarioService.getToken();
+      this.criticaForm = this.fb.group({
+        titulo: ['', Validators.compose([
+          Validators.required, Validators.maxLength(50)
+        ])],
+        texto: ['', Validators.compose([
+          Validators.required, Validators.minLength(140)
+        ])],
+        nota: ['', Validators.compose([
+          Validators.required, Validators.min(1)
+        ])]
+      });
     }
-    this.criticaForm = this.fb.group({
-      titulo: ['', Validators.compose([
-        Validators.required, Validators.maxLength(50)
-      ])],
-      texto: ['', Validators.compose([
-        Validators.required, Validators.minLength(140)
-      ])],
-      nota: ['', Validators.compose([
-        Validators.required, Validators.min(1)
-      ])]
-    });
   }
 
-  reloadUsuario(){
+  getCritica() {
+    this._serieService.getCriticaUser(this.serieId, this.usuario._id).subscribe(
+      response => {
+        if (response.critica) {
+          alert('Este usuario ya ha escrito una crítica');
+          this._router.navigate(['/serie/' + this.serieId]);
+        }
+      },
+      error => {
+        console.log(<any>error);
+        if (error.status === 404 || error.status === 500) {
+          alert('Esta serie no se encuentra en la base de datos');
+          this._router.navigate(['/']);
+        }
+      }
+    )
+  }
+
+  reloadUsuario() {
     this._usuarioService.getPerfil(this.usuario._id, this.token).subscribe(
       response => {
         this.identidad = response;
         console.log(this.identidad);
         localStorage.setItem('identidad', JSON.stringify(this.identidad.usuario));
         alert('La crítica se ha guardado correctamente');
-        this._router.navigate(['/serie',this.serieId]);
+        this._router.navigate(['/serie', this.serieId]);
       },
       error => {
         console.log(<any>error);
@@ -66,7 +84,7 @@ export class AddCriticaSerieComponent implements OnInit {
     )
   }
 
-  onSubmit(): void{
+  onSubmit(): void {
     this.newCritica = {
       nota: this.nota.value,
       titulo: this.titulo.value,
@@ -77,7 +95,7 @@ export class AddCriticaSerieComponent implements OnInit {
     this._serieService.saveCritica(this.newCritica, this.token).subscribe(
       response => {
         console.log(response);
-        if(response.message == 'Guardado'){
+        if (response.message == 'Guardado') {
           console.log('Entro');
           this.reloadUsuario();
         }
