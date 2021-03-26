@@ -1,16 +1,31 @@
-<div class="menu">
-  <a routerLink='/' id="nombre">RFilm</a>
-  <div>
-    <input id="titulo" name="titulo" [formControl]="titulo" placeholder="Buscardor de la plataforma" type="search">
-    <button routerLink='/buscar/{{titulo.value}}'>Buscar</button>
+<div class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink='/' id="nombre">RFilm</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="material-icons menu">menu</span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2"  id="titulo" name="titulo" [formControl]="titulo" placeholder="Buscar" type="search">
+        <button class="btn btn-outline-light my-2 my-sm-0 material-icons buscar" routerLink='/buscar/{{titulo.value}}'>search</button>
+      </form>
+      <div  *ngIf='!identidad'>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a routerLink='/login'>Iniciar sesión</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink='/registro'>Registro</a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
-  <div class="sesion" *ngIf='!identidad'>
-    <a routerLink='/login'>Iniciar sesión</a>
-    <a routerLink='/registro'>Registro</a>
-  </div>
+  
+  
   <div class="usuario" *ngIf="identidad">
     <img *ngIf="identidad.imagen != null" src="{{url+'getImagen/'+identidad.imagen}}" alt="Imagen del usuario">
-    <mat-accordion>
+    <!-- <mat-accordion>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -26,9 +41,16 @@
           </a>
         </mat-list>
       </mat-expansion-panel>
-    </mat-accordion>
+    </mat-accordion> -->
 
   </div>
 </div>
 
 <router-outlet></router-outlet>
+
+<div class="footer">
+  <p>
+    RFilm es una plataforma cinematografica donde los usuario puden compartir sus opciniones sobre las películas y 
+    las series que han visto.
+  </p>
+</div>

@@ -2,10 +2,10 @@
     <h1>Bienvenido {{usuario.nombre}}</h1>
     <p> Nick: {{usuario.nick}}</p>
     <div *ngIf="usuario.imagen == null; else imagenUsuario">
-        <img src="../../assets/perfil.png" alt="No sale">
+        <img class="img-thumbnail" src="../../assets/perfil.png" alt="No sale">
     </div>
     <div #imagenUsuario>
-        <img src="{{url+'getImagen/'+usuario.imagen}}" alt="Imagen del usuario">
+        <img class="rounded" src="{{url+'getImagen/'+usuario.imagen}}" alt="Imagen del usuario">
     </div>
     <button routerLink='/updatePerfil/{{usuario._id}}'>Modificar Perfil</button>
     <p>Email: {{usuario.email}}</p>

@@ -17,6 +17,7 @@ export class UsuarioComponent implements OnInit {
   public status: String;
   public token: String;
   public identidad;
+  public url = 'http://localhost:3700/';
 
   constructor(
     private _usuarioService: UsuarioService,
