@@ -30,6 +30,7 @@ export class PeliculasComponent implements OnInit {
   public criticaUsuario = false;
   public miCritica: Object;
   public identidad;
+  public generos: String;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -80,6 +81,7 @@ export class PeliculasComponent implements OnInit {
     this._peliculaService.getPeliculaId(this.peliculaId).subscribe(
       response => {
         this.pelicula = response.pelicula;
+        this.generos = this.pelicula.generos.join(' | ');
         this.updateVideoUrl(response.pelicula.trailer);
         if(this.usuario){
           this.usuarioPelicula();
@@ -162,29 +164,31 @@ export class PeliculasComponent implements OnInit {
   }
 
   addComentario(): void{
-    if(this.usuario == null){
-      alert("Necesitas iniciar sesión");
-      this._router.navigate(['/login']);
-    }else{
-      this.newComentario = {
-        texto: this.texto.value,
-        usuarioId: this.usuario._id,
-        peliculaId: this.peliculaId
-      }
-      this._peliculaService.saveComentario(this.newComentario, this.token).subscribe(
-        response => {
-          console.log(response);
-          if (response.message == 'Guardado') {
-            console.log('nada');
-            window.location.reload(); 
-          }
-        },
-        error => {
-          console.log(<any>error);
+    if(this.texto.value != ""){
+      if(this.usuario == null){
+        alert("Necesitas iniciar sesión");
+        this._router.navigate(['/login']);
+      }else{
+        this.newComentario = {
+          texto: this.texto.value,
+          usuarioId: this.usuario._id,
+          peliculaId: this.peliculaId
         }
-      );
+        this._peliculaService.saveComentario(this.newComentario, this.token).subscribe(
+          response => {
+            console.log(response);
+            if (response.message == 'Guardado') {
+              console.log('nada');
+              window.location.reload(); 
+            }
+          },
+          error => {
+            console.log(<any>error);
+          }
+        );
+      }
     }
-    
+    console.log('vacio')
   }
 
 }

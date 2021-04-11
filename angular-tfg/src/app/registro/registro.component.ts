@@ -45,7 +45,7 @@ export class RegistroComponent implements OnInit {
       ])],
       confirmPass: ['', Validators.required],
       descripcion: [this.usuario.descripcion, Validators.compose([
-        Validators.minLength(8), Validators.maxLength(150)
+        Validators.minLength(8), Validators.maxLength(250)
       ])]
     });
     

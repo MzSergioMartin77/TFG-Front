@@ -1,15 +1,77 @@
-.actor span{
+
+h1{
+    font-size: 40px;
+}
+
+.container{
+    margin: 40px;
+}
+
+.col-4{
+    margin-right: 50px;
+}
+
+.img-fluid{
+    min-width: 180px;
+    margin-right: 10px;
+}
+
+.nota-cont{
+    margin: 40px 0 40px 10px;
+}
+
+.nota{
+    padding: 20px;
+    color: white;
+    border-radius: 10px;
+    font-size: x-large;
+    border: solid 1px black;
+}
+
+.gr{
+    background-color: green;
+}
+
+.red{
+    background-color: red;
+}
+
+.ye{
+    background-color: yellow;
+}
+
+.list{
     display: flex;
 }
 
-.actor span a{
-    font-size: 17px;
-    font-weight: 500;
+.list-item{
+    list-style: none;
+}
+
+.actor{
+  list-style: none;
+  padding: 20px;
+  width: 500px;
+  height: 350px;
+  border: solid black 1px;
+  background-color: white;
+  overflow: scroll;
+}
+
+.actor a {
+    color: black;
 }
 
 .actor span a:hover{
     color: blue;
     cursor: pointer;
+}
+
+.video{
+    max-width: 900px;
+    text-align: center;
+    margin: 25px;
+    margin-left: 100px;
 }
 
 .evaluar{
@@ -33,4 +95,15 @@
 
 .criticas{
     border: solid black 1px;
+}
+
+@media screen and (max-width: 840px){
+    .container{
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .video{
+        margin: 25px;
+    }
 }

@@ -1,11 +1,11 @@
 <div class="container" *ngIf="usuario">
     <div class="row">
-        <div class="col-sm-3">
-            <div *ngIf="usuario.imagen == null; else imagenUsuario">
+        <div class="col-sm-4">
+            <div *ngIf="usuario.imagen === null">
                 <img class="img-thumbnail" src="../../assets/perfil.png" alt="No sale">
             </div>
-            <div #imagenUsuario>
-                <img class="img-thumbnail" src="{{url+'getImagen/'+usuario.imagen}}" alt="Imagen del usuario">
+            <div *ngIf="usuario.imagen != null">
+                <img class="rounded" src="{{url+'getImagen/'+usuario.imagen}}" alt="Imagen del usuario">
             </div>
         </div>
         <div class="col-sm-4">

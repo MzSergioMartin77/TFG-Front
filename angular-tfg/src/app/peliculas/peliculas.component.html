@@ -1,36 +1,52 @@
-<h1>Información</h1>
 <div class="container">
-    <div class="imagen">
-        <img src="{{pelicula.imagen}}" alt="Imagen del cartel de la película">
+    <div class="row">
+        <div class="col-4">
+            <img class="img-fluid" src="{{pelicula.imagen}}" alt="Imagen del cartel de la película">
+        </div>
+        <div class="col-6">
+            <h1>{{pelicula.titulo}}</h1>
+            <div class="nota-cont" *ngIf="pelicula.nota_media != null">
+                <span *ngIf="pelicula.nota_media > 6" class="nota gr">
+                    {{pelicula.nota_media}}
+                </span>
+                <span *ngIf="pelicula.nota_media <= 6 && pelicula.nota_media > 4" class="nota ye">
+                    {{pelicula.nota_media}}
+                </span>
+                <span *ngIf="pelicula.nota_media <= 4" class="nota red">
+                    {{pelicula.nota_media}}
+                </span>
+            </div>
+            <p>Duración: {{pelicula.duracion}} minutos</p>
+            <p>Estreno: {{pelicula.fecha_estreno | date:"dd/MM/yyyy"}}</p>
+            <p>{{pelicula.sinopsis}}</p>
+            <p>Generos: {{generos}}</p>
+            <!--<ul class="list" *ngFor="let genero of pelicula.generos">
+                <li class="list-item">{{genero}}</li>
+            </ul> -->
+            <span>
+                <p>Directores:</p>
+                <p *ngFor="let director of pelicula.directores">
+                    <a (click)=getProfesional(director)>{{director}}</a>
+                </p>
+            </span>
+        </div>
     </div>
-    <div class="datos">
-        <h2>{{pelicula.titulo}}</h2>
-        <p>Duración: {{pelicula.duracion}} minutos</p>
-        <p>Estreno: {{pelicula.fecha_estreno | date:"dd/MM/yyyy"}}</p>
-        <p *ngIf="pelicula.nota_media != null">
-            Nota: {{pelicula.nota_media}}
-        </p>
-        <p>{{pelicula.sinopsis}}</p>
-        <p>Generos:</p>
-        <ul *ngFor="let genero of pelicula.generos">
-            <li>{{genero}}</li>
-        </ul>
-        <p>Directores:</p>
-        <li *ngFor="let director of pelicula.directores">
-            <a (click)=getProfesional(director)>{{director}}</a>
-        </li>
-    </div>
+
     <div class="actor">
         <h3>Reparto:</h3>
         <li *ngFor="let actor of pelicula.actores">
-            <span><a (click)=getProfesional(actor.nombre)>{{actor.nombre}} </a> ................... <p>
-                    {{actor.personaje}}</p></span>
+            <span class="row"><a class="col-sm-3" (click)=getProfesional(actor.nombre)>{{actor.nombre}} </a> 
+                <p class="col-sm-2">...................</p> 
+                <p class="col-sm-3">{{actor.personaje}}</p></span>
         </li>
     </div>
 </div>
 <div class="video">
-    <iframe width="853" height="480" [src]="videoUrl" frameborder="0"
-        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" width="853" height="480" [src]="videoUrl" frameborder="0"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+    </div>
 </div>
 
 <div *ngIf="criticaUsuario == true">

@@ -89,6 +89,7 @@ export class UsuarioComponent implements OnInit {
   dejarSeguir(){
     this._usuarioService.dejarSeguir(this.identificado._id, this.usuarioId, this.token).subscribe(
       response => {
+        console.log(response.status);
         if(response.message == 'Guardado'){
           this.reloadUsuario();
         }

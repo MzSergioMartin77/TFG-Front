@@ -27,6 +27,7 @@ export class PerfilComponent implements OnInit {
       alert("Necesitas iniciar sesión");
       this._router.navigate(['/login']);
     } 
+    console.log(this.usuario.imagen);
   }
 
 }
