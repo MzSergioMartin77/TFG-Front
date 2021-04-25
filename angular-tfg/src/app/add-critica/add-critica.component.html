@@ -3,13 +3,21 @@
     <form [formGroup]="criticaForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label>Nota: </label>
-            <input type="number" class="form-control" id="nota" name="nota" formControlName="nota" required>
+            <select class="form-control" id="nota" name="nota" formControlName="nota" required>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>                        
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+            </select>
             <div *ngIf="nota.invalid && (nota.dirty || nota.touched)" class="alert-danger">
                 <mat-error *ngIf="nota.errors.required">
-                    La nota es obligatoria y tiene que ser un número
-                </mat-error>
-                <mat-error *ngIf="nota.errors.min">
-                    La nota tienes que ser mayor de 0
+                    La nota es obligatoria
                 </mat-error>
             </div>
         </div>

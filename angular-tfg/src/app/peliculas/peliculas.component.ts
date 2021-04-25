@@ -27,10 +27,12 @@ export class PeliculasComponent implements OnInit {
   public token: String;
   public comentarioForm: FormGroup;
   public texto = new FormControl('');
+  public nota = new FormControl();
   public criticaUsuario = false;
   public miCritica: Object;
   public identidad;
   public generos: String;
+  public newNota: Object;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -130,7 +132,6 @@ export class PeliculasComponent implements OnInit {
         this.identidad = response;
         console.log(this.identidad);
         localStorage.setItem('identidad', JSON.stringify(this.identidad.usuario));
-        alert('La crítica se ha eliminado correctamente');
         window.location.reload();
       },
       error => {
@@ -145,6 +146,7 @@ export class PeliculasComponent implements OnInit {
       this._peliculaService.deleteCritica(this.peliculaId, this.usuario._id, this.token).subscribe(
         response => {
           if(response.message == 'Eliminada'){
+            alert('La crítica se ha eliminado correctamente');
             this.reloadUsuario();
           }
         },
@@ -161,6 +163,26 @@ export class PeliculasComponent implements OnInit {
 
   statusComentario(){
     this.status = 'comentario';
+  }
+
+  addNota(): void{
+    this.newNota = {
+      nota: this.nota.value,
+      usuario: this.usuario._id,
+      peliculaId: this.peliculaId
+    }
+    this._peliculaService.saveNota(this.newNota, this.token).subscribe(
+      response => {
+        console.log(response);
+        if(response.message == 'Guardado'){
+          alert("Nota guardada");
+          this.reloadUsuario();
+        }
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
   }
 
   addComentario(): void{

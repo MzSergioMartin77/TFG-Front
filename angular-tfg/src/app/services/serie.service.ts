@@ -76,4 +76,12 @@ export class SerieService {
 
     return this._http.post(this.url+'serieComentario', params, {headers: headers});
   }
+
+  saveNota(nota, token) :Observable<any>{
+    console.log(nota);
+    let params = JSON.stringify(nota);
+    let headers = new HttpHeaders().set('Content-Type','application/json').set('Authorization', token);
+
+    return this._http.post(this.url+'serieNota', params, {headers: headers});
+  }
 }

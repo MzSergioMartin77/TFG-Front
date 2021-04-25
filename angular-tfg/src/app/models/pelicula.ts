@@ -15,6 +15,10 @@ export class Pelicula {
             personaje: String
         }],
         public directores: [String],
+        public plataformas: [{
+            nombre: String,
+            icono: String
+        }],
         public criticas: [{
             nota: Number,
             titulo: String,

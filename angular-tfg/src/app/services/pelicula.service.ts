@@ -86,4 +86,12 @@ export class PeliculaService {
 
     return this._http.post(this.url+'peliComentario', params, {headers: headers});
   }
+
+  saveNota(nota, token) :Observable<any>{
+    console.log(nota);
+    let params = JSON.stringify(nota);
+    let headers = new HttpHeaders().set('Content-Type','application/json').set('Authorization', token);
+
+    return this._http.post(this.url+'peliculaNota', params, {headers: headers});
+  }
 }

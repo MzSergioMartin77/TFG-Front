@@ -25,9 +25,11 @@ export class SeriesComponent implements OnInit {
   public token: String;
   public comentarioForm: FormGroup;
   public texto = new FormControl('');
+  public nota = new FormControl();
   public criticaUsuario = false;
   public miCritica: Object;
   public identidad;
+  public newNota: Object;
 
   constructor(
     private _route: ActivatedRoute,
@@ -118,7 +120,6 @@ export class SeriesComponent implements OnInit {
         this.identidad = response;
         console.log(this.identidad);
         localStorage.setItem('identidad', JSON.stringify(this.identidad.usuario));
-        alert('La crítica se ha eliminado correctamente');
         window.location.reload();
       },
       error => {
@@ -133,6 +134,7 @@ export class SeriesComponent implements OnInit {
       this._serieService.deleteCritica(this.serieId, this.usuario._id, this.token).subscribe(
         response => {
           if(response.message == 'Eliminada'){
+            alert('La crítica se ha eliminado correctamente');
             this.reloadUsuario();
           }
         },
@@ -149,6 +151,26 @@ export class SeriesComponent implements OnInit {
 
   statusComentario(){
     this.status = 'comentario';
+  }
+
+  addNota(): void{
+    this.newNota = {
+      nota: this.nota.value,
+      usuario: this.usuario._id,
+      serieId: this.serieId
+    }
+    this._serieService.saveNota(this.newNota, this.token).subscribe(
+      response => {
+        console.log(response);
+        if(response.message == 'Guardado'){
+          alert("Nota guardada");
+          this.reloadUsuario();
+        }
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
   }
 
   addComentario(): void{

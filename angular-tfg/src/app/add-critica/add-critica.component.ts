@@ -96,7 +96,7 @@ export class AddCriticaComponent implements OnInit {
       nota: this.nota.value,
       titulo: this.titulo.value,
       texto: this.texto.value,
-      usuarioId: this.usuario._id,
+      usuario: this.usuario._id,
       peliculaId: this.peliculaId
     }
     this._peliculaService.saveCritica(this.newCritica, this.token).subscribe(

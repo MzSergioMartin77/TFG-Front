@@ -5,16 +5,34 @@
         </div>
         <div class="col-6">
             <h1>{{pelicula.titulo}}</h1>
-            <div class="nota-cont" *ngIf="pelicula.nota_media != null">
-                <span *ngIf="pelicula.nota_media > 6" class="nota gr">
-                    {{pelicula.nota_media}}
-                </span>
-                <span *ngIf="pelicula.nota_media <= 6 && pelicula.nota_media > 4" class="nota ye">
-                    {{pelicula.nota_media}}
-                </span>
-                <span *ngIf="pelicula.nota_media <= 4" class="nota red">
-                    {{pelicula.nota_media}}
-                </span>
+            <div class="nota">
+                <div class="nota-cont" *ngIf="pelicula.nota_media != null">
+                    <span *ngIf="pelicula.nota_media > 6" class="nota gr">
+                        {{pelicula.nota_media}}
+                    </span>
+                    <span *ngIf="pelicula.nota_media <= 6 && pelicula.nota_media > 4" class="nota ye">
+                        {{pelicula.nota_media}}
+                    </span>
+                    <span *ngIf="pelicula.nota_media <= 4" class="nota red">
+                        {{pelicula.nota_media}}
+                    </span>
+                </div>
+                <div *ngIf="usuario">
+                    <label>Tu nota</label>
+                    <select class="form-control" [formControl]="nota" name="nota" id="nota">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>                        
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                    </select>
+                    <button (click)=addNota()>Puntuar</button>
+                </div>
             </div>
             <p>Duración: {{pelicula.duracion}} minutos</p>
             <p>Estreno: {{pelicula.fecha_estreno | date:"dd/MM/yyyy"}}</p>
@@ -29,15 +47,22 @@
                     <a (click)=getProfesional(director)>{{director}}</a>
                 </p>
             </span>
+            <p>Donde puedes verlo:</p>
+            <div *ngIf="pelicula.plataformas">
+                <li *ngFor="let plataforma of pelicula.plataformas">
+                    <img src="{{plataforma.icono}}" alt="{{plataforma.nombre}}">
+                </li>
+            </div>
         </div>
     </div>
 
     <div class="actor">
         <h3>Reparto:</h3>
         <li *ngFor="let actor of pelicula.actores">
-            <span class="row"><a class="col-sm-3" (click)=getProfesional(actor.nombre)>{{actor.nombre}} </a> 
-                <p class="col-sm-2">...................</p> 
-                <p class="col-sm-3">{{actor.personaje}}</p></span>
+            <span class="row"><a class="col-sm-3" (click)=getProfesional(actor.nombre)>{{actor.nombre}} </a>
+                <p class="col-sm-2">...................</p>
+                <p class="col-sm-3">{{actor.personaje}}</p>
+            </span>
         </li>
     </div>
 </div>

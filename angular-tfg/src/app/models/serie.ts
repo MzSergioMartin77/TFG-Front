@@ -15,6 +15,10 @@ export class Serie {
             personaje: String
         }],
         public creadores: [String],
+        public plataformas: [{
+            nombre: String,
+            icono: String
+        }],
         public criticas: [{
             nota: Number,
             titulo: String,

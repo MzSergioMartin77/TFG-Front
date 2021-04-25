@@ -7,9 +7,35 @@
         <h2>{{serie.titulo}}</h2>
         <p>Inicio: {{serie.inicio | date:"dd/MM/yyyy"}}</p>
         <p>Final: {{serie.final | date:"dd/MM/yyyy"}}</p>
-        <p *ngIf="serie.nota_media != null">
-            Nota: {{serie.nota_media}}
-        </p>
+        <div class="nota">
+            <div class="nota-cont" *ngIf="serie.nota_media != null">
+                <span *ngIf="serie.nota_media > 6" class="nota gr">
+                    {{serie.nota_media}}
+                </span>
+                <span *ngIf="serie.nota_media <= 6 && serie.nota_media > 4" class="nota ye">
+                    {{serie.nota_media}}
+                </span>
+                <span *ngIf="serie.nota_media <= 4" class="nota red">
+                    {{serie.nota_media}}
+                </span>
+            </div>
+            <div *ngIf="usuario">
+                <label>Tu nota</label>
+                <select class="form-control" [formControl]="nota" name="nota" id="nota">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>                        
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                </select>
+                <button (click)=addNota()>Puntuar</button>
+            </div>
+        </div>
         <p>{{serie.sinopsis}}</p>
         <p>Generos:</p>
         <ul *ngFor="let genero of serie.generos">
@@ -21,6 +47,12 @@
         <li *ngFor="let creador of serie.creadores">
             <a (click)=getProfesional(creador)>{{creador}}</a>
         </li>
+        <p>Donde puedes verlo:</p>
+            <div *ngIf="serie.plataformas">
+                <li *ngFor="let plataforma of serie.plataformas">
+                    <img src="{{plataforma.icono}}" alt="{{plataforma.nombre}}">
+                </li>
+            </div>
     </div>
     <div class="actor">
         <h3>Reparto:</h3>
