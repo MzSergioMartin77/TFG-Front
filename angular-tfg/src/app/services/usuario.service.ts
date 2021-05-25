@@ -96,6 +96,12 @@ export class UsuarioService {
     return this._http.delete(this.url+'dejarSeguir/'+identificadorId+'/'+usuarioId, {headers:headers});
   }
 
+  recomendador(usuarioId, token) :Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
+
+    return this._http.get(this.url+'recomendaciones/'+usuarioId, {headers:headers});
+  }
+
   imagenFile(url: string, params: Array<string>, files: Array<File>, token: string, name: string){
     return new Promise(function(resolve, reject){
       var formData: any = new FormData();

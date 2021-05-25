@@ -39,7 +39,7 @@ export class AddCriticaSerieComponent implements OnInit {
       this.token = this._usuarioService.getToken();
       this.criticaForm = this.fb.group({
         titulo: ['', Validators.compose([
-          Validators.required, Validators.maxLength(50)
+          Validators.required, Validators.maxLength(100)
         ])],
         texto: ['', Validators.compose([
           Validators.required, Validators.minLength(140)

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Serie } from '../models/serie';
 import { SerieService } from '../services/serie.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { Profesional } from '../models/profesional';
 import { ProfesionalService } from '../services/profesional.service';
 import { Usuario } from '../models/usuario';
@@ -16,6 +17,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class SeriesComponent implements OnInit {
 
   public serie: Serie;
+  videoUrl: SafeResourceUrl;
   public profesionales: Profesional[];
   public profesional: Profesional;
   public usuario: Usuario;
@@ -29,9 +31,11 @@ export class SeriesComponent implements OnInit {
   public criticaUsuario = false;
   public miCritica: Object;
   public identidad;
+  public generos: String;
   public newNota: Object;
 
   constructor(
+    private sanitizer: DomSanitizer,
     private _route: ActivatedRoute,
     private _serieService: SerieService,
     private _profesionalService: ProfesionalService,
@@ -52,6 +56,7 @@ export class SeriesComponent implements OnInit {
   usuarioSerie(){
     for(let i=0; i<this.serie.criticas.length; i++){
       if(this.serie.criticas[i].usuario == this.usuario._id){
+        this.nota.setValue(this.serie.criticas[i].nota);
         if(this.serie.criticas[i].texto){
           this.criticaUsuario = true;
           this.miCritica = this.serie.criticas[i];
@@ -69,10 +74,30 @@ export class SeriesComponent implements OnInit {
     });*/
   }
 
+  updateVideoUrl(trailer: string) {
+    console.log(trailer);
+    this.videoUrl =
+        this.sanitizer.bypassSecurityTrustResourceUrl(trailer);
+  }
+
   getSerie(){
     this._serieService.getSerieId(this.serieId).subscribe(
       response => {
         this.serie = response.serie;
+        this.generos = this.serie.generos.join(' | ');
+        if(response.serie.criticas){
+          response.serie.criticas.forEach(element => {
+            if(element.texto){
+              element.texto = element.texto.split("\n").join("<br>");
+              console.log(element);
+            }
+          });
+        }
+        if(response.serie.trailer_es){
+          this.updateVideoUrl(response.serie.trailer_es);
+        } else{
+          this.updateVideoUrl(response.serie.trailer_en);
+        }
         if(this.usuario){
           this.usuarioSerie();
         }

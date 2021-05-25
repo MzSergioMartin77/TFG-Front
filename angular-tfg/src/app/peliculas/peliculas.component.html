@@ -1,9 +1,9 @@
 <div class="container">
     <div class="row">
-        <div class="col-4">
+        <div class="col-sm">
             <img class="img-fluid" src="{{pelicula.imagen}}" alt="Imagen del cartel de la película">
         </div>
-        <div class="col-6">
+        <div class="col-sm">
             <h1>{{pelicula.titulo}}</h1>
             <div class="nota">
                 <div class="nota-cont" *ngIf="pelicula.nota_media != null">
@@ -19,7 +19,7 @@
                 </div>
                 <div *ngIf="usuario">
                     <label>Tu nota</label>
-                    <select class="form-control" [formControl]="nota" name="nota" id="nota">
+                    <select class="form-control" value="nota" [formControl]="nota" name="nota" id="nota">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -59,26 +59,28 @@
     <div class="actor">
         <h3>Reparto:</h3>
         <li *ngFor="let actor of pelicula.actores">
-            <span class="row"><a class="col-sm-3" (click)=getProfesional(actor.nombre)>{{actor.nombre}} </a>
-                <p class="col-sm-2">...................</p>
-                <p class="col-sm-3">{{actor.personaje}}</p>
+            <span class="row"><a class="col-sm" (click)=getProfesional(actor.nombre)>{{actor.nombre}} </a>
+                <p class="col-sm">...................</p>
+                <p class="col-sm">{{actor.personaje}}</p>
             </span>
         </li>
     </div>
-</div>
-<div class="video">
-    <div class="embed-responsive embed-responsive-16by9">
-        <iframe class="embed-responsive-item" width="853" height="480" [src]="videoUrl" frameborder="0"
-            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen></iframe>
+
+    <div class="video">
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" width="853" height="480" [src]="videoUrl" frameborder="0"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
     </div>
 </div>
+
 
 <div *ngIf="criticaUsuario == true">
     <h2>Mi Crítica</h2>
     <p>{{miCritica.titulo}}</p>
     <p>{{miCritica.nota}}</p>
-    <p>{{miCritica.texto}}</p>
+    <p [innerHTML]="miCritica.texto"></p>
     <button (click)=deleteCritica()>Eliminar</button>
     <button routerLink="/updatecriticaP/{{pelicula._id}}/{{miCritica._id}}">Modificar</button>
 </div>
@@ -94,10 +96,12 @@
         <div>
             <p>Críticas: </p>
             <li *ngFor="let critica of pelicula.criticas">
-                <h2>{{critica.titulo}}</h2>
-                <p>{{critica.nota}}</p>
-                <a routerLink='/usuario/{{critica.usuario}}'>{{critica.nick}}</a>
-                <p>{{critica.texto}}</p>
+                <div *ngIf="critica.texto != null">
+                    <h2>{{critica.titulo}}</h2>
+                    <p>{{critica.nota}}</p>
+                    <a routerLink='/usuario/{{critica.usuario}}'>{{critica.nick}}</a>
+                    <p [innerHTML]="critica.texto"></p>
+                </div>
             </li>
         </div>
     </div>

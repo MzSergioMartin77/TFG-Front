@@ -25,7 +25,7 @@ export class RegistroComponent implements OnInit {
     private fb: FormBuilder,
     private _usuarioService: UsuarioService
   ) { 
-    this.usuario = new Usuario('','','','','','','', null, null, null, null, null, null);
+    this.usuario = new Usuario('',null,'','','','','','', null, null, null, null, null, null);
   }
 
   ngOnInit(): void {
@@ -34,7 +34,7 @@ export class RegistroComponent implements OnInit {
         Validators.required, Validators.maxLength(50)
       ])],
       nick: [this.usuario.nick, Validators.compose([
-        Validators.required, Validators.minLength(4), Validators.maxLength(50)
+        Validators.required, Validators.maxLength(50)
       ])],
       email: [this.usuario.email, Validators.compose([
         Validators.required, Validators.email
@@ -61,6 +61,8 @@ export class RegistroComponent implements OnInit {
           console.log(response);
           if(response.usuario && response.usuario._id){
             this.status = 'true';
+            alert('Se ha registrado correctamente');
+            this._router.navigate(['/login']);
           }else{
             if(response.message == 'Email-Error'){
               this.status = 'false-email';

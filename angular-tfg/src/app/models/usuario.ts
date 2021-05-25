@@ -2,6 +2,7 @@
 export class Usuario {
     constructor(
         public _id: String,
+        public id_model: Number,
         public nombre: String,
         public email: String,
         public pass: String,
@@ -22,13 +23,15 @@ export class Usuario {
             pelicula: String,
             titulo: String,
             imagen: String,
-            nota: Number
+            nota: Number,
+            id_model: Number
         }],
         public series: [{
             serie: String,
             titulo: String,
             imagen: String,
-            nota: Number
+            nota: Number,
+            id_model: Number
         }]
     ) { }
 }

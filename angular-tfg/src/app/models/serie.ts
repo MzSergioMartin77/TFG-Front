@@ -1,6 +1,7 @@
 export class Serie {
     constructor(
         public _id: String,
+        public id_model: Number,
         public titulo: String,
         public sinopsis: String,
         public nota_media: Number,
@@ -10,6 +11,8 @@ export class Serie {
         public capitulos: Number,
         public inicio: Date,
         public final: Date,
+        public trailer_es: String,
+        public trailer_en: String,
         public actores: [{
             nombre: String,
             personaje: String
@@ -25,6 +28,7 @@ export class Serie {
             nick: String,
             texto: String,
             fecha: Date,
+            usuario_model: Number,
             usuario: String
         }],
         public comentarios: [{

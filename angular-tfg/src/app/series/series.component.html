@@ -21,13 +21,13 @@
             </div>
             <div *ngIf="usuario">
                 <label>Tu nota</label>
-                <select class="form-control" [formControl]="nota" name="nota" id="nota">
+                <select class="form-control" value=nota [formControl]="nota" name="nota" id="nota">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
                     <option>4</option>
                     <option>5</option>
-                    <option>6</option>                        
+                    <option>6</option>
                     <option>7</option>
                     <option>8</option>
                     <option>9</option>
@@ -48,11 +48,11 @@
             <a (click)=getProfesional(creador)>{{creador}}</a>
         </li>
         <p>Donde puedes verlo:</p>
-            <div *ngIf="serie.plataformas">
-                <li *ngFor="let plataforma of serie.plataformas">
-                    <img src="{{plataforma.icono}}" alt="{{plataforma.nombre}}">
-                </li>
-            </div>
+        <div *ngIf="serie.plataformas">
+            <li *ngFor="let plataforma of serie.plataformas">
+                <img src="{{plataforma.icono}}" alt="{{plataforma.nombre}}">
+            </li>
+        </div>
     </div>
     <div class="actor">
         <h3>Reparto:</h3>
@@ -62,15 +62,23 @@
         </li>
     </div>
 
+    <div class="video">
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" width="853" height="480" [src]="videoUrl" frameborder="0"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+
     <div *ngIf="criticaUsuario == true">
         <h2>Mi Crítica</h2>
         <p>{{miCritica.titulo}}</p>
         <p>{{miCritica.nota}}</p>
-        <p>{{miCritica.texto}}</p>
+        <p [innerHTML]="miCritica.texto"></p>
         <button (click)=deleteCritica()>Eliminar</button>
         <button routerLink="/updatecriticaS/{{serie._id}}/{{miCritica._id}}">Modificar</button>
     </div>
-    
+
 </div>
 <div class="evaluar">
     <div class="botones">
@@ -83,10 +91,12 @@
         <div>
             <p>Críticas: </p>
             <li *ngFor="let critica of serie.criticas">
-                <h2>{{critica.titulo}}</h2>
-                <p>{{critica.nota}}</p>
-                <a routerLink='/usuario/{{critica.usuario}}'>{{critica.nick}}</a>
-                <p>{{critica.texto}}</p>
+                <div *ngIf="critica.texto != null">
+                    <h2>{{critica.titulo}}</h2>
+                    <p>{{critica.nota}}</p>
+                    <a routerLink='/usuario/{{critica.usuario}}'>{{critica.nick}}</a>
+                    <p [innerHTML]="critica.texto"></p>
+                </div>
             </li>
         </div>
     </div>

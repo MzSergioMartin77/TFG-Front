@@ -2,12 +2,13 @@
     <div class="row">
         <div class="col-sm-4">
             <div *ngIf="usuario.imagen === null">
-                <img class="img-thumbnail" src="../../assets/perfil.png" alt="No sale">
+                <img class="img-thumbnail" src="../../assets/perfil.png" alt="Imagen genérica del usuario">
             </div>
             <div *ngIf="usuario.imagen != null">
-                <img class="rounded" src="{{url+'getImagen/'+usuario.imagen}}" alt="Imagen del usuario">
+                <img class="img-thumbnail" src="{{url+'getImagen/'+usuario.imagen}}" alt="Imagen del usuario">
             </div>
             <button routerLink='/updatePerfil/{{usuario._id}}'>Modificar Perfil</button>
+            <button (click)=recomendador()>Recomendaciones</button>
         </div>
         <div class="col-sm-4">
             <h1>Bienvenido {{usuario.nombre}}</h1>
@@ -28,13 +29,30 @@
             </ul>
         </div>
     </div>
+    <div class="critica" *ngIf="status == true">
+        <h2>Recomendaciones: </h2>
+        <ul>
+            <li *ngFor="let recomendacion of recomendaciones">
+                <div *ngIf="recomendacion.tipo == 'serie'">
+                    <img routerLink='/serie/{{recomendacion.id}}' src="{{recomendacion.imagen}}"
+                        alt="Imagen de la serie">
+                    <h3 routerLink='/serie/{{recomendacion.id}}'>{{recomendacion.titulo}}</h3>
+                </div>
+                <div *ngIf="recomendacion.tipo == 'pelicula'">
+                    <img routerLink='/pelicula/{{recomendacion.id}}' src="{{recomendacion.imagen}}"
+                        alt="Imagen de la película">
+                    <h3 routerLink='/pelicula/{{recomendacion.id}}'>{{recomendacion.titulo}}</h3>
+                </div>
+            </li>
+        </ul>
+    </div>
     <div class="critica">
         <h2>Crítica de películas: </h2>
         <ul>
             <li *ngFor="let pelicula of usuario.peliculas">
-                <h3 routerLink='/pelicula/{{pelicula.pelicula}}'>{{pelicula.titulo}}</h3>
-                <p>{{pelicula.nota}}</p>
                 <img routerLink='/pelicula/{{pelicula.pelicula}}' src="{{pelicula.imagen}}" alt="Imagen de la película">
+                <h2>{{pelicula.nota}}</h2>
+                <h3 routerLink='/pelicula/{{pelicula.pelicula}}'>{{pelicula.titulo}}</h3>
             </li>
         </ul>
     </div>
@@ -42,9 +60,9 @@
         <h2>Críticas de series</h2>
         <ul>
             <li *ngFor="let serie of usuario.series">
+                <img routerLink='/serie/{{serie.serie}}' src="{{serie.imagen}}" alt="Imagen de la serie">
+                <h2>{{serie.nota}}</h2>
                 <h3 routerLink='/serie/{{serie.serie}}'>{{serie.titulo}}</h3>
-                <p>{{serie.nota}}</p>
-                <img routerLink='/serie/{{serie.serie}}' src="{{serie.imagen}}" alt="Imagen de la película">
             </li>
         </ul>
     </div>

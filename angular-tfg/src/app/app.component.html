@@ -28,6 +28,9 @@
       <img class="nav-link dropdown-toggle" id="imagen" role="button" data-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false" *ngIf="identidad.imagen != null" src="{{url+'getImagen/'+identidad.imagen}}"
         alt="Imagen del usuario">
+        <img class="nav-link dropdown-toggle" id="imagen" role="button" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false" *ngIf="identidad.imagen == null" src="../../assets/perfil.png"
+        alt="Imagen del usuario">
       <p class="nav-link dropdown-toggle nick" id="navbarDropdown" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
         {{identidad.nick}}

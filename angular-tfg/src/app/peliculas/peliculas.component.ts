@@ -56,6 +56,7 @@ export class PeliculasComponent implements OnInit {
   usuarioPelicula(){
     for(let i=0; i<this.pelicula.criticas.length; i++){
       if(this.pelicula.criticas[i].usuario == this.usuario._id){
+        this.nota.setValue(this.pelicula.criticas[i].nota);
         if(this.pelicula.criticas[i].texto){
           this.criticaUsuario = true;
           this.miCritica = this.pelicula.criticas[i];
@@ -82,9 +83,23 @@ export class PeliculasComponent implements OnInit {
   getPelicula(){
     this._peliculaService.getPeliculaId(this.peliculaId).subscribe(
       response => {
+        console.log(response.pelicula);
         this.pelicula = response.pelicula;
         this.generos = this.pelicula.generos.join(' | ');
-        this.updateVideoUrl(response.pelicula.trailer);
+        if(response.pelicula.criticas){
+          response.pelicula.criticas.forEach(element => {
+            if(element.texto){
+              element.texto = element.texto.split("\n").join("<br>");
+              console.log(element);
+            }
+          });
+        }
+        if(response.pelicula.trailer_es){
+          this.updateVideoUrl(response.pelicula.trailer_es);
+        } else{
+          this.updateVideoUrl(response.pelicula.trailer_en);
+        }
+        
         if(this.usuario){
           this.usuarioPelicula();
         }

@@ -1,18 +1,17 @@
 
 h1{
+    margin-top: 30px;
     font-size: 40px;
 }
 
 .container{
-    margin: 40px;
-}
-
-.col-4{
-    margin-right: 50px;
+    padding: 50px 20px 10px 20px;
 }
 
 .img-fluid{
-    min-width: 180px;
+    min-width: 250px;
+    max-width: 400px;
+    max-height: 600px;
     margin-right: 10px;
 }
 
@@ -49,13 +48,14 @@ h1{
 }
 
 .actor{
+  margin: 20px;
   list-style: none;
-  padding: 20px;
-  width: 500px;
-  height: 350px;
+  padding-left: 20px;
+  max-width: 500px;
+  max-height: 350px;
   border: solid black 1px;
   background-color: white;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .actor a {
@@ -65,13 +65,6 @@ h1{
 .actor span a:hover{
     color: blue;
     cursor: pointer;
-}
-
-.video{
-    max-width: 900px;
-    text-align: center;
-    margin: 25px;
-    margin-left: 100px;
 }
 
 .evaluar{
@@ -95,15 +88,4 @@ h1{
 
 .criticas{
     border: solid black 1px;
-}
-
-@media screen and (max-width: 840px){
-    .container{
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-
-    .video{
-        margin: 25px;
-    }
 }

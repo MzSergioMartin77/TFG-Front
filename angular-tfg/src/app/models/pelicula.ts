@@ -2,12 +2,14 @@
 export class Pelicula {
     constructor(
         public _id: String,
+        public id_model: Number,
         public titulo: String,
         public sinopsis: String,
         public nota_media: Number,
         public generos: [String],
         public imagen: String,
-        public trailer: String,
+        public trailer_es: String,
+        public trailer_en: String,
         public duracion: Number,
         public fecha_estreno: Date,
         public actores: [{
@@ -25,6 +27,7 @@ export class Pelicula {
             nick: String,
             texto: String,
             fecha: Date,
+            usuario_model: Number,
             usuario: String
         }],
         public comentarios: [{
