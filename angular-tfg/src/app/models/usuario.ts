@@ -17,8 +17,6 @@ export class Usuario {
             nick: String,
             usuario: String
         }],
-        public comentariosPeli: [String],
-        public comentariosSerie: [String],
         public peliculas: [{
             pelicula: String,
             titulo: String,

@@ -25,6 +25,12 @@ h1{
     border-radius: 10px;
     font-size: x-large;
     border: solid 1px black;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nota label{
+    color: black;
 }
 
 .gr{
@@ -89,3 +95,4 @@ h1{
 .criticas{
     border: solid black 1px;
 }
+

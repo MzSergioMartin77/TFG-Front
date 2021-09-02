@@ -6,9 +6,6 @@
     <mat-error *ngIf="status == 'false-email'">
         Ya hay un usuario registrado con este email en la plataforma
     </mat-error>
-    <mat-error *ngIf="status == 'false-nick'">
-        El nick utilizado ya esta en usuario
-    </mat-error>
     <div *ngIf="status == 'true'">
         Se ha registrado correctamente para iniciar sesión pulse <a routerLink='/login'>aqui</a>
     </div>
@@ -35,6 +32,7 @@
                 </mat-error>
             </div>
         </div> -->
+
         <div class="form-group">
             <label>Email: </label>
             <input type="email" class="form-control" id="email" name="email" formControlName="email">
@@ -47,36 +45,6 @@
                 </mat-error>
             </div>
         </div>
-        <div class="form-group">
-            <label>Contraseña: </label>
-            <input type="password" class="form-control" id="pass" name="pass" formControlName="pass">
-            <div *ngIf="pass.invalid && (pass.dirty || pass.touched)" class="alert alert-danger">
-                <mat-error *ngIf="pass.errors.required">
-                    La contraseña es obligatoria
-                </mat-error>
-                <mat-error *ngIf="pass.errors.minlength">
-                    La contraseña debe de tener al menos 8 carácteres <br>
-                </mat-error>
-                <mat-error *ngIf="pass.errors.maxLength">
-                    La contraseña no puede tener más de 50 carácteres
-                </mat-error>
-                <mat-error *ngIf="pass.errors.pattern">
-                    La contraseña debe contener al menos una mayúscula, una minúscula y un número
-                </mat-error>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Confirmar Contraseña: </label>
-            <input type="password" class="form-control" id="confirmPass" formControlName="confirmPass">
-            <div *ngIf="confirmPass.invalid && (confirmPass.dirty || confirmPass.touched)" class="alert alert-danger">
-                <mat-error *ngIf="confirmPass.errors.required">
-                    La confrimación de la contraseña es obligatoria
-                </mat-error>
-            </div>
-        </div>
-        <mat-error class="message_fail" *ngIf="passMatch == 'false'">
-            Las contraseñas no son iguales
-        </mat-error>
         <div class="form-group">
             <label>Descripción: </label>
             <textarea type="text" class="form-control" id="descripcion" name="descripcion"

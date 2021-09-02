@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private _usuarioService: UsuarioService
   ) { 
-    this.usuario = new Usuario('',null,'','','','','','',null, null, null, null, null, null);
+    this.usuario = new Usuario('',null,'','','','','','',null, null, null, null);
   }
 
   ngOnInit(): void {

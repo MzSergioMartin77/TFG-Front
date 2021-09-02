@@ -48,11 +48,11 @@ export class UpdatePerfilComponent implements OnInit {
       email: [this.usuario.email, Validators.compose([
         Validators.required, Validators.email
       ])],
-      pass: ['', Validators.compose([
+      /*pass: ['', Validators.compose([
         Validators.required, Validators.minLength(8), Validators.pattern(this.mayuscula), Validators.maxLength(50),
         Validators.pattern(this.numero), Validators.pattern(this.minuscula)
       ])],
-      confirmPass: ['', Validators.required],
+      confirmPass: ['', Validators.required],*/
       descripcion: [this.usuario.descripcion, Validators.compose([
         Validators.minLength(8), Validators.maxLength(150)
       ])]
@@ -62,10 +62,10 @@ export class UpdatePerfilComponent implements OnInit {
   }
 
   onSubmit(){
-    if(this.pass.value != this.confirmPass.value){
+    /*if(this.pass.value != this.confirmPass.value){
       this.passMatch = 'false';
-    }
-    else {
+    }*/
+    
       console.log(this.nombre.value);
       this._usuarioService.getUpdateUsuario(this.registroForm.value, this.usuario._id, this.token).subscribe(
         response => {
@@ -102,7 +102,7 @@ export class UpdatePerfilComponent implements OnInit {
           console.log(<any>error);
         }
       );
-    }
+    
   }
 
   fileChangeEvent(fileInput: any){
