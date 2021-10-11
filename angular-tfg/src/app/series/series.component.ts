@@ -23,10 +23,12 @@ export class SeriesComponent implements OnInit {
   public usuario: Usuario;
   public status: String;
   public newComentario: Object;
+  public upComentatio: String;
   public serieId: String;
   public token: String;
   public comentarioForm: FormGroup;
   public texto = new FormControl('');
+  public uptexto = new FormControl('');
   public nota = new FormControl();
   public criticaUsuario = false;
   public miCritica: Object;
@@ -221,6 +223,53 @@ export class SeriesComponent implements OnInit {
       );
     }
     
+  }
+
+  updateComentario(comentario): void{
+    if(this.uptexto.value != ""){
+      console.log(this.uptexto.value);
+      if(this.usuario == null){
+        alert("Necesitas iniciar sesión");
+        this._router.navigate(['/login']);
+      }else{
+        this.newComentario = {
+          comentarioId: comentario,
+          texto: this.uptexto.value,
+          usuarioId: this.usuario._id,
+          serieId: this.serieId
+        }
+        this._serieService.updateComentario(this.newComentario, this.token).subscribe(
+          response => {
+            console.log(response);
+            if (response.message == 'Modificado') {
+              console.log('nada');
+              this.upComentatio = null;
+              window.location.reload(); 
+            }
+          },
+          error => {
+            console.log(<any>error);
+          }
+        );
+      }
+    }
+  }
+
+  deleteComentario(comentario){
+    if(window.confirm('¿Estas seguro de eliminar el comentario?')){
+      console.log('borrar');
+      this._serieService.deleteComentario(this.serieId, this.usuario._id, comentario, this.token).subscribe(
+        response => {
+          if(response.message == 'Eliminado'){
+            alert('El comentario se ha eliminado correctamente');
+            window.location.reload(); 
+          }
+        },
+        error => {
+          console.log(<any>error);
+        }
+      )
+    }
   }
 
 }

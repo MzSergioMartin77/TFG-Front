@@ -23,10 +23,12 @@ export class PeliculasComponent implements OnInit {
   public usuario: Usuario;
   public status: String;
   public newComentario: Object;
+  public upComentatio: String;
   public peliculaId: String;
   public token: String;
   public comentarioForm: FormGroup;
   public texto = new FormControl('');
+  public uptexto = new FormControl('');
   public nota = new FormControl();
   public criticaUsuario = false;
   public miCritica: Object;
@@ -172,13 +174,13 @@ export class PeliculasComponent implements OnInit {
     }
   }
 
-  statusCritica(){
+  /*statusCritica(){
     this.status = 'critica';
   }
 
   statusComentario(){
     this.status = 'comentario';
-  }
+  }*/
 
   addNota(): void{
     this.newNota = {
@@ -226,6 +228,53 @@ export class PeliculasComponent implements OnInit {
       }
     }
     console.log('vacio')
+  }
+
+  updateComentario(comentario): void{
+    if(this.uptexto.value != ""){
+      console.log(this.uptexto.value);
+      if(this.usuario == null){
+        alert("Necesitas iniciar sesión");
+        this._router.navigate(['/login']);
+      }else{
+        this.newComentario = {
+          comentarioId: comentario,
+          texto: this.uptexto.value,
+          usuarioId: this.usuario._id,
+          peliculaId: this.peliculaId
+        }
+        this._peliculaService.updateComentario(this.newComentario, this.token).subscribe(
+          response => {
+            console.log(response);
+            if (response.message == 'Modificado') {
+              console.log('nada');
+              this.upComentatio = null;
+              window.location.reload(); 
+            }
+          },
+          error => {
+            console.log(<any>error);
+          }
+        );
+      }
+    }
+  }
+
+  deleteComentario(comentario){
+    if(window.confirm('¿Estas seguro de eliminar el comentario?')){
+      console.log('borrar');
+      this._peliculaService.deleteComentario(this.peliculaId, this.usuario._id, comentario, this.token).subscribe(
+        response => {
+          if(response.message == 'Eliminado'){
+            alert('El comentario se ha eliminado correctamente');
+            window.location.reload(); 
+          }
+        },
+        error => {
+          console.log(<any>error);
+        }
+      )
+    }
   }
 
 }

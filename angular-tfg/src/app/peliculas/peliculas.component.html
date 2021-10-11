@@ -88,9 +88,9 @@
 
 <div class="evaluar">
     <div class="botones">
-        <p class="boton" (click)=statusCritica()>Críticas</p>
+        <p class="boton" (click)="status = 'critica'">Críticas</p>
         <p> | </p>
-        <p class="boton" (click)=statusComentario()>Comentarios</p>
+        <p class="boton" (click)="status = 'comentario'">Comentarios</p>
     </div>
     <div *ngIf="status == 'critica'" class="criticas">
         <button *ngIf="criticaUsuario == false" (click)=addCritica()>Escribir crítica</button>
@@ -116,8 +116,24 @@
         <div>
             <p>Comentarios: </p>
             <li *ngFor="let comentario of pelicula.comentarios">
-                <p>{{comentario.nick}}</p>
-                <p>{{comentario.texto}}</p>
+                <div *ngIf="comentario.usuario != usuario._id">
+                    <p>{{comentario.nick}} <span *ngIf="comentario.editado">(Editado)</span> </p>
+                    <p>{{comentario.texto}}</p>
+                </div>
+                <div *ngIf="!upComentario && comentario.usuario === usuario._id">
+                    <p>{{comentario.nick}} <span *ngIf="comentario.editado">(Editado)</span> </p>
+                    <i (click)="deleteComentario(comentario._id)" class="material-icons btn-delete">delete_outline</i>
+                    <p (click)="upComentario = comentario._id" >{{comentario.texto}}</p>          
+                </div>
+                <div *ngIf="upComentario === comentario._id">
+                    <p>{{comentario.nick}} <span *ngIf="comentario.editado">(Editado)</span> </p>
+                    <input type="text" id="uptexto" name="uptexto" [formControl]="uptexto" value="{{comentario.texto}}" maxlength="250" minlength="10">
+                    <mat-error *ngIf="uptexto.invalid">
+                        No se puede escribir un comentario de más de 250 carácteres y de menos de 10 carácteres
+                    </mat-error>
+                    
+                    <button (click)=updateComentario(comentario._id)>Modificar</button>
+                </div>
             </li>
         </div>
     </div>

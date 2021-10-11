@@ -87,6 +87,19 @@ export class PeliculaService {
     return this._http.post(this.url+'peliComentario', params, {headers: headers});
   }
 
+  updateComentario(comentario, token) :Observable<any>{
+    let params = JSON.stringify(comentario);
+    let headers = new HttpHeaders().set('Content-Type','application/json').set('Authorization', token);
+
+    return this._http.put(this.url+'comentarioPupdate', params, {headers: headers});
+  }
+
+  deleteComentario(pelicula, usuario, comentario, token) :Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/json').set('Authorization', token);
+
+    return this._http.delete(this.url+'deletePcomentario/'+pelicula+'/'+usuario+'/'+comentario, {headers: headers});
+  }
+
   saveNota(nota, token) :Observable<any>{
     console.log(nota);
     let params = JSON.stringify(nota);

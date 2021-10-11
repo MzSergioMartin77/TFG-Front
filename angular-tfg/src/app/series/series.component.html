@@ -22,6 +22,7 @@
             <div *ngIf="usuario">
                 <label>Tu nota</label>
                 <select class="form-control" value=nota [formControl]="nota" name="nota" id="nota">
+                    <option>No vista</option>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -110,8 +111,24 @@
         <div>
             <p>Comentarios: </p>
             <li *ngFor="let comentario of serie.comentarios">
-                <p>{{comentario.nick}}</p>
-                <p>{{comentario.texto}}</p>
+                <div *ngIf="comentario.usuario != usuario._id">
+                    <p>{{comentario.nick}} <span *ngIf="comentario.editado">(Editado)</span> </p>
+                    <p>{{comentario.texto}}</p>
+                </div>
+                <div *ngIf="!upComentario && comentario.usuario === usuario._id">
+                    <p>{{comentario.nick}} <span *ngIf="comentario.editado">(Editado)</span> </p>
+                    <i (click)="deleteComentario(comentario._id)" class="material-icons btn-delete">delete_outline</i>
+                    <p (click)="upComentario = comentario._id" >{{comentario.texto}}</p>          
+                </div>
+                <div *ngIf="upComentario === comentario._id">
+                    <p>{{comentario.nick}} <span *ngIf="comentario.editado">(Editado)</span> </p>
+                    <input type="text" id="uptexto" name="uptexto" [formControl]="uptexto" value="{{comentario.texto}}" maxlength="250" minlength="10">
+                    <mat-error *ngIf="uptexto.invalid">
+                        No se puede escribir un comentario de más de 250 carácteres y de menos de 10 carácteres
+                    </mat-error>
+                    
+                    <button (click)=updateComentario(comentario._id)>Modificar</button>
+                </div>
             </li>
         </div>
     </div>

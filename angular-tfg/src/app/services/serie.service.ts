@@ -77,6 +77,19 @@ export class SerieService {
     return this._http.post(this.url+'serieComentario', params, {headers: headers});
   }
 
+  updateComentario(comentario, token) :Observable<any>{
+    let params = JSON.stringify(comentario);
+    let headers = new HttpHeaders().set('Content-Type','application/json').set('Authorization', token);
+
+    return this._http.put(this.url+'comentarioCupdate', params, {headers: headers});
+  }
+
+  deleteComentario(serie, usuario, comentario, token) :Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/json').set('Authorization', token);
+
+    return this._http.delete(this.url+'deleteCcomentario/'+serie+'/'+usuario+'/'+comentario, {headers: headers});
+  }
+
   saveNota(nota, token) :Observable<any>{
     console.log(nota);
     let params = JSON.stringify(nota);
