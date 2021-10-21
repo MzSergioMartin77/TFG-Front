@@ -24,7 +24,7 @@ h1{
     color: white;
     border-radius: 10px;
     font-size: x-large;
-    border: solid 1px black;
+    border: solid 1.5px black;
     display: flex;
     justify-content: space-between;
 }
@@ -34,15 +34,18 @@ h1{
 }
 
 .gr{
+    font-size: xx-large;
     background-color: green;
 }
 
 .red{
+    font-size: xx-large;
     background-color: red;
 }
 
 .ye{
-    background-color: yellow;
+    font-size: xx-large;
+    background-color: rgb(241, 201, 21);
 }
 
 .list{
@@ -94,5 +97,9 @@ h1{
 
 .criticas{
     border: solid black 1px;
+}
+
+.col{
+    flex-grow: 0;
 }
 

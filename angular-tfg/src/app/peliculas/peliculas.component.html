@@ -26,7 +26,7 @@
                         <option>3</option>
                         <option>4</option>
                         <option>5</option>
-                        <option>6</option>                        
+                        <option>6</option>
                         <option>7</option>
                         <option>8</option>
                         <option>9</option>
@@ -48,19 +48,22 @@
                     <a (click)=getProfesional(director)>{{director}}</a>
                 </p>
             </span>
-            <p>Donde puedes verlo:</p>
-            <div *ngIf="pelicula.plataformas">
-                <li *ngFor="let plataforma of pelicula.plataformas">
-                    <img src="{{plataforma.icono}}" alt="{{plataforma.nombre}}">
-                </li>
+            <div *ngIf="pelicula.plataformas.length >= 1">
+                <h3>Donde puedes verlo:</h3>
+                <ul class="row">
+                    <li class="list-item col" *ngFor="let plataforma of pelicula.plataformas">
+                        <img src="{{plataforma.icono}}" alt="{{plataforma.nombre}}">
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
 
     <div class="actor">
         <h3>Reparto:</h3>
-        <li *ngFor="let actor of pelicula.actores">
-            <span class="row"><a class="col-sm" (click)=getProfesional(actor.nombre)>{{actor.nombre}} </a>
+        <li class="list-item" *ngFor="let actor of pelicula.actores">
+            <span class="row">
+                <a class="col-sm" (click)=getProfesional(actor.nombre)>{{actor.nombre}} </a>
                 <p class="col-sm">...................</p>
                 <p class="col-sm">{{actor.personaje}}</p>
             </span>
@@ -82,9 +85,12 @@
     <p>{{miCritica.titulo}}</p>
     <p>{{miCritica.nota}}</p>
     <p [innerHTML]="miCritica.texto"></p>
-    <button (click)=deleteCritica()>Eliminar</button>
+    <button (click)="modal = 'eliminarCritica'">Eliminar</button>
     <button routerLink="/updatecriticaP/{{pelicula._id}}/{{miCritica._id}}">Modificar</button>
 </div>
+
+<app-confirm *ngIf="modal === 'eliminarCritica'" mensaje="¿Estas seguro de eliminar la crítica?" status="confirm"
+    (noButton)="confirm = null" (yesButton)="deleteCritica()"></app-confirm>
 
 <div class="evaluar">
     <div class="botones">
@@ -122,19 +128,40 @@
                 </div>
                 <div *ngIf="!upComentario && comentario.usuario === usuario._id">
                     <p>{{comentario.nick}} <span *ngIf="comentario.editado">(Editado)</span> </p>
-                    <i (click)="deleteComentario(comentario._id)" class="material-icons btn-delete">delete_outline</i>
-                    <p (click)="upComentario = comentario._id" >{{comentario.texto}}</p>          
+                    <i (click)="modal = 'eliminarComentario'" class="material-icons btn-delete">delete_outline</i>
+                    <p (click)="upComentario = comentario._id">{{comentario.texto}}</p>
+                
+                    <app-confirm *ngIf="modal === 'eliminarComentario'" mensaje="¿Estas seguro de eliminar el comentario?" status="confirm"
+                        (noButton)="confirm = null" (yesButton)="deleteComentario(comentario._id)"></app-confirm>
                 </div>
                 <div *ngIf="upComentario === comentario._id">
                     <p>{{comentario.nick}} <span *ngIf="comentario.editado">(Editado)</span> </p>
-                    <input type="text" id="uptexto" name="uptexto" [formControl]="uptexto" value="{{comentario.texto}}" maxlength="250" minlength="10">
+                    <input type="text" id="uptexto" name="uptexto" [formControl]="uptexto" value="{{comentario.texto}}"
+                        maxlength="250" minlength="10">
                     <mat-error *ngIf="uptexto.invalid">
                         No se puede escribir un comentario de más de 250 carácteres y de menos de 10 carácteres
                     </mat-error>
-                    
+
                     <button (click)=updateComentario(comentario._id)>Modificar</button>
                 </div>
             </li>
         </div>
     </div>
+    
 </div>
+
+<app-confirm *ngIf="modal === 'deleteCritica'" mensaje="La crítica se ha eliminado correctamente" status="alert"
+    (aceptButton)="reloadUsuario()"></app-confirm>
+
+<app-confirm *ngIf="modal === 'addNota'" mensaje="La nota se ha guardado" status="alert"
+    (aceptButton)="reloadUsuario()"></app-confirm>
+
+<app-confirm *ngIf="modal === 'deleteNota'" mensaje="La nota se ha eliminado" status="alert"
+    (aceptButton)="reloadUsuario()"></app-confirm>
+
+<app-confirm *ngIf="modal === 'userCritica'" mensaje="Necesitas iniciar sesión para escribir una crítica" status="alert"
+    (aceptButton)="_router.navigate(['/login'])"></app-confirm>
+
+<app-confirm *ngIf="modal === 'userComentario'" mensaje="Necesitas iniciar sesión para escribir un comentario" status="alert"
+    (aceptButton)="_router.navigate(['/login'])"></app-confirm>
+

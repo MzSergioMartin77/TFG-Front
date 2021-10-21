@@ -35,6 +35,7 @@ export class SeriesComponent implements OnInit {
   public identidad;
   public generos: String;
   public newNota: Object;
+  public modal: String;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -134,8 +135,9 @@ export class SeriesComponent implements OnInit {
   addCritica(){
     //this.usuario = this._usuarioService.getIdentidad();
     if(this.usuario == null){
-      alert("Necesitas iniciar sesión");
-      this._router.navigate(['/login']);
+      //alert("Necesitas iniciar sesión");
+      //this._router.navigate(['/login']);
+      this.modal = 'userCritica';
     }else {
       this._router.navigate(['/addcriticaS/',this.serie._id]);
     }
@@ -161,8 +163,9 @@ export class SeriesComponent implements OnInit {
       this._serieService.deleteCritica(this.serieId, this.usuario._id, this.token).subscribe(
         response => {
           if(response.message == 'Eliminada'){
-            alert('La crítica se ha eliminado correctamente');
-            this.reloadUsuario();
+            //alert('La crítica se ha eliminado correctamente');
+            this.modal = 'deleteCritica';
+            //this.reloadUsuario();
           }
         },
         error => {
@@ -172,13 +175,13 @@ export class SeriesComponent implements OnInit {
     }
   }
 
-  statusCritica(){
+  /*statusCritica(){
     this.status = 'critica';
   }
 
   statusComentario(){
     this.status = 'comentario';
-  }
+  }*/
 
   addNota(): void{
     this.newNota = {
@@ -190,8 +193,9 @@ export class SeriesComponent implements OnInit {
       response => {
         console.log(response);
         if(response.message == 'Guardado'){
-          alert("Nota guardada");
-          this.reloadUsuario();
+          //alert("Nota guardada");
+          //this.reloadUsuario();
+          this.modal = 'addNota';
         }
       },
       error => {
@@ -202,8 +206,9 @@ export class SeriesComponent implements OnInit {
 
   addComentario(): void{
     if(this.usuario == null){
-      alert("Necesitas iniciar sesión");
-      this._router.navigate(['/login']);
+      //alert("Necesitas iniciar sesión");
+      //this._router.navigate(['/login']);
+      this.modal = 'userComentario';
     }else{
       this.newComentario = {
         texto: this.texto.value,
@@ -229,8 +234,9 @@ export class SeriesComponent implements OnInit {
     if(this.uptexto.value != ""){
       console.log(this.uptexto.value);
       if(this.usuario == null){
-        alert("Necesitas iniciar sesión");
-        this._router.navigate(['/login']);
+        //alert("Necesitas iniciar sesión");
+        //this._router.navigate(['/login']);
+        this.modal = 'userComentario';
       }else{
         this.newComentario = {
           comentarioId: comentario,
@@ -256,12 +262,12 @@ export class SeriesComponent implements OnInit {
   }
 
   deleteComentario(comentario){
-    if(window.confirm('¿Estas seguro de eliminar el comentario?')){
+    //if(window.confirm('¿Estas seguro de eliminar el comentario?')){
       console.log('borrar');
       this._serieService.deleteComentario(this.serieId, this.usuario._id, comentario, this.token).subscribe(
         response => {
           if(response.message == 'Eliminado'){
-            alert('El comentario se ha eliminado correctamente');
+            //alert('El comentario se ha eliminado correctamente');
             window.location.reload(); 
           }
         },
@@ -270,6 +276,6 @@ export class SeriesComponent implements OnInit {
         }
       )
     }
-  }
+  
 
 }

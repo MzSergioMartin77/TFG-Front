@@ -1,65 +1,70 @@
-<h1>Información</h1>
 <div class="container">
-    <div class="imagen">
-        <img src="{{serie.imagen}}" alt="Imagen del cartel de la película">
-    </div>
-    <div class="datos">
-        <h2>{{serie.titulo}}</h2>
-        <p>Inicio: {{serie.inicio | date:"dd/MM/yyyy"}}</p>
-        <p>Final: {{serie.final | date:"dd/MM/yyyy"}}</p>
-        <div class="nota">
-            <div class="nota-cont" *ngIf="serie.nota_media != null">
-                <span *ngIf="serie.nota_media > 6" class="nota gr">
-                    {{serie.nota_media}}
-                </span>
-                <span *ngIf="serie.nota_media <= 6 && serie.nota_media > 4" class="nota ye">
-                    {{serie.nota_media}}
-                </span>
-                <span *ngIf="serie.nota_media <= 4" class="nota red">
-                    {{serie.nota_media}}
-                </span>
-            </div>
-            <div *ngIf="usuario">
-                <label>Tu nota</label>
-                <select class="form-control" value=nota [formControl]="nota" name="nota" id="nota">
-                    <option>No vista</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                    <option>9</option>
-                    <option>10</option>
-                </select>
-                <button (click)=addNota()>Puntuar</button>
-            </div>
+    <div class="row">
+        <div class="col-sm">
+            <img class="img-fluid" src="{{serie.imagen}}" alt="Imagen del cartel de la serie">
         </div>
-        <p>{{serie.sinopsis}}</p>
-        <p>Generos:</p>
-        <ul *ngFor="let genero of serie.generos">
-            <li>{{genero}}</li>
-        </ul>
-        <p>Temporadas: {{serie.temporadas}}</p>
-        <p>Capitulos: {{serie.capitulos}}</p>
-        <p>Creadores:</p>
-        <li *ngFor="let creador of serie.creadores">
-            <a (click)=getProfesional(creador)>{{creador}}</a>
-        </li>
-        <p>Donde puedes verlo:</p>
-        <div *ngIf="serie.plataformas">
-            <li *ngFor="let plataforma of serie.plataformas">
-                <img src="{{plataforma.icono}}" alt="{{plataforma.nombre}}">
-            </li>
+        <div class="col-sm">
+            <h1>{{serie.titulo}}</h1>
+            <div class="nota">
+                <div class="nota-cont" *ngIf="serie.nota_media != null">
+                    <span *ngIf="serie.nota_media > 6" class="nota gr">
+                        {{serie.nota_media}}
+                    </span>
+                    <span *ngIf="serie.nota_media <= 6 && pelicula.nota_media > 4" class="nota ye">
+                        {{serie.nota_media}}
+                    </span>
+                    <span *ngIf="serie.nota_media <= 4" class="nota red">
+                        {{serie.nota_media}}
+                    </span>
+                </div>
+                <div *ngIf="usuario">
+                    <label>Tu nota</label>
+                    <select class="form-control" value="nota" [formControl]="nota" name="nota" id="nota">
+                        <option>No vista</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                    </select>
+                    <button (click)=addNota()>Puntuar</button>
+                </div>
+            </div>
+            <p>Inicio: {{serie.inicio | date:"dd/MM/yyyy"}}</p>
+            <p>Final: {{serie.final | date:"dd/MM/yyyy"}}</p>
+            <p>{{serie.sinopsis}}</p>
+            <p>Generos: {{generos}}</p>
+            <p>Temporadas: {{serie.temporadas}}</p>
+            <p>Capitulos: {{serie.capitulos}}</p>
+            <span class="row">
+                <p class="col-sm">Creadores:</p>
+                <p class="col-sm" *ngFor="let creador of serie.creadores">
+                    <a (click)=getProfesional(creador)>{{creador}}</a>
+                </p>
+            </span>
+            <div *ngIf="serie.plataformas.length >= 1">
+                <h3>Donde verlo:</h3>
+                <ul class="row">
+                    <li class="list-item col" *ngFor="let plataforma of serie.plataformas">
+                        <img src="{{plataforma.icono}}" alt="{{plataforma.nombre}}">
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="actor">
         <h3>Reparto:</h3>
-        <li *ngFor="let actor of serie.actores">
-            <span><a (click)=getProfesional(actor.nombre)>{{actor.nombre}} </a> ................... <p>
-                    {{actor.personaje}}</p></span>
+        <li class="list-item" *ngFor="let actor of serie.actores">
+            <span class="row">
+                <a class="col-sm" (click)=getProfesional(actor.nombre)>{{actor.nombre}} </a>
+                <p class="col-sm">...................</p>
+                <p class="col-sm">{{actor.personaje}}</p>
+            </span>
         </li>
     </div>
 
@@ -70,22 +75,26 @@
                 allowfullscreen></iframe>
         </div>
     </div>
-
-    <div *ngIf="criticaUsuario == true">
-        <h2>Mi Crítica</h2>
-        <p>{{miCritica.titulo}}</p>
-        <p>{{miCritica.nota}}</p>
-        <p [innerHTML]="miCritica.texto"></p>
-        <button (click)=deleteCritica()>Eliminar</button>
-        <button routerLink="/updatecriticaS/{{serie._id}}/{{miCritica._id}}">Modificar</button>
-    </div>
-
 </div>
+
+<div *ngIf="criticaUsuario == true">
+    <h2>Mi Crítica</h2>
+    <p>{{miCritica.titulo}}</p>
+    <p>{{miCritica.nota}}</p>
+    <p [innerHTML]="miCritica.texto"></p>
+    <button (click)="modal = 'eliminarCritica'">Eliminar</button>
+    <button routerLink="/updatecriticaS/{{serie._id}}/{{miCritica._id}}">Modificar</button>
+</div>
+
+<app-confirm *ngIf="modal === 'eliminarCritica'" mensaje="¿Estas seguro de eliminar la crítica?" status="confirm"
+    (noButton)="confirm = null" (yesButton)="deleteCritica()"></app-confirm>
+
+
 <div class="evaluar">
     <div class="botones">
-        <p class="boton" (click)=statusCritica()>Críticas</p>
+        <p class="boton" (click)="status = 'critica'">Críticas</p>
         <p> | </p>
-        <p class="boton" (click)=statusComentario()>Comentarios</p>
+        <p class="boton" (click)="status = 'comentario'">Comentarios</p>
     </div>
     <div *ngIf="status == 'critica'" class="criticas">
         <button *ngIf="criticaUsuario == false" (click)=addCritica()>Escribir crítica</button>
@@ -117,19 +126,39 @@
                 </div>
                 <div *ngIf="!upComentario && comentario.usuario === usuario._id">
                     <p>{{comentario.nick}} <span *ngIf="comentario.editado">(Editado)</span> </p>
-                    <i (click)="deleteComentario(comentario._id)" class="material-icons btn-delete">delete_outline</i>
-                    <p (click)="upComentario = comentario._id" >{{comentario.texto}}</p>          
+                    <i (click)="modal  = 'eliminarComentario'" class="material-icons btn-delete">delete_outline</i>
+                    <p (click)="upComentario = comentario._id">{{comentario.texto}}</p>
+
+                    <app-confirm *ngIf="modal === 'eliminarComentario'"
+                        mensaje="¿Estas seguro de eliminar el comentario?" status="confirm" (noButton)="confirm = null"
+                        (yesButton)="deleteComentario(comentario._id)"></app-confirm>
                 </div>
                 <div *ngIf="upComentario === comentario._id">
                     <p>{{comentario.nick}} <span *ngIf="comentario.editado">(Editado)</span> </p>
-                    <input type="text" id="uptexto" name="uptexto" [formControl]="uptexto" value="{{comentario.texto}}" maxlength="250" minlength="10">
+                    <input type="text" id="uptexto" name="uptexto" [formControl]="uptexto" value="{{comentario.texto}}"
+                        maxlength="250" minlength="10">
                     <mat-error *ngIf="uptexto.invalid">
                         No se puede escribir un comentario de más de 250 carácteres y de menos de 10 carácteres
                     </mat-error>
-                    
+
                     <button (click)=updateComentario(comentario._id)>Modificar</button>
                 </div>
             </li>
         </div>
     </div>
 </div>
+
+<app-confirm *ngIf="modal === 'deleteCritica'" mensaje="La crítica se ha eliminado correctamente" status="alert"
+    (aceptButton)="reloadUsuario()"></app-confirm>
+
+<app-confirm *ngIf="modal === 'addNota'" mensaje="La nota se ha guardado" status="alert"
+    (aceptButton)="reloadUsuario()"></app-confirm>
+
+<app-confirm *ngIf="modal === 'deleteNota'" mensaje="La nota se ha eliminado" status="alert"
+    (aceptButton)="reloadUsuario()"></app-confirm>
+
+<app-confirm *ngIf="modal === 'userCritica'" mensaje="Necesitas iniciar sesión para escribir una crítica" status="alert"
+    (aceptButton)="_router.navigate(['/login'])"></app-confirm>
+
+<app-confirm *ngIf="modal === 'userComentario'" mensaje="Necesitas iniciar sesión para escribir un comentario"
+    status="alert" (aceptButton)="_router.navigate(['/login'])"></app-confirm>

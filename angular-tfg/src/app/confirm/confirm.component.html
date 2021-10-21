@@ -1,0 +1,18 @@
+<div class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h2>{{mensaje}}</h2>
+        <div class="modal-footer">
+          <div *ngIf="status == 'confirm'">
+            <button type="button" (click)="yesButton.emit()" class="btn btn-primary">Si</button>
+            <button type="button" (click)="noButton.emit()" class="btn btn-primary">No</button>
+          </div>
+          <div *ngIf="status == 'alert'">
+            <button type="button" (click)="aceptButton.emit()" class="btn btn-primary">Aceptar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

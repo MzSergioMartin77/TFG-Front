@@ -22,6 +22,7 @@ import { UpdatePerfilComponent } from './update-perfil/update-perfil.component';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { BuscadorComponent } from './buscador/buscador.component';
 import { ErrorComponent } from './error/error.component';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ErrorComponent } from './error/error.component';
     UpdatePerfilComponent,
     UsuarioComponent,
     BuscadorComponent,
-    ErrorComponent
+    ErrorComponent,
+    ConfirmComponent
   ],
   imports: [
     BrowserModule,
