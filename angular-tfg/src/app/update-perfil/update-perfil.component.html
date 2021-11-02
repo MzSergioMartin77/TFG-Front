@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="user == 'true'" class="container">
     <h1>Modificar Perfil</h1>
     <mat-error *ngIf="status == 'false'">
         Ha ocurrido un error inesperado al registrarse, por favor vuelva a intentarlo
@@ -6,17 +6,11 @@
     <mat-error *ngIf="status == 'false-email'">
         Ya hay un usuario registrado con este email en la plataforma
     </mat-error>
-    <div *ngIf="status == 'true'">
-        Se ha registrado correctamente para iniciar sesión pulse <a routerLink='/login'>aqui</a>
-    </div>
     <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label>Nombre: </label>
-            <input type="text" class="form-control" id="nombre" name="nombre" formControlName="nombre" required>
+            <input type="text" class="form-control" id="nombre" name="nombre" formControlName="nombre">
             <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-danger">
-                <mat-error *ngIf="nombre.errors.required">
-                    El nombre es obligatorio
-                </mat-error>
                 <mat-error *ngIf="nombre.errors.maxlength">
                     El nombre debe de terner menos de 50 carácteres
                 </mat-error>
@@ -37,9 +31,6 @@
             <label>Email: </label>
             <input type="email" class="form-control" id="email" name="email" formControlName="email">
             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
-                <mat-error *ngIf="email.errors.required">
-                    El email es obligatorio
-                </mat-error>
                 <mat-error *ngIf="email.errors.email">
                     El email no es valido
                 </mat-error>
@@ -52,6 +43,9 @@
             <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)" class="alert alert-danger">
                 <mat-error *ngIf="descripcion.errors.minlength">
                     La descripción debe de tener como mínimo 8 carácteres
+                </mat-error>
+                <mat-error *ngIf="descripcion.errors.maxlength">
+                    La descripción no puede tener más 250 carácteres
                 </mat-error>
             </div>
         </div>
@@ -66,3 +60,8 @@
     </form>
 
 </div>
+
+<app-confirm *ngIf="modal === 'login'" mensaje="No tienes permisos para actualizar este usuario" status="alert"
+    (aceptButton)="_router.navigate(['/login'])"></app-confirm>
+<app-confirm *ngIf="modal === 'updateUser'" mensaje="Se han guardado los cambios correctamente" status="alert"
+    (aceptButton)="_router.navigate(['/perfil'])"></app-confirm>

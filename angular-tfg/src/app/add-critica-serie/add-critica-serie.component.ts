@@ -18,6 +18,7 @@ export class AddCriticaSerieComponent implements OnInit {
   public token: String;
   public serieId: String;
   public identidad;
+  public modal: String;
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -30,8 +31,9 @@ export class AddCriticaSerieComponent implements OnInit {
   ngOnInit(): void {
     this.usuario = this._usuarioService.getIdentidad();
     if (this.usuario == null) {
-      alert("Necesitas iniciar sesión");
-      this._router.navigate(['/login']);
+      //alert("Necesitas iniciar sesión");
+      //this._router.navigate(['/login']);
+      this.modal = 'login';
     } else {
       this._route.params.subscribe(params => {
         this.serieId = params.id;
@@ -55,8 +57,9 @@ export class AddCriticaSerieComponent implements OnInit {
     this._serieService.getCriticaUser(this.serieId, this.usuario._id).subscribe(
       response => {
         if (response.critica) {
-          alert('Este usuario ya ha escrito una crítica');
-          this._router.navigate(['/serie/' + this.serieId]);
+          //alert('Este usuario ya ha escrito una crítica');
+          //this._router.navigate(['/serie/' + this.serieId]);
+          this.modal = 'existCriticaS';
         }
       },
       error => {
@@ -75,7 +78,7 @@ export class AddCriticaSerieComponent implements OnInit {
         this.identidad = response;
         console.log(this.identidad);
         localStorage.setItem('identidad', JSON.stringify(this.identidad.usuario));
-        alert('La crítica se ha guardado correctamente');
+        //alert('La crítica se ha guardado correctamente');
         this._router.navigate(['/serie', this.serieId]);
       },
       error => {
@@ -97,6 +100,7 @@ export class AddCriticaSerieComponent implements OnInit {
         console.log(response);
         if (response.message == 'Guardado') {
           console.log('Entro');
+          this.modal = 'addCritica';
           this.reloadUsuario();
         }
       },

@@ -48,3 +48,6 @@
             </ul>
         </div>
 </div>
+
+<app-confirm *ngIf="modal === 'seguir'" mensaje="Los cambios se han guardado correctamente" status="alert"
+    (aceptButton)="reloadUsuario()"></app-confirm>

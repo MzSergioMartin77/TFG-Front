@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { Serie } from '../models/serie';
 import { SerieService } from '../services/serie.service';
 import { Pelicula } from '../models/pelicula';
@@ -15,13 +15,14 @@ import { UsuarioService } from '../services/usuario.service';
   templateUrl: './buscador.component.html',
   styleUrls: ['./buscador.component.scss']
 })
-export class BuscadorComponent implements OnInit {
+export class BuscadorComponent implements OnInit, DoCheck {
 
   public peliculas: Pelicula[];
   public series: Serie[];
   public usuarios: Usuario[];
   public profesionales: Profesional[];
   public titulo: String;
+  public prevTitulo: String;
 
   constructor(
     private _peliculaService: PeliculaService, 
@@ -35,10 +36,17 @@ export class BuscadorComponent implements OnInit {
     this._route.params.subscribe(params => {
       this.titulo = params.titulo;
     });
+    this.prevTitulo = this.titulo;
     this.getPeliculas();
     this.getSeries();
     this.getProfesionales();
     this.getUsuarios();
+  }
+
+  ngDoCheck(){
+    if(this.titulo != this.prevTitulo){
+      window.location.reload();
+    } 
   }
 
   getPeliculas(){

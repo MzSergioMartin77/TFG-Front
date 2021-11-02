@@ -17,6 +17,7 @@ export class PerfilComponent implements OnInit {
   public url = 'http://localhost:3700/';
   public recomendaciones = [];
   public status = false;
+  public modal: String;
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -25,13 +26,15 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuario = this._usuarioService.getIdentidad();
-    this.token = this._usuarioService.getToken();
     console.log(this.usuario);
     if(this.usuario == null){
-      alert("Necesitas iniciar sesión");
-      this._router.navigate(['/login']);
-    } 
-    console.log(this.usuario.imagen);
+      console.log('prueba');
+      this.modal = 'login';
+      //alert("Necesitas iniciar sesión");
+      //this._router.navigate(['/login']);
+    } else{
+      this.token = this._usuarioService.getToken();
+    }
   }
 
   recomendador() {

@@ -49,3 +49,15 @@
     </form>
 
 </div>
+
+<app-confirm *ngIf="modal === 'login'" mensaje="Necesitas iniciar sesión para escribir una crítica" status="alert"
+    (aceptButton)="_router.navigate(['/login'])"></app-confirm>
+
+<app-confirm *ngIf="modal === 'existCriticaP'" mensaje="Ya tienes escrita una crítica de esta película y no se puden escribir más de una crítica de la misma película" status="alert"
+    (aceptButton)="_router.navigate(['/pelicula/'+peliculaId])"></app-confirm>
+
+<app-confirm *ngIf="modal === 'existCriticaS'" mensaje="Ya tienes escrita una crítica de esta serie y no se puden escribir más de una crítica de la misma serie" status="alert"
+    (aceptButton)="_router.navigate(['/serie/'+serieId])"></app-confirm>
+
+<app-confirm *ngIf="modal === 'addCritica'" mensaje="La crítica se ha guardado correctamente" status="alert"
+    (aceptButton)="reloadUsuario()"></app-confirm>

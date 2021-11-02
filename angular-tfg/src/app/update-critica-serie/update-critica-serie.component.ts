@@ -22,6 +22,7 @@ export class UpdateCriticaSerieComponent implements OnInit {
   public critica: Object;
   public newCritica: Object;
   public identidad;
+  public modal: String;
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -34,8 +35,9 @@ export class UpdateCriticaSerieComponent implements OnInit {
   ngOnInit(): void {
     this.usuario = this._usuarioService.getIdentidad();
     if (this.usuario == null) {
-      alert("Necesitas iniciar sesión");
-      this._router.navigate(['/login']);
+      //alert("Necesitas iniciar sesión");
+      //this._router.navigate(['/login']);
+      this.modal = 'login';
     }else{
       this._route.params.subscribe(params => {
         this.serieId = params.serie;
@@ -69,7 +71,7 @@ export class UpdateCriticaSerieComponent implements OnInit {
         this.identidad = response;
         console.log(this.identidad);
         localStorage.setItem('identidad', JSON.stringify(this.identidad.usuario));
-        alert('La crítica se ha guardado correctamente');
+        //alert('La crítica se ha guardado correctamente');
         this._router.navigate(['/serie', this.serieId]);
       },
       error => {
@@ -90,7 +92,8 @@ export class UpdateCriticaSerieComponent implements OnInit {
         console.log(response);
         if (response.message == 'Guardado') {
           console.log('Entro');
-          this.reloadUsuario();
+          this.modal = 'addCritica';
+          //this.reloadUsuario();
         }
       },
       error => {

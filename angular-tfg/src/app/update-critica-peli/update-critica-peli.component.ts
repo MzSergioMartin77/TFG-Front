@@ -23,6 +23,7 @@ export class UpdateCriticaPeliComponent implements OnInit {
   public critica: Object;
   public newCritica: Object;
   public identidad;
+  public modal: String;
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -35,8 +36,9 @@ export class UpdateCriticaPeliComponent implements OnInit {
   ngOnInit(): void {
     this.usuario = this._usuarioService.getIdentidad();
     if (this.usuario == null) {
-      alert("Necesitas iniciar sesión");
-      this._router.navigate(['/login']);
+      //alert("Necesitas iniciar sesión");
+      //this._router.navigate(['/login']);
+      this.modal = 'login';
     } else{
       this._route.params.subscribe(params => {
         this.peliculaId = params.pelicula;
@@ -71,7 +73,7 @@ export class UpdateCriticaPeliComponent implements OnInit {
         this.identidad = response;
         console.log(this.identidad);
         localStorage.setItem('identidad', JSON.stringify(this.identidad.usuario));
-        alert('La crítica se ha guardado correctamente');
+        //alert('La crítica se ha guardado correctamente');
         this._router.navigate(['/pelicula', this.peliculaId]);
       },
       error => {
@@ -92,7 +94,8 @@ export class UpdateCriticaPeliComponent implements OnInit {
         console.log(response);
         if (response.message == 'Guardado') {
           console.log('Entro');
-          this.reloadUsuario();
+          //this.reloadUsuario();
+          this.modal = 'addCritica';
         }
       },
       error => {

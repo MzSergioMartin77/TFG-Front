@@ -67,3 +67,6 @@
         </ul>
     </div>
 </div>
+
+<app-confirm *ngIf="modal === 'login'" mensaje="Necesitas iniciar sesión" status="alert"
+    (aceptButton)="_router.navigate(['/login'])"></app-confirm>

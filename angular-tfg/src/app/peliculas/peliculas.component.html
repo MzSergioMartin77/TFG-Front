@@ -90,7 +90,7 @@
 </div>
 
 <app-confirm *ngIf="modal === 'eliminarCritica'" mensaje="¿Estas seguro de eliminar la crítica?" status="confirm"
-    (noButton)="confirm = null" (yesButton)="deleteCritica()"></app-confirm>
+    (noButton)="modal = null" (yesButton)="deleteCritica()"></app-confirm>
 
 <div class="evaluar">
     <div class="botones">
@@ -132,7 +132,7 @@
                     <p (click)="upComentario = comentario._id">{{comentario.texto}}</p>
                 
                     <app-confirm *ngIf="modal === 'eliminarComentario'" mensaje="¿Estas seguro de eliminar el comentario?" status="confirm"
-                        (noButton)="confirm = null" (yesButton)="deleteComentario(comentario._id)"></app-confirm>
+                        (noButton)="modal = null" (yesButton)="deleteComentario(comentario._id)"></app-confirm>
                 </div>
                 <div *ngIf="upComentario === comentario._id">
                     <p>{{comentario.nick}} <span *ngIf="comentario.editado">(Editado)</span> </p>

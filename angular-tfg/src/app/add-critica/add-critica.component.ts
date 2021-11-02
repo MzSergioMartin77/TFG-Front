@@ -4,7 +4,7 @@ import { UsuarioService } from '../services/usuario.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PeliculaService } from '../services/pelicula.service';
-import { error } from 'protractor';
+
 
 @Component({
   selector: 'app-add-critica',
@@ -19,6 +19,7 @@ export class AddCriticaComponent implements OnInit {
   public token: String;
   public peliculaId: String;
   public identidad;
+  public modal: String;
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -32,8 +33,9 @@ export class AddCriticaComponent implements OnInit {
   ngOnInit(): void {
     this.usuario = this._usuarioService.getIdentidad();
     if (this.usuario == null) {
-      alert("Necesitas iniciar sesión");
-      this._router.navigate(['/login']);
+      //alert("Necesitas iniciar sesión");
+      this.modal = 'login';
+      //this._router.navigate(['/login']);
     }
     else {
       this._route.params.subscribe(params => {
@@ -61,8 +63,9 @@ export class AddCriticaComponent implements OnInit {
     this._peliculaService.getCriticaUser(this.peliculaId, this.usuario._id).subscribe(
       response => {
         if(response.critica){
-          alert('Este usuario ya ha escrito una crítica');
-          this._router.navigate(['/pelicula/'+this.peliculaId]);
+          //alert('Este usuario ya ha escrito una crítica');
+          this.modal = 'existCriticaP';
+          //this._router.navigate(['/pelicula/'+this.peliculaId]);
         }
       },
       error => {
@@ -82,7 +85,6 @@ export class AddCriticaComponent implements OnInit {
         this.identidad = response;
         console.log(this.identidad);
         localStorage.setItem('identidad', JSON.stringify(this.identidad.usuario));
-        alert('La crítica se ha guardado correctamente');
         this._router.navigate(['/pelicula', this.peliculaId]);
       },
       error => {
@@ -104,7 +106,9 @@ export class AddCriticaComponent implements OnInit {
         console.log(response);
         if (response.message == 'Guardado') {
           console.log('Entro');
-          this.reloadUsuario();
+          //alert('La crítica se ha guardado correctamente');
+          this.modal = 'addCritica';
+          //this.reloadUsuario();
         }
       },
       error => {

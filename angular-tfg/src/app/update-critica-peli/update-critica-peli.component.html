@@ -49,3 +49,9 @@
     </form>
 
 </div>
+
+<app-confirm *ngIf="modal === 'login'" mensaje="Necesitas iniciar sesión para modificar una crítica" status="alert"
+    (aceptButton)="_router.navigate(['/login'])"></app-confirm>
+
+<app-confirm *ngIf="modal === 'addCritica'" mensaje="La crítica se ha guardado correctamente" status="alert"
+    (aceptButton)="reloadUsuario()"></app-confirm>

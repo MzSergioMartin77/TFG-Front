@@ -18,6 +18,7 @@ export class UsuarioComponent implements OnInit {
   public token: String;
   public identidad;
   public url = 'http://localhost:3700/';
+  public modal: String;
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -56,7 +57,7 @@ export class UsuarioComponent implements OnInit {
         this.identidad = response;
         console.log(this.identidad);
         localStorage.setItem('identidad', JSON.stringify(this.identidad.usuario));
-        alert('Los cambios se han guardado correctamente');
+        //alert('Los cambios se han guardado correctamente');
         window.location.reload();
       },
       error => {
@@ -77,7 +78,8 @@ export class UsuarioComponent implements OnInit {
     this._usuarioService.seguirUsuario(this.identificado._id, this.usuarioId, this.token).subscribe(
       response => {
         if(response.message == 'Guardado'){
-          this.reloadUsuario();
+          this.modal = 'seguir';
+          //this.reloadUsuario();
         }
       },
       error => {
@@ -91,7 +93,8 @@ export class UsuarioComponent implements OnInit {
       response => {
         console.log(response.status);
         if(response.message == 'Guardado'){
-          this.reloadUsuario();
+          this.modal = 'seguir';
+          //this.reloadUsuario();
         }
       },
       error => {
