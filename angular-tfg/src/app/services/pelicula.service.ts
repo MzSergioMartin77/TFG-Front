@@ -28,6 +28,12 @@ export class PeliculaService {
     return this._http.get(this.url+'peliculas', {headers:headers});
   }
 
+  getPelisP() :Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    
+    return this._http.get(this.url+'peliculasP', {headers:headers});
+  }
+
   getPeliculaId(id) :Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
 
@@ -106,5 +112,11 @@ export class PeliculaService {
     let headers = new HttpHeaders().set('Content-Type','application/json').set('Authorization', token);
 
     return this._http.post(this.url+'peliculaNota', params, {headers: headers});
+  }
+
+  getPeliGenero(genero) :Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+
+    return this._http.get(this.url+'buscarPeliG/'+genero, {headers:headers});
   }
 }

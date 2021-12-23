@@ -1,19 +1,41 @@
-<h1>Más Actuales</h1>
-
 <div class="container">
     <h2>Películas</h2>
-    <div class="row">
-        <div class="col-sm" *ngFor="let pelicula of peliculas">
-            <img routerLink='/pelicula/{{pelicula._id}}' src={{pelicula.imagen}} alt="Imagen de la pelicula"> <br>
-            <a routerLink='/pelicula/{{pelicula._id}}'>{{pelicula.titulo}} </a>
+    <div class="botones">
+        <p class="boton" (click)="statusPeli = 'actual'">Más actuales</p>
+        <p>|</p>
+        <p class="boton" (click)="statusPeli = 'popular'">Más populares</p>
+    </div>
+    <div class="row" *ngIf="statusPeli == 'actual'">
+        <div class="col-sm" *ngFor="let peliculaA of peliculasA">
+            <img routerLink='/pelicula/{{peliculaA._id}}' src={{peliculaA.imagen}} alt="Imagen de la pelicula"> <br>
+            <a routerLink='/pelicula/{{peliculaA._id}}'>{{peliculaA.titulo}} </a>
         </div>
     </div>
 
+    <div class="row" *ngIf="statusPeli == 'popular'">
+        <div class="col-sm" *ngFor="let peliculaP of peliculasP">
+            <img routerLink='/pelicula/{{peliculaP._id}}' src={{peliculaP.imagen}} alt="Imagen de la pelicula"> <br>
+            <a routerLink='/pelicula/{{peliculaP._id}}'>{{peliculaP.titulo}} </a>
+        </div>
+    </div>
+
+
     <h2>Series</h2>
-    <div class="row">
-        <div class="col-sm" *ngFor="let serie of series">
-            <img routerLink='/serie/{{serie._id}}' src={{serie.imagen}} alt="Imagen de la serie"> <br>
-            <a routerLink='/serie/{{serie._id}}'>{{serie.titulo}} </a>
+    <div class="botones">
+        <p class="boton" (click)="statusSerie = 'actual'">Más actuales</p>
+        <p>|</p>
+        <p class="boton" (click)="statusSerie = 'popular'">Más populares</p>
+    </div>
+    <div class="row" *ngIf="statusSerie == 'actual'">
+        <div class="col-sm" *ngFor="let serieA of seriesA">
+            <img routerLink='/serie/{{serieA._id}}' src={{serieA.imagen}} alt="Imagen de la serie"> <br>
+            <a routerLink='/serie/{{serieA._id}}'>{{serieA.titulo}} </a>
+        </div>
+    </div>
+    <div class="row" *ngIf="statusSerie == 'popular'">
+        <div class="col-sm" *ngFor="let serieP of seriesP">
+            <img routerLink='/serie/{{serieP._id}}' src={{serieP.imagen}} alt="Imagen de la serie"> <br>
+            <a routerLink='/serie/{{serieP._id}}'>{{serieP.titulo}} </a>
         </div>
     </div>
 </div>

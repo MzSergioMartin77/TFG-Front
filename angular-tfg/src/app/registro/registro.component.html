@@ -1,14 +1,14 @@
 <div class="container">
     <h1>Registro</h1>
-    <mat-error *ngIf="status == 'false'">
+    <div class="alert alert-danger" *ngIf="status == 'false'">
         Ha ocurrido un error inesperado al registrarse, por favor vuelva a intentarlo
-    </mat-error>
-    <mat-error *ngIf="status == 'false-email'">
+    </div>
+    <div class="alert alert-danger" *ngIf="status == 'false-email'">
         Ya hay un usuario registrado con este email en la plataforma
-    </mat-error>
-    <mat-error *ngIf="status == 'false-nick'">
-        El nick utilizado ya esta en usuario
-    </mat-error>
+    </div>
+    <div class="alert alert-danger" *ngIf="status == 'false-nick'">
+        Ya hay un usuario con este nombre de usuario en la plataforma
+    </div>
     <div *ngIf="status == 'true'">
         Se ha registrado correctamente para iniciar sesión pulse <a routerLink='/login'>aqui</a>
     </div>
@@ -88,7 +88,7 @@
                     La descripción debe de tener como mínimo 8 carácteres
                 </mat-error>
                 <mat-error *ngIf="descripcion.errors.maxlength">
-                    La descripción no puede tener más 250 carácteres
+                    La descripción no puede tener más 500 carácteres
                 </mat-error>
             </div>
         </div>

@@ -23,6 +23,9 @@ export class BuscadorComponent implements OnInit, DoCheck {
   public profesionales: Profesional[];
   public titulo: String;
   public prevTitulo: String;
+  public status = 'false';
+  public generos = ['comedia','drama','accion','aventura','romance','suspense','animacion','familia','fantasia',
+        'ciencia ficcion','crimen','historica','belica','western','misterio','terror','musica']
 
   constructor(
     private _peliculaService: PeliculaService, 
@@ -33,20 +36,64 @@ export class BuscadorComponent implements OnInit, DoCheck {
     ) { }
 
   ngOnInit(): void {
+    const removeAccents = (str) => {
+      return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    } 
     this._route.params.subscribe(params => {
       this.titulo = params.titulo;
     });
     this.prevTitulo = this.titulo;
+    const titulogen = removeAccents(this.titulo.toLowerCase());
+    for (const i in this.generos){
+      if(titulogen === this.generos[i]){
+        console.log('entra');
+        this.getPeliGenero();
+        this.getSerieGenero();
+        this.status = 'true';
+      }
+    }
+    /*if(status = 'false'){
+      this.getPeliculas();
+    }*/
     this.getPeliculas();
     this.getSeries();
     this.getProfesionales();
     this.getUsuarios();
   }
 
+
   ngDoCheck(){
     if(this.titulo != this.prevTitulo){
       window.location.reload();
     } 
+  }
+
+  getPeliGenero(){
+    this._peliculaService.getPeliGenero(this.titulo).subscribe(
+      response => {
+        console.log(response);
+        if (response.pelicula){
+          this.peliculas = response.pelicula;
+        }
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  getSerieGenero(){
+    this._serieService.getSerieGenero(this.titulo).subscribe(
+      response => {
+        console.log(response);
+        if (response.serie){
+          this.series = response.serie;
+        }
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
   }
 
   getPeliculas(){

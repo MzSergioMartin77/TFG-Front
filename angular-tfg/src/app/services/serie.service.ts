@@ -19,6 +19,12 @@ export class SerieService {
     return this._http.get(this.url+'series', {headers:headers});
   }
 
+  getSeriesP() :Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    
+    return this._http.get(this.url+'seriesP', {headers:headers});
+  }
+
   getSerieId(id) :Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
 
@@ -96,5 +102,11 @@ export class SerieService {
     let headers = new HttpHeaders().set('Content-Type','application/json').set('Authorization', token);
 
     return this._http.post(this.url+'serieNota', params, {headers: headers});
+  }
+
+  getSerieGenero(genero) :Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+
+    return this._http.get(this.url+'buscarSerieG/'+genero, {headers:headers});
   }
 }

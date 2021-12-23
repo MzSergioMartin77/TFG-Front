@@ -13,13 +13,21 @@ import { Observable } from 'rxjs';
   styleUrls: ['./inicio.component.scss']
 })
 export class InicioComponent implements OnInit {
-  public peliculas: Pelicula[];
-  public series: Serie[];
+  public peliculasA: Pelicula[];
+  public peliculasP: Pelicula[];
+  public seriesA: Serie[];
+  public seriesP: Serie[];
+  public statusPeli: String;
+  public statusSerie: String;
   constructor(private _peliculaService: PeliculaService, private _serieService: SerieService) {}
 
   ngOnInit(): void {
+    this.statusPeli = 'actual';
+    this.statusSerie = 'actual';
     this.getPeliculas();
+    this.getPelisP();
     this.getSeries();
+    this.getSeriesP();
   }
 
   getPeliculas(){
@@ -27,7 +35,23 @@ export class InicioComponent implements OnInit {
       response => {
         console.log(response);
         if (response.pelicula){
-          this.peliculas = response.pelicula;
+          this.peliculasA = response.pelicula;
+          console.log(this.peliculasA);
+        }
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  getPelisP(){
+    this._peliculaService.getPelisP().subscribe(
+      response => {
+        console.log(response);
+        if (response.pelicula){
+          this.peliculasP = response.pelicula;
+          console.log(this.peliculasP)
         }
       },
       error => {
@@ -41,7 +65,21 @@ export class InicioComponent implements OnInit {
       response => {
         console.log(response);
         if (response.serie){
-          this.series = response.serie;
+          this.seriesA = response.serie;
+        }
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  getSeriesP(){
+    this._serieService.getSeriesP().subscribe(
+      response => {
+        console.log(response);
+        if (response.serie){
+          this.seriesP = response.serie;
         }
       },
       error => {
