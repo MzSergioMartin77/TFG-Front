@@ -1,28 +1,37 @@
-<div class="container">
-    <h2>Películas</h2>
+
+<h2>Películas</h2>
+<div class="container" *ngIf="statusPeli == 'actual'">
     <div class="botones">
-        <p class="boton" (click)="statusPeli = 'actual'">Más actuales</p>
+        <p class="botonA">Más actuales</p>
         <p>|</p>
         <p class="boton" (click)="statusPeli = 'popular'">Más populares</p>
     </div>
-    <div class="row" *ngIf="statusPeli == 'actual'">
+    <div class="row">
         <div class="col-sm" *ngFor="let peliculaA of peliculasA">
             <img routerLink='/pelicula/{{peliculaA._id}}' src={{peliculaA.imagen}} alt="Imagen de la pelicula"> <br>
             <a routerLink='/pelicula/{{peliculaA._id}}'>{{peliculaA.titulo}} </a>
         </div>
     </div>
+</div>
 
-    <div class="row" *ngIf="statusPeli == 'popular'">
+<div class="container" *ngIf="statusPeli == 'popular'">
+    <div class="botones">
+        <p class="boton" (click)="statusPeli = 'actual'">Más actuales</p>
+        <p>|</p>
+        <p class="botonA">Más populares</p>
+    </div>
+    <div class="row">        
         <div class="col-sm" *ngFor="let peliculaP of peliculasP">
             <img routerLink='/pelicula/{{peliculaP._id}}' src={{peliculaP.imagen}} alt="Imagen de la pelicula"> <br>
             <a routerLink='/pelicula/{{peliculaP._id}}'>{{peliculaP.titulo}} </a>
         </div>
     </div>
+</div>
 
-
-    <h2>Series</h2>
-    <div class="botones">
-        <p class="boton" (click)="statusSerie = 'actual'">Más actuales</p>
+<h2>Series</h2>
+<div class="container">
+    <div class="botones" *ngIf="statusSerie == 'actual'">
+        <p class="botonA">Más actuales</p>
         <p>|</p>
         <p class="boton" (click)="statusSerie = 'popular'">Más populares</p>
     </div>
@@ -32,7 +41,15 @@
             <a routerLink='/serie/{{serieA._id}}'>{{serieA.titulo}} </a>
         </div>
     </div>
-    <div class="row" *ngIf="statusSerie == 'popular'">
+</div>  
+
+<div class="container" *ngIf="statusSerie == 'popular'">
+    <div class="botones" >
+        <p class="boton" (click)="statusSerie = 'actual'">Más actuales</p>
+        <p>|</p>
+        <p class="botonA" >Más populares</p>
+    </div>
+    <div class="row">
         <div class="col-sm" *ngFor="let serieP of seriesP">
             <img routerLink='/serie/{{serieP._id}}' src={{serieP.imagen}} alt="Imagen de la serie"> <br>
             <a routerLink='/serie/{{serieP._id}}'>{{serieP.titulo}} </a>

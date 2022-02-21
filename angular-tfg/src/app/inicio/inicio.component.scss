@@ -1,5 +1,8 @@
 h1, h2 {
     text-align: center;
+    margin-top: 20px;
+    margin-bottom: 0;
+    font-weight: bold;
 }
 
 p{
@@ -33,9 +36,14 @@ p{
     margin-bottom: 50px;
     background-color: white;
 }
+
 .botones{
     display: flex;
-    padding: 10px;
+}
+
+.botones .botonA{
+    text-decoration: underline;
+    color: blue;
 }
 
 .botones .boton:hover{
@@ -44,11 +52,14 @@ p{
 }
 
 @media screen and (max-width: 580px) {
+    .botones{
+        margin-left: 100px;
+    }
+
     .row{
         overflow-x: scroll;
         width: min-content;
         margin-left: 100px;
-        margin-top: 100px;
     }
 }
 

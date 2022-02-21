@@ -24,6 +24,7 @@ export class BuscadorComponent implements OnInit, DoCheck {
   public titulo: String;
   public prevTitulo: String;
   public status = 'false';
+  public tipos = 'all';
   public generos = ['comedia','drama','accion','aventura','romance','suspense','animacion','familia','fantasia',
         'ciencia ficcion','crimen','historica','belica','western','misterio','terror','musica']
 
