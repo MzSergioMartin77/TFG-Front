@@ -17,11 +17,24 @@ p{
 
 .container a:hover{
     color: blue;
+    cursor: pointer;
 }
 
 .container img{
     width: 150px;
     height: 200px;
+}
+
+.container img{
+    width: 150px;
+    height: 200px;
+    border: 5px outset black;
+    border-radius: 10px;
+}
+
+.container img:hover {
+    border: 0px;
+    cursor: pointer;
 }
 
 .container span{
@@ -50,6 +63,7 @@ p{
     color: blue;
     cursor: pointer;
 }
+
 
 @media screen and (max-width: 580px) {
     .botones{

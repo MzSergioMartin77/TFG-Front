@@ -1,19 +1,22 @@
 <div *ngIf="user == 'true'" class="container">
     <h1>Modificar Perfil</h1>
-    <mat-error *ngIf="status == 'false'">
+    <div class="alert alert-danger" role="alert" *ngIf="status == 'false'">
         Ha ocurrido un error inesperado al registrarse, por favor vuelva a intentarlo
-    </mat-error>
-    <mat-error *ngIf="status == 'false-email'">
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="status == 'false-email'">
         Ya hay un usuario registrado con este email en la plataforma
-    </mat-error>
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="status == 'false-imagen'">
+        El archivo seleccionado no es una imagen
+    </div>
     <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label>Nombre: </label>
             <input type="text" class="form-control" id="nombre" name="nombre" formControlName="nombre">
             <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-danger">
-                <mat-error *ngIf="nombre.errors.maxlength">
+                <span *ngIf="nombre.errors.maxlength">
                     El nombre debe de terner menos de 50 carácteres
-                </mat-error>
+                </span>
             </div>
         </div>
         
@@ -31,9 +34,9 @@
             <label>Email: </label>
             <input type="email" class="form-control" id="email" name="email" formControlName="email">
             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
-                <mat-error *ngIf="email.errors.email">
+                <span *ngIf="email.errors.email">
                     El email no es valido
-                </mat-error>
+                </span>
             </div>
         </div>
         <div class="form-group">
@@ -41,24 +44,47 @@
             <textarea type="text" class="form-control" id="descripcion" name="descripcion"
                 formControlName="descripcion"></textarea>
             <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)" class="alert alert-danger">
-                <mat-error *ngIf="descripcion.errors.minlength">
+                <span *ngIf="descripcion.errors.minlength">
                     La descripción debe de tener como mínimo 8 carácteres
-                </mat-error>
-                <mat-error *ngIf="descripcion.errors.maxlength">
+                </span>
+                <span *ngIf="descripcion.errors.maxlength">
                     La descripción no puede tener más 500 carácteres
-                </mat-error>
+                </span>
             </div>
         </div>
-        <div *ngIf="usuario.imagen != null">
+        <!-- <div *ngIf="usuario.imagen != null">
             <img src="{{url+'getImagen/'+usuario.imagen}}" alt="Imagen del usuario">
-        </div>
+        </div> -->
         <div class="form-group">
-            <label>Imagen de perfil</label>
-            <input type="file" name="imagen" id="imagen" (change)="fileChangeEvent($event)">
+            <label>Imagen de perfil: </label>
+            <!--<label class="subir" for="up-imagen"> 
+                <i class="material-icons upload">file_upload</i>
+                Subir Imagen</label> 
+            <input type="file" placeholder="Subir imagen" (change)="imagenEvent($event)"> -->
+            <!--<button mat-raised-button (click)="fileInput.click()">
+                {{ file ? file.name : 'Select' }}
+            </button> -->
+            <span class="btn btn-secondary" *ngIf="!file" (click)="fileInput.click()">
+                <i class="material-icons upload">file_upload</i>
+                Subir Imagen
+            </span>
+            <span class="btn btn-secondary" *ngIf="file" (click)="fileInput.click()">
+                {{file.name}} 
+            </span>
+              <input
+                hidden
+                type="file"
+                #fileInput
+                (change)="imagenEvent(fileInput.files)"
+              />
+            <div class="progress" *ngIf="upload$ | async as download">
+                <div class="progress-bar progress-bar-striped" role="progressbar" [ngStyle]="{'width.%': download.progress}"  aria-valuemin="0" aria-valuemax="100">{{download.progress}}%</div>
+            </div>
         </div>
-        <button type="submit" [disabled]="!registroForm.valid">Actualizar</button>
+        <button class="btn btn-primary" type="submit" [disabled]="!registroForm.valid || status == 'false-imagen'">Actualizar</button>
+        
     </form>
-
+    
 </div>
 
 <app-confirm *ngIf="modal === 'login'" mensaje="No tienes permisos para actualizar este usuario" status="alert"

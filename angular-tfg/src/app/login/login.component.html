@@ -4,9 +4,6 @@
     <div class="alert alert-danger" *ngIf="status == 'false'">
         Ha ocurrido un error al iniciar sesión, compruebe que sus datos han sido introducidos correctamente
     </div>
-    <div *ngIf="status == 'true'">
-        Los datos son correctos
-    </div>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label>Email </label>

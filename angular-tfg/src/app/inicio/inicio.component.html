@@ -8,8 +8,8 @@
     </div>
     <div class="row">
         <div class="col-sm" *ngFor="let peliculaA of peliculasA">
-            <img routerLink='/pelicula/{{peliculaA._id}}' src={{peliculaA.imagen}} alt="Imagen de la pelicula"> <br>
-            <a routerLink='/pelicula/{{peliculaA._id}}'>{{peliculaA.titulo}} </a>
+            <img class="imagen" routerLink='/pelicula/{{peliculaA._id}}' src={{peliculaA.imagen}} alt="Imagen de la pelicula"> <br>
+            <a class="titulo" routerLink='/pelicula/{{peliculaA._id}}'>{{peliculaA.titulo}} </a>
         </div>
     </div>
 </div>
@@ -22,8 +22,8 @@
     </div>
     <div class="row">        
         <div class="col-sm" *ngFor="let peliculaP of peliculasP">
-            <img routerLink='/pelicula/{{peliculaP._id}}' src={{peliculaP.imagen}} alt="Imagen de la pelicula"> <br>
-            <a routerLink='/pelicula/{{peliculaP._id}}'>{{peliculaP.titulo}} </a>
+            <img class="imagen" routerLink='/pelicula/{{peliculaP._id}}' src={{peliculaP.imagen}} alt="Imagen de la pelicula"> <br>
+            <a class="titulo" routerLink='/pelicula/{{peliculaP._id}}'>{{peliculaP.titulo}} </a>
         </div>
     </div>
 </div>

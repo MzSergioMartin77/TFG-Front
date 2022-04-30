@@ -3,6 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Usuario } from '../models/usuario';
 import { UsuarioService } from '../services/usuario.service';
+import { Upload } from './upload';
+import { EMPTY, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-update-perfil',
@@ -24,8 +26,11 @@ export class UpdatePerfilComponent implements OnInit {
   public filesToUpload: Array<File>;
   public url = 'http://localhost:3700/';
   public imagen = false;
-  public modal: String;
+  public modal: String = 'nada';
   public user: String;
+  public progress = 0;
+  file: File | null | undefined;
+  upload$: Observable<Upload> = EMPTY;
 
   constructor(
     private _route: ActivatedRoute,
@@ -75,41 +80,35 @@ export class UpdatePerfilComponent implements OnInit {
     }
   }
 
-  onSubmit() {
-    /*if(this.pass.value != this.confirmPass.value){
-      this.passMatch = 'false';
-    }*/
 
-    console.log(this.nombre.value);
+  onSubmit(){
+    console.log('entra')
+    if(this.imagen){
+      console.log('entra imagen')
+      this.upload$ = this._usuarioService.uploadImagen(this.file,  this.token, this.usuario._id)
+      this.upload$.subscribe(
+        response => {
+          if(response.state == 'SUBIDO'){
+            console.log('subido');
+            this.updateInfo();
+          }
+        }
+      )
+    }else{
+      this.updateInfo();
+    }
+  }
+
+  updateInfo(){
     this._usuarioService.getUpdateUsuario(this.registroForm.value, this.usuario._id, this.token).subscribe(
       response => {
-        console.log(response);
-        if (response.userUpdate) {
-          //Actualizar imagen de perfil
-          if (!this.imagen) {
-            localStorage.setItem('identidad', JSON.stringify(response.userUpdate));
-            this.modal = 'updateUser';
-            //alert('Se han guardado los cambios correctamente');
-            //this._router.navigate(['/perfil']);
-          } else {
-            console.log('cambiar');
-            this._usuarioService.imagenFile(this.url + 'uploadImagen/' + response.userUpdate._id, [], this.filesToUpload, this.token, 'imagen')
-              .then((result: any) => {
-                console.log(result);
-                response.userUpdate.imagen = result.userUpdate.imagen;
-                localStorage.setItem('identidad', JSON.stringify(response.userUpdate));
-                this.modal = 'updateUser';
-                //alert('Se han guardado los cambios correctamente');
-                //this._router.navigate(['/perfil']);
-              });
-          }
-
-        } else {
+        if (response.userUpdate){
+          console.log('nooooooooo')
+          localStorage.setItem('identidad', JSON.stringify(response.userUpdate));
+          this.modal = 'updateUser';
+        }else {
           if (response.message == 'Email-Error') {
             this.status = 'false-email';
-          }
-          else if (response.message == 'Nick-Error') {
-            this.status = 'false-nick';
           }
           else { this.status = 'false' }
         }
@@ -118,13 +117,35 @@ export class UpdatePerfilComponent implements OnInit {
         console.log(<any>error);
       }
     );
-
   }
 
-  fileChangeEvent(fileInput: any) {
-    this.imagen = true;
-    this.filesToUpload = <Array<File>>fileInput.target.files;
+  /*imagenChangeEvent(fileInput: any) {
+    let file = (<HTMLInputElement>fileInput.target.files[0]);
+    
+    if(file.type == "image/jpeg" || file.type == "image/JPEG" || file.type == "image/jpg" || file.type == "image/JPG"
+      || file.type == "image/png" || file.type == "image/PNG" || file.type == "image/gif" || file.type == "image/GIF"){
+        this.status = "imagen";
+        this.imagen = true;
+        this.filesToUpload = <Array<File>>fileInput.target.files;
+      } else {
+        this.status = "false-imagen";
+      }
+  }*/
+
+  imagenEvent(files: FileList) {
+    console.log('imagen');
+    this.status = "imagen";
+    let file = files[0];
+    if(file.type == "image/jpeg" || file.type == "image/JPEG" || file.type == "image/jpg" || file.type == "image/JPG"
+      || file.type == "image/png" || file.type == "image/PNG" || file.type == "image/gif" || file.type == "image/GIF"){
+        this.file = files.item(0);
+        this.imagen = true;
+      } else {
+        this.status = "false-imagen";
+      }
   }
+
+
 
   get nombre() { return this.registroForm.get('nombre'); }
   //get nick() { return this.registroForm.get('nick'); }

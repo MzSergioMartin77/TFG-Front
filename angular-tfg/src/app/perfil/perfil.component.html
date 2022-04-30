@@ -7,26 +7,34 @@
             <div *ngIf="usuario.imagen != null">
                 <img class="img-thumbnail" src="{{url+'getImagen/'+usuario.imagen}}" alt="Imagen del usuario">
             </div>
-            <button routerLink='/updatePerfil/{{usuario._id}}'>Modificar Perfil</button>
-            <button (click)=recomendador()>Recomendaciones</button>
+            <button class="btn btn-primary" routerLink='/updatePerfil/{{usuario._id}}'>Modificar Perfil</button>
+            <button class="btn btn-primary" (click)=recomendador()>Recomendaciones</button>
         </div>
         <div class="col-sm-4">
             <h1>Bienvenido {{usuario.nombre}}</h1>
-            <p> Nick: {{usuario.nick}}</p>
-            <p>Email: {{usuario.email}}</p>
-            <p>Descripción: {{usuario.descripcion}}</p>
-            <p>Seguidos:</p>
-            <ul>
-                <li *ngFor="let seguido of usuario.seguidos">
-                    <a routerLink='/usuario/{{seguido.usuario}}'>{{seguido.nick}}</a>
-                </li>
-            </ul>
-            <p>Seguidores:</p>
-            <ul>
-                <li *ngFor="let seguidores of usuario.seguidores">
-                    <a routerLink='/usuario/{{seguidores.usuario}}'>{{seguidores.nick}}</a>
-                </li>
-            </ul>
+            <p>{{usuario.nick}}</p>
+            <p>{{usuario.email}}</p>
+            <p *ngIf="usuario.descripcion">{{usuario.descripcion}}</p>
+            <div class="btn-group">
+                <div class="dropdown">   
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">Seguidos</button>
+                <ul class="dropdown-menu">
+                    <li *ngFor="let seguido of usuario.seguidos">
+                        <a class="dropdown-item" routerLink='/usuario/{{seguido.usuario}}'>{{seguido.nick}}</a>
+                    </li>
+                </ul>
+                </div>
+                <div class="dropdown"> 
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">Seguidores</button>
+                <ul class="dropdown-menu">
+                    <li *ngFor="let seguidores of usuario.seguidores">
+                        <a class="dropdown-item" routerLink='/usuario/{{seguidores.usuario}}'>{{seguidores.nick}}</a>
+                    </li>
+                </ul>
+                </div>
+            </div>
         </div>
     </div>
     <div class="critica" *ngIf="status == true">
@@ -47,7 +55,7 @@
         </ul>
     </div>
     <div class="critica">
-        <h2>Crítica de películas: </h2>
+        <h2>Críticas de películas: </h2>
         <ul>
             <li *ngFor="let pelicula of usuario.peliculas">
                 <img routerLink='/pelicula/{{pelicula.pelicula}}' src="{{pelicula.imagen}}" alt="Imagen de la película">

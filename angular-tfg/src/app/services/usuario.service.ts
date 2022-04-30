@@ -2,6 +2,7 @@ import { Injectable, Type } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Usuario } from '../models/usuario';
+import { Upload, upload } from '../update-perfil/upload';
 
 @Injectable({
   providedIn: 'root'
@@ -124,6 +125,20 @@ export class UsuarioService {
       xhr.setRequestHeader('Authorization', token);
       xhr.send(formData)
     })
+  }
+
+  uploadImagen(file: File, token: string, usuarioId): Observable<any>{
+    let headers = new HttpHeaders().set('Authorization', token);
+    
+    var data = new FormData();
+    data.append('file', file);
+    return this._http
+      .post(this.url+'uploadImagen/'+usuarioId, data, {
+        headers:headers,
+        reportProgress: true,
+        observe: 'events'
+      })
+      .pipe(upload());
   }
 
 }
