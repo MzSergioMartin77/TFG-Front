@@ -37,6 +37,7 @@ export class AddCriticaSerieComponent implements OnInit {
     } else {
       this._route.params.subscribe(params => {
         this.serieId = params.id;
+        this.getCritica();
       });
       this.token = this._usuarioService.getToken();
       this.criticaForm = this.fb.group({

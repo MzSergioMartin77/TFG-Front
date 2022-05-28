@@ -14,12 +14,12 @@
         <h2 *ngIf="series" class="col-sm">{{series.length}}</h2> 
     </span>
 
-    <span  type="button" class="row .btn btn-primary">
+    <span  type="button" class="row .btn btn-primary" (click)="tipos = 'profesional'">
         <h2 class="col-sm">Profesionales</h2> 
         <h2 *ngIf="profesionales" class="col-sm">{{profesionales.length}}</h2> 
     </span>
 
-    <span  type="button" class="row .btn btn-primary">
+    <span  type="button" class="row .btn btn-primary" (click)="tipos = 'usuario'">
         <h2 class="col-sm">Usuarios</h2> 
         <h2 *ngIf="usuarios" class="col-sm">{{usuarios.length}}</h2> 
     </span>
@@ -49,7 +49,15 @@
 
 <div class="row" *ngIf="tipos == 'all' || tipos == 'usuario'">
     <div class="col-sm" *ngFor="let usuario of usuarios">
-        <a routerLink='/usuario/{{usuario._id}}'>{{usuario.nick}}</a>
+        <div *ngIf="usuario.imagen === null">
+            <img class="img-thumbnail" src="../../assets/perfil.png" alt="No sale"> <br>
+            <a routerLink='/usuario/{{usuario._id}}'>{{usuario.nick}}</a> <br>
+        </div>
+        <div *ngIf="usuario.imagen != null">
+            <img routerLink='/usuario/{{usuario._id}}' src="{{imagenUser+usuario.imagen}}" alt="Imagen del usuario"> <br>
+            <a routerLink='/usuario/{{usuario._id}}'>{{usuario.nick}}</a> <br>
+        </div>
+        
     </div>
 </div>
 </div>

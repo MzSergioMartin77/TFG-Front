@@ -23,6 +23,7 @@ export class BuscadorComponent implements OnInit, DoCheck {
   public profesionales: Profesional[];
   public titulo: String;
   public prevTitulo: String;
+  public imagenUser = 'http://localhost:3700/getImagen/';
   public status = 'false';
   public tipos = 'all';
   public generos = ['comedia','drama','accion','aventura','romance','suspense','animacion','familia','fantasia',

@@ -17,79 +17,79 @@
             <label class="form-label">Nombre: </label>
             <input type="text" class="form-control" id="nombre" name="nombre" formControlName="nombre" required>
             <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-danger">
-                <mat-error *ngIf="nombre.errors.required">
+                <span *ngIf="nombre.errors.required">
                     El nombre es obligatorio
-                </mat-error>
-                <mat-error *ngIf="nombre.errors.maxlength">
+                </span>
+                <span *ngIf="nombre.errors.maxlength">
                     El nombre debe de terner menos de 50 carácteres
-                </mat-error>
+                </span>
             </div>
         </div>
         <div class="form-group">
             <label>Nombre de usuario: </label>
             <input type="text" class="form-control" id="nick" name="nick" formControlName="nick">
             <div *ngIf="nick.invalid && (nick.dirty || nick.touched)" class="alert alert-danger">
-                <mat-error *ngIf="nick.errors.required">
+                <span *ngIf="nick.errors.required">
                     El nombre de usuario es obligatorio
-                </mat-error>
-                <mat-error *ngIf="nick.errors.maxlength">
+                </span>
+                <span *ngIf="nick.errors.maxlength">
                     El nombre de usuario debe de tener al menos 50 carácteres <br>
-                </mat-error>
+                </span>
             </div>
         </div>
         <div class="form-group">
             <label>Email: </label>
             <input type="email" class="form-control" id="email" name="email" formControlName="email">
             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
-                <mat-error *ngIf="email.errors.required">
+                <span *ngIf="email.errors.required">
                     El email es obligatorio
-                </mat-error>
-                <mat-error *ngIf="email.errors.email">
-                    El email no es valido
-                </mat-error>
+                </span>
+                <span *ngIf="email.errors.email">
+                    El email no es correcto
+                </span>
             </div>
         </div>
         <div class="form-group">
             <label>Contraseña: </label>
             <input type="password" class="form-control" id="pass" name="pass" formControlName="pass">
             <div *ngIf="pass.invalid && (pass.dirty || pass.touched)" class="alert alert-danger">
-                <mat-error *ngIf="pass.errors.required">
+                <span *ngIf="pass.errors.required">
                     La contraseña es obligatoria
-                </mat-error>
-                <mat-error *ngIf="pass.errors.minlength">
+                </span>
+                <span *ngIf="pass.errors.minlength">
                     La contraseña debe de tener al menos 8 carácteres <br>
-                </mat-error>
-                <mat-error *ngIf="pass.errors.maxLength">
+                </span>
+                <span *ngIf="pass.errors.maxLength">
                     La contraseña no puede tener más de 50 carácteres
-                </mat-error>
-                <mat-error *ngIf="pass.errors.pattern">
+                </span>
+                <span *ngIf="pass.errors.pattern">
                     La contraseña debe contener al menos una mayúscula, una minúscula y un número
-                </mat-error>
+                </span>
             </div>
         </div>
         <div class="form-group">
             <label>Confirmar Contraseña: </label>
             <input type="password" class="form-control" id="confirmPass" formControlName="confirmPass">
             <div *ngIf="confirmPass.invalid && (confirmPass.dirty || confirmPass.touched)" class="alert alert-danger">
-                <mat-error *ngIf="confirmPass.errors.required">
+                <span *ngIf="confirmPass.errors.required">
                     La confrimación de la contraseña es obligatoria
-                </mat-error>
+                </span>
             </div>
         </div>
-        <mat-error class="message_fail" *ngIf="passMatch == 'false'">
+        <div class="alert alert-danger" *ngIf="passMatch == 'false'">
             Las contraseñas no son iguales
-        </mat-error>
+        </div>
         <div class="form-group">
             <label>(Opcional) Descripción: </label>
             <textarea type="text" class="form-control" id="descripcion" name="descripcion"
                 formControlName="descripcion"></textarea>
             <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)" class="alert alert-danger">
-                <mat-error *ngIf="descripcion.errors.minlength">
+                <span *ngIf="descripcion.errors.minlength">
                     La descripción debe de tener como mínimo 8 carácteres
-                </mat-error>
-                <mat-error *ngIf="descripcion.errors.maxlength">
+                </span>
+                <span *ngIf="descripcion.errors.maxlength">
                     La descripción no puede tener más 500 carácteres
-                </mat-error>
+                </span>
             </div>
         </div>
         <button class="btn btn-primary" type="submit" [disabled]="!registroForm.valid">Registrarse</button>

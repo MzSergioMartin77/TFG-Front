@@ -103,7 +103,7 @@ export class UsuarioService {
     return this._http.get(this.url+'recomendaciones/'+usuarioId, {headers:headers});
   }
 
-  imagenFile(url: string, params: Array<string>, files: Array<File>, token: string, name: string){
+  /*imagenFile(url: string, params: Array<string>, files: Array<File>, token: string, name: string){
     return new Promise(function(resolve, reject){
       var formData: any = new FormData();
       var xhr =  new XMLHttpRequest();
@@ -125,7 +125,7 @@ export class UsuarioService {
       xhr.setRequestHeader('Authorization', token);
       xhr.send(formData)
     })
-  }
+  }*/
 
   uploadImagen(file: File, token: string, usuarioId): Observable<any>{
     let headers = new HttpHeaders().set('Authorization', token);
