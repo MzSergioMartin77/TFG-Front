@@ -21,12 +21,27 @@ h1{
 
 .nota{
     padding: 20px;
-    color: white;
     border-radius: 10px;
     font-size: x-large;
     border: solid 1.5px black;
     display: flex;
     justify-content: space-between;
+    width: 70%;
+}
+
+.nota select{
+    width: 90%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: large;
+}
+
+.nota-m{
+    padding: 20px;
+    color: white;
+    border-radius: 10px;
+    font-size: x-large;
+    border: solid 1.5px black;
 }
 
 .nota label{
@@ -56,6 +71,17 @@ h1{
     list-style: none;
 }
 
+
+.botones .botonA{
+    text-decoration: underline;
+    color: blue;
+}
+
+.botones .boton:hover{
+    color: blue;
+    cursor: pointer;
+}
+
 .actor{
   margin: 20px;
   list-style: none;
@@ -76,30 +102,103 @@ h1{
     cursor: pointer;
 }
 
-.evaluar{
+.botones{
     border: solid black 1px;
-}
-
-.evaluar .botones{
+    margin-top: 20px;
     display: flex;
     padding: 10px;
+    margin-bottom: 10px;
 }
 
-.evaluar .botones p{
+.botones p{
     margin-left: 20px;
     margin-right: 20px;
 }
 
-.evaluar .botones .boton:hover{
+.botones .boton:hover{
     color: blue;
     cursor: pointer;
 }
 
+.criticaUser{
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 50px;
+    text-align: center;
+}
+
+.criticaUser h2{
+    font-size: 24px;
+}
+
+.criticaUser p{
+    margin: 15px 60px 5px 60px;
+    text-align: left;
+}
+
+.criticaUser button{
+    margin: 25px;
+}
+
 .criticas{
-    border: solid black 1px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.critica{
+    margin: 15px;
+    border-bottom: solid black 1px;
+    padding: 20px;
+}
+
+.critica a{
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.critica h2{
+    font-size: 24px;
+}
+
+.notaC {
+    font-size: 25px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 .col{
     flex-grow: 0;
 }
 
+.texto{
+    width: 100%;
+}
+
+.comentarios{
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgb(231, 228, 228);
+    border-radius: 10px;
+}
+
+.comentario{
+    margin: 15px;
+    margin-bottom: 30px;
+}
+
+.comentarios i{
+    vertical-align: middle;
+    margin: 5px;
+}
+
+.nick{
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.comText{
+    font-size: 15px;
+}

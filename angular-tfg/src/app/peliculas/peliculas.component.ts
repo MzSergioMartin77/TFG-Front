@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Pelicula } from '../models/pelicula';
 import { PeliculaService } from '../services/pelicula.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -23,12 +23,12 @@ export class PeliculasComponent implements OnInit {
   public usuario: Usuario;
   public status: String;
   public newComentario: Object;
-  public upComentatio: String;
+  public upComentario: String;
   public peliculaId: String;
   public token: String;
   public comentarioForm: FormGroup;
-  public texto = new FormControl('');
-  public uptexto = new FormControl('');
+  public texto = new FormControl('', [Validators.maxLength(250)]);
+  public uptexto = new FormControl('', [Validators.maxLength(250)]);
   public nota = new FormControl();
   public criticaUsuario = false;
   public miCritica: Object;
@@ -36,6 +36,9 @@ export class PeliculasComponent implements OnInit {
   public generos: String;
   public newNota: Object;
   public modal: String;
+  public comentarioDel: String;
+  public aux = false;
+  @ViewChild("inputUpdate") inputUpdate: ElementRef;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -43,7 +46,8 @@ export class PeliculasComponent implements OnInit {
     private _profesionalService: ProfesionalService,
     private _usuarioService: UsuarioService,
     private _route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private render: Renderer2
   ) { }
 
   ngOnInit(): void {
@@ -55,6 +59,8 @@ export class PeliculasComponent implements OnInit {
     this.usuario = this._usuarioService.getIdentidad();
     this.token = this._usuarioService.getToken();
   }
+
+
 
   usuarioPelicula() {
     for (let i = 0; i < this.pelicula.criticas.length; i++) {
@@ -130,10 +136,6 @@ export class PeliculasComponent implements OnInit {
     )
   }
 
-  getProfesional(nombre) {
-    this.getProfesionalN(nombre);
-  }
-
   addCritica() {
     //this.usuario = this._usuarioService.getIdentidad();
     if (this.usuario == null) {
@@ -201,6 +203,9 @@ export class PeliculasComponent implements OnInit {
         if (response.message == 'Eliminada') {
           this.modal = 'deleteNota';
         }
+        if (response.message == 'Error-nota') {
+          this.modal = 'errorNota';
+        }
       },
       error => {
         console.log(<any>error);
@@ -256,7 +261,7 @@ export class PeliculasComponent implements OnInit {
             console.log(response);
             if (response.message == 'Modificado') {
               console.log('nada');
-              this.upComentatio = null;
+              this.upComentario = null;
               window.location.reload();
             }
           },
@@ -268,10 +273,14 @@ export class PeliculasComponent implements OnInit {
     }
   }
 
-  deleteComentario(comentario) {
+  modalEliminar(comentario) {
+    this.comentarioDel = comentario;
+    this.modal = 'eliminarComentario';
+  }
+
+  deleteComentario() {
     //if(window.confirm('¿Estas seguro de eliminar el comentario?')){
-    console.log('borrar');
-    this._peliculaService.deleteComentario(this.peliculaId, this.usuario._id, comentario, this.token).subscribe(
+    this._peliculaService.deleteComentario(this.peliculaId, this.usuario._id, this.comentarioDel, this.token).subscribe(
       response => {
         if (response.message == 'Eliminado') {
           //alert('El comentario se ha eliminado correctamente');
@@ -282,6 +291,31 @@ export class PeliculasComponent implements OnInit {
         console.log(<any>error);
       }
     )
+
+  }
+
+  comentarioUp(comentarioId) {
+    console.log('up');
+    /*this.comentarioText.nativeElement.style.display = "none";
+    this.inputUpdate.nativeElement.style.display = "block";*/
+    this.upComentario = comentarioId;
+    this.aux = false;
+  }
+
+  @HostListener('window:click', ['$event'])
+  displayUpdate(event) {
+    if (this.upComentario) {
+      console.log(this.inputUpdate.nativeElement);
+      let objetivo = event.target.parentNode;
+      console.log("-------");
+      console.log(objetivo);
+      if (objetivo != this.inputUpdate.nativeElement) {
+        if (this.aux) {
+          this.upComentario = null;
+        }
+        this.aux = true;
+      }
+    }
 
   }
 
