@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { Serie } from '../models/serie';
 import { SerieService } from '../services/serie.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -23,12 +23,12 @@ export class SeriesComponent implements OnInit {
   public usuario: Usuario;
   public status: String;
   public newComentario: Object;
-  public upComentatio: String;
+  public upComentario: String;
   public serieId: String;
   public token: String;
   public comentarioForm: FormGroup;
-  public texto = new FormControl('');
-  public uptexto = new FormControl('');
+  public texto = new FormControl('', [Validators.maxLength(250)]);
+  public uptexto = new FormControl('', [Validators.maxLength(250)]);
   public nota = new FormControl();
   public criticaUsuario = false;
   public miCritica: Object;
@@ -36,6 +36,9 @@ export class SeriesComponent implements OnInit {
   public generos: String;
   public newNota: Object;
   public modal: String;
+  public comentarioDel: String;
+  public aux = false;
+  @ViewChild("inputUpdate") inputUpdate: ElementRef;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -197,6 +200,12 @@ export class SeriesComponent implements OnInit {
           //this.reloadUsuario();
           this.modal = 'addNota';
         }
+        if (response.message == 'Eliminada') {
+          this.modal = 'deleteNota';
+        }
+        if (response.message == 'Error-nota') {
+          this.modal = 'errorNota';
+        }
       },
       error => {
         console.log(<any>error);
@@ -205,27 +214,27 @@ export class SeriesComponent implements OnInit {
   }
 
   addComentario(): void{
-    if(this.usuario == null){
-      //alert("Necesitas iniciar sesión");
-      //this._router.navigate(['/login']);
-      this.modal = 'userComentario';
-    }else{
-      this.newComentario = {
-        texto: this.texto.value,
-        usuarioId: this.usuario._id,
-        serieId: this.serieId
-      }
-      this._serieService.saveComentario(this.newComentario, this.token).subscribe(
-        response => {
-          console.log(response);
-          if (response.message == 'Guardado') {
-            window.location.reload(); 
-          }
-        },
-        error => {
-          console.log(<any>error);
+    if (this.texto.value != ""){
+      if(this.usuario == null){
+        this.modal = 'userComentario';
+      }else{
+        this.newComentario = {
+          texto: this.texto.value,
+          usuarioId: this.usuario._id,
+          serieId: this.serieId
         }
-      );
+        this._serieService.saveComentario(this.newComentario, this.token).subscribe(
+          response => {
+            console.log(response);
+            if (response.message == 'Guardado') {
+              window.location.reload(); 
+            }
+          },
+          error => {
+            console.log(<any>error);
+          }
+        );
+      }
     }
     
   }
@@ -249,7 +258,7 @@ export class SeriesComponent implements OnInit {
             console.log(response);
             if (response.message == 'Modificado') {
               console.log('nada');
-              this.upComentatio = null;
+              this.upComentario = null;
               window.location.reload(); 
             }
           },
@@ -261,10 +270,15 @@ export class SeriesComponent implements OnInit {
     }
   }
 
-  deleteComentario(comentario){
+  modalEliminar(comentario) {
+    this.comentarioDel = comentario;
+    this.modal = 'eliminarComentario';
+  }
+
+  deleteComentario(){
     //if(window.confirm('¿Estas seguro de eliminar el comentario?')){
       console.log('borrar');
-      this._serieService.deleteComentario(this.serieId, this.usuario._id, comentario, this.token).subscribe(
+      this._serieService.deleteComentario(this.serieId, this.usuario._id, this.comentarioDel, this.token).subscribe(
         response => {
           if(response.message == 'Eliminado'){
             //alert('El comentario se ha eliminado correctamente');
@@ -275,7 +289,31 @@ export class SeriesComponent implements OnInit {
           console.log(<any>error);
         }
       )
+  }
+
+  comentarioUp(comentarioId) {
+    console.log('up');
+    /*this.comentarioText.nativeElement.style.display = "none";
+    this.inputUpdate.nativeElement.style.display = "block";*/
+    this.upComentario = comentarioId;
+    this.aux = false;
+  }
+
+  @HostListener('window:click', ['$event'])
+  displayUpdate(event) {
+    if (this.upComentario) {
+      console.log(this.inputUpdate.nativeElement);
+      let objetivo = event.target.parentNode;
+      console.log("-------");
+      console.log(objetivo);
+      if (objetivo != this.inputUpdate.nativeElement) {
+        if (this.aux) {
+          this.upComentario = null;
+        }
+        this.aux = true;
+      }
     }
-  
+
+  } 
 
 }

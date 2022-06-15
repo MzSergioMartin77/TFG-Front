@@ -41,12 +41,12 @@
             <!--<ul class="list" *ngFor="let genero of pelicula.generos">
                 <li class="list-item">{{genero}}</li>
             </ul> -->
-            <span>
-                <p>Directores:</p>
+            
+                
                 <p *ngFor="let director of pelicula.directores">
-                    <a (click)=getProfesionalN(director)>{{director}}</a>
+                    <a (click)=getProfesionalN(director)>Directore:  {{director}}</a>
                 </p>
-            </span>
+            
             <div *ngIf="pelicula.plataformas.length >= 1">
                 <h3>Donde puedes verlo:</h3>
                 <ul class="row">

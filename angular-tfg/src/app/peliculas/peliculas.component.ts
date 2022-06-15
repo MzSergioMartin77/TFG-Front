@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Pelicula } from '../models/pelicula';
 import { PeliculaService } from '../services/pelicula.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -46,8 +46,7 @@ export class PeliculasComponent implements OnInit {
     private _profesionalService: ProfesionalService,
     private _usuarioService: UsuarioService,
     private _route: ActivatedRoute,
-    private _router: Router,
-    private render: Renderer2
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
@@ -229,7 +228,6 @@ export class PeliculasComponent implements OnInit {
           response => {
             console.log(response);
             if (response.message == 'Guardado') {
-              console.log('nada');
               window.location.reload();
             }
           },
@@ -239,7 +237,6 @@ export class PeliculasComponent implements OnInit {
         );
       }
     }
-    console.log('vacio')
   }
 
   updateComentario(comentario): void {

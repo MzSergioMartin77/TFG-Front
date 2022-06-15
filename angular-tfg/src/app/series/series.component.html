@@ -7,18 +7,17 @@
             <h1>{{serie.titulo}}</h1>
             <div class="nota">
                 <div class="nota-cont" *ngIf="serie.nota_media != null">
-                    <span *ngIf="serie.nota_media > 6" class="nota gr">
+                    <span *ngIf="serie.nota_media > 6" class="nota-m gr">
                         {{serie.nota_media}}
                     </span>
-                    <span *ngIf="serie.nota_media <= 6 && pelicula.nota_media > 4" class="nota ye">
+                    <span *ngIf="serie.nota_media <= 6 && serie.nota_media > 4" class="nota-m ye">
                         {{serie.nota_media}}
                     </span>
-                    <span *ngIf="serie.nota_media <= 4" class="nota red">
+                    <span *ngIf="serie.nota_media <= 4" class="nota-m red">
                         {{serie.nota_media}}
                     </span>
                 </div>
                 <div *ngIf="usuario">
-                    <label>Tu nota</label>
                     <select class="form-control" value="nota" [formControl]="nota" name="nota" id="nota">
                         <option>No vista</option>
                         <option>1</option>
@@ -32,21 +31,19 @@
                         <option>9</option>
                         <option>10</option>
                     </select>
-                    <button (click)=addNota()>Puntuar</button>
+                    <button class="btn btn-primary" (click)=addNota()>Puntuar</button>
                 </div>
             </div>
-            <p>Inicio: {{serie.inicio | date:"dd/MM/yyyy"}}</p>
-            <p>Final: {{serie.final | date:"dd/MM/yyyy"}}</p>
+            <p>{{serie.inicio | date:"dd/MM/yyyy"}} | {{serie.final | date:"dd/MM/yyyy"}}</p>
             <p>{{serie.sinopsis}}</p>
             <p>Generos: {{generos}}</p>
             <p>Temporadas: {{serie.temporadas}}</p>
             <p>Capitulos: {{serie.capitulos}}</p>
-            <span class="row">
-                <p class="col-sm">Creadores:</p>
-                <p class="col-sm" *ngFor="let creador of serie.creadores">
-                    <a (click)=getProfesional(creador)>{{creador}}</a>
-                </p>
-            </span>
+
+            <p *ngFor="let creador of serie.creadores">
+                <a (click)=getProfesional(creador)>Creador:  {{creador}}</a>
+            </p>
+
             <div *ngIf="serie.plataformas.length >= 1">
                 <h3>Donde verlo:</h3>
                 <ul class="row">
@@ -75,76 +72,111 @@
                 allowfullscreen></iframe>
         </div>
     </div>
-</div>
-
-<div *ngIf="criticaUsuario == true">
-    <h2>Mi Crítica</h2>
-    <p>{{miCritica.titulo}}</p>
-    <p>{{miCritica.nota}}</p>
-    <p [innerHTML]="miCritica.texto"></p>
-    <button (click)="modal = 'eliminarCritica'">Eliminar</button>
-    <button routerLink="/updatecriticaS/{{serie._id}}/{{miCritica._id}}">Modificar</button>
-</div>
-
-<app-confirm *ngIf="modal === 'eliminarCritica'" mensaje="¿Estas seguro de eliminar la crítica?" status="confirm"
-    (noButton)="modal = null" (yesButton)="deleteCritica()"></app-confirm>
 
 
-<div class="evaluar">
-    <div class="botones">
-        <p class="boton" (click)="status = 'critica'">Críticas</p>
-        <p> | </p>
-        <p class="boton" (click)="status = 'comentario'">Comentarios</p>
+    <div class="criticaUser" *ngIf="criticaUsuario == true">
+
+        <h2>{{miCritica.titulo}}</h2>
+        <p class="notaC">{{miCritica.nota}}</p>
+        <p [innerHTML]="miCritica.texto"></p>
+        <button class="btn btn-primary" (click)="modal = 'eliminarCritica'">Eliminar</button>
+        <button class="btn btn-primary" routerLink="/updatecriticaP/{{serie._id}}/{{miCritica._id}}">Modificar</button>
     </div>
-    <div *ngIf="status == 'critica'" class="criticas">
-        <button *ngIf="criticaUsuario == false" (click)=addCritica()>Escribir crítica</button>
-        <div>
-            <p>Críticas: </p>
-            <li *ngFor="let critica of serie.criticas">
-                <div *ngIf="critica.texto != null">
-                    <h2>{{critica.titulo}}</h2>
-                    <p>{{critica.nota}}</p>
-                    <a routerLink='/usuario/{{critica.usuario}}'>{{critica.nick}}</a>
-                    <p [innerHTML]="critica.texto"></p>
+
+    <app-confirm *ngIf="modal === 'eliminarCritica'" mensaje="¿Estas seguro de eliminar la crítica?" status="confirm"
+        (noButton)="modal = null" (yesButton)="deleteCritica()"></app-confirm>
+
+    <div class="evaluar">
+        <div *ngIf="status == 'critica'">
+            <div class="botones">
+                <p class="botonA">Críticas</p>
+                <p> | </p>
+                <p class="boton" (click)="status = 'comentario'">Comentarios</p>
+            </div>
+            <button class="btn btn-primary" *ngIf="criticaUsuario == false" (click)=addCritica()>Escribir
+                crítica</button>
+            <div class="criticas">
+                <div *ngFor="let critica of serie.criticas">
+                    <div class="row critica" *ngIf="critica.texto != null">
+                        <div class="col-sm-3">
+                            <a routerLink='/usuario/{{critica.usuario}}'>{{critica.nick}}</a>
+                            <p class="notaC">{{critica.nota}}</p>
+                        </div>
+                        <div class="col-sm">
+                            <h2>{{critica.titulo}}</h2>
+                            <p [innerHTML]="critica.texto"></p>
+                        </div>
+                    </div>
                 </div>
-            </li>
+            </div>
         </div>
-    </div>
-    <div *ngIf="status == 'comentario'" class="comentario">
-        <input type="text" id="texto" name="texto" [formControl]="texto" placeholder="Escribe un comentario"
-            maxlength="250">
-        <mat-error *ngIf="texto.invalid">
-            No se puede escribir un comentario de más de 250 carácteres
-        </mat-error>
-        <button (click)=addComentario()>Comentar</button>
-        <div>
-            <p>Comentarios: </p>
-            <li *ngFor="let comentario of serie.comentarios">
-                <div *ngIf="comentario.usuario != usuario._id">
+        <div *ngIf="status == 'comentario'">
+            <div class="botones">
+                <p class="boton" (click)="status = 'critica'">Críticas</p>
+                <p> | </p>
+                <p class="botonA">Comentarios</p>
+            </div>
+
+            <textarea class="texto" type="text" id="texto" name="texto" [formControl]="texto"
+                placeholder="Escribe un comentario"> </textarea>
+            <div *ngIf="texto.invalid" class="alert alert-danger">
+                <span *ngIf="texto.errors.maxlength">
+                    El comentario no pude ser mayor de 250 carácteres
+                </span>
+            </div>
+            <button class="btn btn-primary" [disabled]="texto.invalid" (click)=addComentario()>Comentar</button>
+
+            <div *ngIf="usuario" class="comentarios">
+                <div *ngFor="let comentario of serie.comentarios">
+                    <div #inputUpdate *ngIf="upComentario === comentario._id" class="comentario">
+                        <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span
+                                *ngIf="comentario.editado">(Editado)</span> </p>
+                        <textarea class="texto" type="text" id="uptexto" name="uptexto" [formControl]="uptexto"
+                            value="{{comentario.texto}}"> </textarea>
+                        <div *ngIf="uptexto.invalid" class="alert alert-danger">
+                            <span *ngIf="uptexto.errors.maxlength">
+                                El comentario no pude ser mayor de 250 carácteres
+                            </span>
+                        </div>
+                        <button class="btn btn-primary" [disabled]="uptexto.invalid"
+                            (click)=updateComentario(comentario._id)>Modificar</button>
+                    </div>
+                    <div *ngIf="comentario.usuario != usuario._id" class="comentario">
+                        <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span
+                                *ngIf="comentario.editado"> (Editado)</span> </p>
+                        <p class="comText">{{comentario.texto}}</p>
+                    </div>
+                    <div *ngIf="upComentario && upComentario != comentario._id && comentario.usuario === usuario._id"
+                        class="comentario">
+                        <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span
+                                *ngIf="comentario.editado"> (Editado)</span> </p>
+                        <p class="comText">{{comentario.texto}}</p>
+                    </div>
+                    <div *ngIf="!upComentario && comentario.usuario === usuario._id" class="comentario">
+                        <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span
+                                *ngIf="comentario.editado"> (Editado)</span> </p>
+                        <p>
+                            <span class="comText" (click)="comentarioUp(comentario._id)"> {{comentario.texto}} </span>
+                            <i (click)="modalEliminar(comentario._id)"
+                                class="material-icons btn-delete">delete_outline</i>
+                        </p>
+
+                        <app-confirm *ngIf="modal === 'eliminarComentario'"
+                            mensaje="¿Estas seguro de eliminar el comentario?" status="confirm"
+                            (noButton)="modal = null" (yesButton)="deleteComentario()"></app-confirm>
+                    </div>
+
+                </div>
+            </div>
+
+            <div *ngIf="!usuario" class="comentarios">
+                <div *ngFor="let comentario of serie.comentarios">
                     <p>{{comentario.nick}} <span *ngIf="comentario.editado">(Editado)</span> </p>
                     <p>{{comentario.texto}}</p>
                 </div>
-                <div *ngIf="!upComentario && comentario.usuario === usuario._id">
-                    <p>{{comentario.nick}} <span *ngIf="comentario.editado">(Editado)</span> </p>
-                    <i (click)="modal  = 'eliminarComentario'" class="material-icons btn-delete">delete_outline</i>
-                    <p (click)="upComentario = comentario._id">{{comentario.texto}}</p>
-
-                    <app-confirm *ngIf="modal === 'eliminarComentario'"
-                        mensaje="¿Estas seguro de eliminar el comentario?" status="confirm" (noButton)="modal = null"
-                        (yesButton)="deleteComentario(comentario._id)"></app-confirm>
-                </div>
-                <div *ngIf="upComentario === comentario._id">
-                    <p>{{comentario.nick}} <span *ngIf="comentario.editado">(Editado)</span> </p>
-                    <input type="text" id="uptexto" name="uptexto" [formControl]="uptexto" value="{{comentario.texto}}"
-                        maxlength="250" minlength="10">
-                    <mat-error *ngIf="uptexto.invalid">
-                        No se puede escribir un comentario de más de 250 carácteres y de menos de 10 carácteres
-                    </mat-error>
-
-                    <button (click)=updateComentario(comentario._id)>Modificar</button>
-                </div>
-            </li>
+            </div>
         </div>
+
     </div>
 </div>
 
@@ -162,3 +194,7 @@
 
 <app-confirm *ngIf="modal === 'userComentario'" mensaje="Necesitas iniciar sesión para escribir un comentario"
     status="alert" (aceptButton)="_router.navigate(['/login'])"></app-confirm>
+
+<app-confirm *ngIf="modal === 'errorNota'"
+    mensaje="No puedes quitar la nota de una serie donde tengas una crítica escrita" status="alert"
+    (aceptButton)="modal = null"></app-confirm>

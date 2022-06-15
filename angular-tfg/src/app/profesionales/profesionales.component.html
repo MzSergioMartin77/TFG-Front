@@ -1,26 +1,32 @@
-<h1>Información</h1>
 <div class="container">
-    <div class="imagen">
-        <img src="{{profesional.imagen}}" alt="Imagen del cartel de la película">
+    <div class="row">
+        <div class="col-sm">
+            <img class="img-fluid" src="{{profesional.imagen}}" alt="Imagen del cartel de la película">
+        </div>
+
+        <div class="col-sm">
+            <h1>{{profesional.nombre}}</h1>
+            <p>{{profesional.fecha_nacimiento | date:"dd/MM/yyyy"}}</p>
+            <p>{{profesional.biografia}}</p>
+        </div>
     </div>
-    <div class="datos">
-        <h2>{{profesional.nombre}}</h2>
-        <p>Fecha de nacimiento: {{profesional.fecha_nacimiento | date:"dd/MM/yyyy"}}</p>
-        <p>{{profesional.biografia}}</p>
-    </div>
-   <div class="filmografia">
-        <p>Filmografía:</p>
-        <li *ngFor="let filmografia of profesional.filmografia">
-            <div *ngIf="filmografia.tipo == 'Película'">
-                <h2>Película</h2>
-                <a (click) = getPelicula(filmografia.titulo)>{{filmografia.titulo}}</a>
+
+    <div class="filmografia">
+        <h2>Filmografía:</h2>
+        <li class="list-item" *ngFor="let filmografia of profesional.filmografia">
+            <div class="row">
+                <span class="col-sm" *ngIf="filmografia.tipo == 'Película'">
+                    <a (click)=getPelicula(filmografia.titulo)>{{filmografia.titulo}}  (Película)</a>
+                </span>
+                <div class="col-sm" *ngIf="filmografia.tipo == 'Serie'">
+                    <a (click)=getSerie(filmografia.titulo)>{{filmografia.titulo}}  (Serie)</a>
+                </div>
+                <p class="col-sm esp">...................</p>
+                <div class="col-sm">
+                    <p>{{filmografia.personaje}}  ({{filmografia.rol}})</p>
+                </div>
             </div>
-            <div *ngIf="filmografia.tipo == 'Serie'">
-                <h2>Serie</h2>
-                <a (click) = getSerie(filmografia.titulo)>{{filmografia.titulo}}</a>
-            </div>    
-            <p>{{filmografia.rol}}</p>
-            <p>{{filmografia.personaje}}</p>
         </li>
-    </div> 
+    </div>
+
 </div>
