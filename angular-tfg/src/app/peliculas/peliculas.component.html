@@ -5,6 +5,7 @@
         </div>
         <div class="col-sm">
             <h1>{{pelicula.titulo}}</h1>
+            <p>Título original: {{pelicula.titulo_original}}</p>
             <div class="nota">
                 <div class="nota-cont" *ngIf="pelicula.nota_media != null">
                     <span *ngIf="pelicula.nota_media > 6" class="nota-m gr">
@@ -44,11 +45,11 @@
             
                 
                 <p *ngFor="let director of pelicula.directores">
-                    <a (click)=getProfesionalN(director)>Directore:  {{director}}</a>
+                    <a (click)=getProfesionalN(director)>Director:  {{director}}</a>
                 </p>
             
             <div *ngIf="pelicula.plataformas.length >= 1">
-                <h3>Donde puedes verlo:</h3>
+                <h3>Disponible en:</h3>
                 <ul class="row">
                     <li class="list-item col" *ngFor="let plataforma of pelicula.plataformas">
                         <img src="{{plataforma.icono}}" alt="{{plataforma.nombre}}">
@@ -80,8 +81,8 @@
 
 
     <div class="criticaUser" *ngIf="criticaUsuario == true">
-        
         <h2>{{miCritica.titulo}}</h2>
+        <p class="fecha">{{miCritica.fecha | date: 'dd/MM/yyyy'}}</p>
         <p class="notaC">{{miCritica.nota}}</p>
         <p [innerHTML]="miCritica.texto"></p>
         <button class="btn btn-primary" (click)="modal = 'eliminarCritica'">Eliminar</button>
@@ -109,6 +110,7 @@
                         </div>
                         <div class="col-sm">
                             <h2>{{critica.titulo}}</h2>
+                            <p>{{critica.fecha | date: 'dd/MM/yyyy'}}</p>
                             <p [innerHTML]="critica.texto"></p>
                         </div>   
                     </div>
@@ -135,7 +137,7 @@
                     <div #inputUpdate *ngIf="upComentario === comentario._id" class="comentario">
                         <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span *ngIf="comentario.editado">(Editado)</span> </p>
                         <textarea class="texto" type="text" id="uptexto" name="uptexto" [formControl]="uptexto"
-                            value="{{comentario.texto}}" > </textarea>
+                            value="{{comentario.texto}}" placeholder="{{comentario.texto}}" > </textarea>
                         <div *ngIf="uptexto.invalid" class="alert alert-danger">
                             <span *ngIf="uptexto.errors.maxlength">
                                 El comentario no pude ser mayor de 250 carácteres
@@ -145,14 +147,17 @@
                     </div>
                     <div *ngIf="comentario.usuario != usuario._id" class="comentario">
                         <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span *ngIf="comentario.editado">  (Editado)</span> </p>
+                        <p class="fecha">{{comentario.fecha | date: 'dd/MM/yyyy'}}</p>
                         <p class="comText">{{comentario.texto}}</p>
                     </div>
                     <div *ngIf="upComentario && upComentario != comentario._id && comentario.usuario === usuario._id" class="comentario">
                         <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span *ngIf="comentario.editado">  (Editado)</span> </p>
+                        <p class="fecha">{{comentario.fecha | date: 'dd/MM/yyyy'}}</p>
                         <p class="comText">{{comentario.texto}}</p>
                     </div>
                     <div *ngIf="!upComentario && comentario.usuario === usuario._id" class="comentario">
                         <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span *ngIf="comentario.editado">  (Editado)</span> </p>
+                        <p class="fecha">{{comentario.fecha | date: 'dd/MM/yyyy'}}</p>
                         <p>
                             <span class="comText" (click)="comentarioUp(comentario._id)"> {{comentario.texto}}  </span>
                             <i (click)="modalEliminar(comentario._id)" class="material-icons btn-delete">delete_outline</i> 
@@ -168,8 +173,9 @@
 
             <div *ngIf="!usuario" class="comentarios">
                 <div *ngFor="let comentario of pelicula.comentarios">
-                    <p>{{comentario.nick}} <span *ngIf="comentario.editado">(Editado)</span> </p>
-                    <p>{{comentario.texto}}</p>
+                    <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span *ngIf="comentario.editado">  (Editado)</span> </p>
+                    <p class="fecha">{{comentario.fecha | date: 'dd/MM/yyyy'}}</p>
+                    <p class="comText">{{comentario.texto}}</p>
                 </div>
             </div>
         </div>

@@ -11,7 +11,7 @@
             <button class="btn btn-primary" (click)=recomendador()>Recomendaciones</button>
         </div>
         <div class="col-sm-4">
-            <h1>Bienvenido {{usuario.nombre}}</h1>
+            <h1>{{usuario.nombre}}</h1>
             <p>{{usuario.nick}}</p>
             <p>{{usuario.email}}</p>
             <p *ngIf="usuario.descripcion">{{usuario.descripcion}}</p>

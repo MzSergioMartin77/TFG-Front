@@ -18,6 +18,7 @@ export class RegistroComponent implements OnInit {
   public minuscula: any = /[a-z]/;
   public passMatch: string;
   public status: string;
+  public modal: String;
 
   constructor(
     private _route: ActivatedRoute,
@@ -61,8 +62,8 @@ export class RegistroComponent implements OnInit {
           console.log(response);
           if(response.usuario && response.usuario._id){
             this.status = 'true';
-            alert('Se ha registrado correctamente');
-            this._router.navigate(['/login']);
+            this.modal = 'registroCorrecto';
+            
           }else{
             if(response.message == 'Email-Error'){
               this.status = 'false-email';

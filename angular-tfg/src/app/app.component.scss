@@ -73,19 +73,23 @@
     font-size: 40px;
 }
 
-.footer{
+footer{
     background: #0f38c0d2;
     margin-top: 60px;
-    padding: 40px;
+    padding: 20px;
     text-align: center;
-}
-
-.social{
-    margin: 50px 10px 10px 10px;
+  }
+  
+  footer .email{
+    vertical-align: middle;
+  }
+  
+  footer .social{
+    margin: 30px 10px 10px 10px;
     width: 35px;
-}
-
-.footer p{
+  }
+  
+  footer p{
     color: white;
     margin-left: 20px;
-}
+  }

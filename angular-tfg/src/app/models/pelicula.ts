@@ -4,6 +4,7 @@ export class Pelicula {
         public _id: String,
         public id_model: Number,
         public titulo: String,
+        public titulo_original: String,
         public sinopsis: String,
         public nota_media: Number,
         public generos: [String],

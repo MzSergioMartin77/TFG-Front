@@ -96,3 +96,6 @@
     </form>
 
 </div>
+
+<app-confirm *ngIf="modal === 'registroCorrecto'" mensaje="Te has registrado correctamente" status="alert"
+(aceptButton)="_router.navigate(['/login'])"></app-confirm>

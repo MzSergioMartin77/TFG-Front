@@ -43,9 +43,6 @@ export class PerfilComponent implements OnInit {
       response => {
         this.recomendaciones = response.recomendaciones;
         this.recomendaciones.splice(0, 1);
-        if(obras < 10){
-          this.recomendaciones.splice(5, 15);
-        }
         this.status = true;
         console.log(this.recomendaciones);
       },

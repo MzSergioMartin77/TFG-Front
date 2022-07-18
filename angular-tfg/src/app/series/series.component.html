@@ -5,6 +5,7 @@
         </div>
         <div class="col-sm">
             <h1>{{serie.titulo}}</h1>
+            <p>Título original: {{serie.titulo_original}}</p>
             <div class="nota">
                 <div class="nota-cont" *ngIf="serie.nota_media != null">
                     <span *ngIf="serie.nota_media > 6" class="nota-m gr">
@@ -77,6 +78,7 @@
     <div class="criticaUser" *ngIf="criticaUsuario == true">
 
         <h2>{{miCritica.titulo}}</h2>
+        <p class="fecha">{{miCritica.fecha | date: 'dd/MM/yyyy'}}</p>
         <p class="notaC">{{miCritica.nota}}</p>
         <p [innerHTML]="miCritica.texto"></p>
         <button class="btn btn-primary" (click)="modal = 'eliminarCritica'">Eliminar</button>
@@ -104,6 +106,7 @@
                         </div>
                         <div class="col-sm">
                             <h2>{{critica.titulo}}</h2>
+                            <p>{{critica.fecha | date: 'dd/MM/yyyy'}}</p>
                             <p [innerHTML]="critica.texto"></p>
                         </div>
                     </div>
@@ -144,17 +147,20 @@
                     <div *ngIf="comentario.usuario != usuario._id" class="comentario">
                         <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span
                                 *ngIf="comentario.editado"> (Editado)</span> </p>
+                        <p class="fecha">{{comentario.fecha | date: 'dd/MM/yyyy'}}</p>
                         <p class="comText">{{comentario.texto}}</p>
                     </div>
                     <div *ngIf="upComentario && upComentario != comentario._id && comentario.usuario === usuario._id"
                         class="comentario">
                         <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span
                                 *ngIf="comentario.editado"> (Editado)</span> </p>
+                        <p class="fecha">{{comentario.fecha | date: 'dd/MM/yyyy'}}</p>
                         <p class="comText">{{comentario.texto}}</p>
                     </div>
                     <div *ngIf="!upComentario && comentario.usuario === usuario._id" class="comentario">
                         <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span
                                 *ngIf="comentario.editado"> (Editado)</span> </p>
+                        <p class="fecha">{{comentario.fecha | date: 'dd/MM/yyyy'}}</p>
                         <p>
                             <span class="comText" (click)="comentarioUp(comentario._id)"> {{comentario.texto}} </span>
                             <i (click)="modalEliminar(comentario._id)"
@@ -172,6 +178,7 @@
             <div *ngIf="!usuario" class="comentarios">
                 <div *ngFor="let comentario of serie.comentarios">
                     <p>{{comentario.nick}} <span *ngIf="comentario.editado">(Editado)</span> </p>
+                    <p class="fecha">{{comentario.fecha | date: 'dd/MM/yyyy'}}</p>
                     <p>{{comentario.texto}}</p>
                 </div>
             </div>
