@@ -38,6 +38,7 @@ export class SeriesComponent implements OnInit {
   public modal: String;
   public comentarioDel: String;
   public aux = false;
+  public video: Boolean;
   @ViewChild("inputUpdate") inputUpdate: ElementRef;
 
   constructor(
@@ -82,6 +83,7 @@ export class SeriesComponent implements OnInit {
 
   updateVideoUrl(trailer: string) {
     console.log(trailer);
+    this.video = true;
     this.videoUrl =
         this.sanitizer.bypassSecurityTrustResourceUrl(trailer);
   }
@@ -101,8 +103,10 @@ export class SeriesComponent implements OnInit {
         }
         if(response.serie.trailer_es){
           this.updateVideoUrl(response.serie.trailer_es);
-        } else{
+        } else if(response.serie.trailer_en){
           this.updateVideoUrl(response.serie.trailer_en);
+        } else {
+          this.video = false;
         }
         if(this.usuario){
           this.usuarioSerie();

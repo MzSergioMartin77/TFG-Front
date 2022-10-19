@@ -70,7 +70,7 @@
         </li>
     </div>
 
-    <div class="video">
+    <div *ngIf="video == true" class="video">
         <div class="embed-responsive embed-responsive-16by9">
             <iframe class="embed-responsive-item" width="853" height="480" [src]="videoUrl" frameborder="0"
                 allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -132,7 +132,7 @@
             </div>
             <button class="btn btn-primary" [disabled]="texto.invalid" (click)=addComentario()>Comentar</button>
         
-            <div *ngIf="usuario" class="comentarios">
+            <div *ngIf="usuario.rol == 'usuario'" class="comentarios">
                 <div *ngFor="let comentario of pelicula.comentarios">
                     <div #inputUpdate *ngIf="upComentario === comentario._id" class="comentario">
                         <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span *ngIf="comentario.editado">(Editado)</span> </p>
@@ -176,6 +176,20 @@
                     <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span *ngIf="comentario.editado">  (Editado)</span> </p>
                     <p class="fecha">{{comentario.fecha | date: 'dd/MM/yyyy'}}</p>
                     <p class="comText">{{comentario.texto}}</p>
+                </div>
+            </div>
+
+            <div *ngIf="usuario.rol == 'admin'" class="comentarios">
+                <div *ngFor="let comentario of pelicula.comentarios">
+                    <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span *ngIf="comentario.editado">  (Editado)</span> </p>
+                    <p class="fecha">{{comentario.fecha | date: 'dd/MM/yyyy'}}</p>
+                    <p>
+                        <span class="comText"> {{comentario.texto}}  </span>
+                        <i (click)="modalEliminar(comentario._id)" class="material-icons btn-delete">delete_outline</i> 
+                    </p>
+                    <app-confirm *ngIf="modal === 'eliminarComentario'"
+                            mensaje="¿Estas seguro de eliminar el comentario?" status="confirm"
+                            (noButton)="modal = null" (yesButton)="deleteComentario()"></app-confirm>
                 </div>
             </div>
         </div>

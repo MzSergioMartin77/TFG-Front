@@ -1,0 +1,110 @@
+<div class="row">
+
+    <div class="col-sm-4 menu">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <p class="op" (click)="option = 'addPeli'">Añadir una película</p>
+            </li>
+            <li class="nav-item">
+                <p class="op" (click)="option = 'addSerie'">Añadir una serie</p>
+            </li>
+            <li class="nav-item">
+                <p class="op" (click)="option = 'addProf'">Añadir un profesional</p>
+            </li>
+            <li class="nav-item">
+                <p class="op" (click)="upRecomendador()">Actualizar recomendador</p>
+            </li>
+            <li class="nav-item">
+                <p class="op" (click)="upPlataformasPeli()">Actualizar plataformas de las película</p>
+            </li>
+            <li class="nav-item">
+                <p class="op" (click)="upPlataformasSerie()">Actualizar plataformas de las series</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-sm-6">
+        <div *ngIf="option === 'addPeli'">
+            <form class="form-group" (ngSubmit)="addPeli()">
+                <label>Introduce el identificador de la película en TMDb</label>
+                <input class="form-control" type="text" required="true" id="peliId" name="peliId" [formControl]="peliId">
+                <div *ngIf="peliId.invalid && (peliId.dirty || peliId.touched)" class="alert alert-danger">
+                    <span *ngIf="peliId.errors.required">
+                        Es obligatorio escribir un identificador
+                    </span>
+                    <span *ngIf="peliId.errors.min || peliId.errors.pattern">
+                        El identificador no es válido
+                    </span>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg" [disabled]="peliId.invalid">Añadir</button>
+            </form>  
+        </div>
+        <div *ngIf="option === 'addSerie'">
+            <form class="form-group" (ngSubmit)="addSerie()">
+                <label>Introduce el identificador de la serie en TMDb</label>
+                <input class="form-control" type="text" required="true" id="serieId" name="serieId" [formControl]="serieId">
+                <div *ngIf="serieId.invalid && (serieId.dirty || serieId.touched)" class="alert alert-danger">
+                    <span *ngIf="serieId.errors.required">
+                        Es obligatorio escribir un identificador
+                    </span>
+                    <span *ngIf="serieId.errors.min || serieId.errors.pattern">
+                        El identificador no es válido
+                    </span>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg" [disabled]="serieId.invalid">Añadir</button>
+            </form>
+        </div>
+        <div *ngIf="option === 'addProf'">
+            <form class="form-group" (ngSubmit)="addProf()">
+                <label>Introduce el identificador de un profesional en TMDb</label>
+                <input class="form-control" type="text" required="true" id="profId" name="profId" [formControl]="profId">
+                <div *ngIf="profId.invalid && (profId.dirty || profId.touched)" class="alert alert-danger">
+                    <span *ngIf="profId.errors.required">
+                        Es obligatorio escribir un identificador
+                    </span>
+                    <span *ngIf="profId.errors.min || profId.errors.pattern">
+                        El identificador no es válido
+                    </span>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg" [disabled]="profId.invalid">Añadir</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<app-confirm *ngIf="modal === 'addPeli'" mensaje="La película se ha guardado correctamente" status="alert"
+(aceptButton)="modal = null"></app-confirm>
+
+<app-confirm *ngIf="modal === 'ErrorPeli'" mensaje="No se ha podido almacenar la película" status="alert"
+(aceptButton)="modal = null"></app-confirm>
+
+<app-confirm *ngIf="modal === 'addSerie'" mensaje="La serie se ha guardado correctamente" status="alert"
+(aceptButton)="modal = null"></app-confirm>
+
+<app-confirm *ngIf="modal === 'ErrorSerie'" mensaje="No se ha podido almacenar la serie" status="alert"
+(aceptButton)="modal = null"></app-confirm>
+
+<app-confirm *ngIf="modal === 'addProf'" mensaje="El profesional se ha guardado correctamente" status="alert"
+(aceptButton)="modal = null"></app-confirm>
+
+<app-confirm *ngIf="modal === 'ErrorProf'" mensaje="No se ha podido almacenar el profesional" status="alert"
+(aceptButton)="modal = null"></app-confirm>
+
+<app-confirm *ngIf="modal === 'plataformaPeli'" mensaje="Se han actualizado las plataformas donde se puden ver las películas" 
+status="alert" (aceptButton)="modal = null"></app-confirm>
+
+<app-confirm *ngIf="modal === 'noPlataformaPeli'" mensaje="No se han podido actualizar las plataformas donde se puden ver las películas"
+status="alert" (aceptButton)="modal = null"></app-confirm>
+
+<app-confirm *ngIf="modal === 'plataformaSerie'" mensaje="Se han actualizado las plataformas donde se puden ver las series" 
+status="alert" (aceptButton)="modal = null"></app-confirm>
+
+<app-confirm *ngIf="modal === 'noPlataformaSerie'" mensaje="No se han podido actualizar las plataformas donde se puden ver las serie"
+status="alert" (aceptButton)="modal = null"></app-confirm>
+
+<app-confirm *ngIf="modal === 'upRecomendador'" mensaje="Se ha actualizado el modelo de recomendación" 
+status="alert" (aceptButton)="modal = null"></app-confirm>
+
+<app-confirm *ngIf="modal === 'noUpRecomendador'" mensaje="No se han podido actualizar el modelo de recomendación"
+status="alert" (aceptButton)="modal = null"></app-confirm>

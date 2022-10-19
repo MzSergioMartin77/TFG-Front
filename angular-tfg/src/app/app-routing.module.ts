@@ -15,6 +15,7 @@ import { UpdateCriticaSerieComponent} from './update-critica-serie/update-critic
 import { UsuarioComponent } from './usuario/usuario.component';
 import { UpdatePerfilComponent } from './update-perfil/update-perfil.component';
 import { BuscadorComponent } from './buscador/buscador.component';
+import { AdminComponent } from './admin/admin.component';
 import { ErrorComponent } from './error/error.component';
 
 const routes: Routes = [
@@ -32,6 +33,7 @@ const routes: Routes = [
   {path: 'usuario/:id', component: UsuarioComponent},
   {path: 'updatePerfil/:id', component: UpdatePerfilComponent},
   {path: 'buscar/:titulo', component:BuscadorComponent},
+  {path: 'admin', component:AdminComponent},
   {path: '**', component:ErrorComponent}
 ];
 

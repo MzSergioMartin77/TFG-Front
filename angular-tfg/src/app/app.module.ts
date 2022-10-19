@@ -23,6 +23,8 @@ import { UsuarioComponent } from './usuario/usuario.component';
 import { BuscadorComponent } from './buscador/buscador.component';
 import { ErrorComponent } from './error/error.component';
 import { ConfirmComponent } from './confirm/confirm.component';
+import { AdminComponent } from './admin/admin.component';
+import { MenuAdminComponent } from './menu-admin/menu-admin.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { ConfirmComponent } from './confirm/confirm.component';
     UsuarioComponent,
     BuscadorComponent,
     ErrorComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    AdminComponent,
+    MenuAdminComponent
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,7 @@ export class Usuario {
         public descripcion: String,
         public nick: String,
         public imagen: String,
+        public rol: String,
         public seguidores: [{
             nick: String,
             usuario: String

@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private _usuarioService: UsuarioService
   ) { 
-    this.usuario = new Usuario('',null,'','','','','','',null, null, null, null);
+    this.usuario = new Usuario('',null,'','','','','','','',null, null, null, null);
   }
 
   ngOnInit(): void {
@@ -80,6 +80,9 @@ export class LoginComponent implements OnInit {
           console.log('Bien2');
           this.status = "true";
           localStorage.setItem('token', this.token);
+          if(this.identidad.rol === 'admin'){
+            this._router.navigate(['/admin'])
+          }
           this._router.navigate(['/']);
         }
         

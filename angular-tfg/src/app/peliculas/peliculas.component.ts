@@ -38,6 +38,7 @@ export class PeliculasComponent implements OnInit {
   public modal: String;
   public comentarioDel: String;
   public aux = false;
+  public video: Boolean;
   @ViewChild("inputUpdate") inputUpdate: ElementRef;
 
   constructor(
@@ -84,6 +85,7 @@ export class PeliculasComponent implements OnInit {
 
   updateVideoUrl(trailer: string) {
     console.log(trailer);
+    this.video = true;
     this.videoUrl =
       this.sanitizer.bypassSecurityTrustResourceUrl(trailer);
   }
@@ -104,8 +106,10 @@ export class PeliculasComponent implements OnInit {
         }
         if (response.pelicula.trailer_es) {
           this.updateVideoUrl(response.pelicula.trailer_es);
-        } else {
+        } else if(response.pelicula.trailer_en){
           this.updateVideoUrl(response.pelicula.trailer_en);
+        } else{
+          this.video = false;
         }
 
         if (this.usuario) {

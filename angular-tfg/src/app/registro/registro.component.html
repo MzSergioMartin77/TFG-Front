@@ -14,7 +14,7 @@
     </div>
     <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-            <label class="form-label">Nombre: </label>
+            <label for="nombre" class="form-label">Nombre: </label>
             <input type="text" class="form-control" id="nombre" name="nombre" formControlName="nombre" required>
             <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-danger">
                 <span *ngIf="nombre.errors.required">
