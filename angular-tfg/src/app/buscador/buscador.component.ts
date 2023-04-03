@@ -125,6 +125,7 @@ export class BuscadorComponent implements OnInit, DoCheck {
       }
     )
   }
+
   getProfesionales(){
     this._profesionalService.getBuscarPro(this.titulo).subscribe(
       response => {

@@ -1,6 +1,6 @@
 
-<h2>Películas</h2>
-<div class="container" *ngIf="statusPeli == 'actual'">
+<h1>Películas</h1>
+<div class="pelis" *ngIf="statusPeli == 'actual'">
     <div class="botones">
         <p class="botonA">Más actuales</p>
         <p>|</p>
@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<div class="container" *ngIf="statusPeli == 'popular'">
+<div class="pelis" *ngIf="statusPeli == 'popular'">
     <div class="botones">
         <p class="boton" (click)="statusPeli = 'actual'">Más actuales</p>
         <p>|</p>
@@ -28,8 +28,8 @@
     </div>
 </div>
 
-<h2>Series</h2>
-<div class="container">
+<h1 class="serie">Series</h1>
+<div class="pelis">
     <div class="botones" *ngIf="statusSerie == 'actual'">
         <p class="botonA">Más actuales</p>
         <p>|</p>
@@ -43,7 +43,7 @@
     </div>
 </div>  
 
-<div class="container" *ngIf="statusSerie == 'popular'">
+<div class="pelis" *ngIf="statusSerie == 'popular'">
     <div class="botones" >
         <p class="boton" (click)="statusSerie = 'actual'">Más actuales</p>
         <p>|</p>

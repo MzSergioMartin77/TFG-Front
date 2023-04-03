@@ -1,6 +1,5 @@
 h1, h2 {
     text-align: center;
-    margin-top: 20px;
     margin-bottom: 0;
     font-weight: bold;
 }
@@ -9,37 +8,31 @@ p{
     padding: 5px;
 }
 
-.container a{
+.serie{
+    padding-top: 30px;
+}
+
+.pelis a{
     font-size: 20px;
     color: black;
     text-decoration: none;
 }
 
-.container a:hover{
+.pelis a:hover{
     color: blue;
     cursor: pointer;
 }
 
-.container img{
-    width: 150px;
-    height: 200px;
-}
-
-.container img{
+.pelis img{
     width: 150px;
     height: 200px;
     border: 5px outset black;
     border-radius: 10px;
 }
 
-.container img:hover {
+.pelis img:hover {
     border: 0px;
     cursor: pointer;
-}
-
-.container span{
-    height: 55px;
-    display: inline-block;
 }
 
 .row {
@@ -48,6 +41,8 @@ p{
     text-align: center;
     margin-bottom: 50px;
     background-color: white;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .botones{

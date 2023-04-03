@@ -35,6 +35,7 @@ export class AdminComponent implements OnInit {
     this.token = this._usuarioService.getToken();
   }
 
+  //Función para añadir películas a la plataforma
   addPeli(){
     console.log(this.peliId.value);
     this.pelicula = {

@@ -132,7 +132,7 @@
             </div>
             <button class="btn btn-primary" [disabled]="texto.invalid" (click)=addComentario()>Comentar</button>
         
-            <div *ngIf="usuario.rol == 'usuario'" class="comentarios">
+            <div *ngIf="usuario.rol == 'user'" class="comentarios">
                 <div *ngFor="let comentario of pelicula.comentarios">
                     <div #inputUpdate *ngIf="upComentario === comentario._id" class="comentario">
                         <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span *ngIf="comentario.editado">(Editado)</span> </p>

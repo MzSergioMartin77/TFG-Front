@@ -15,7 +15,7 @@
                 <p class="op" (click)="upRecomendador()">Actualizar recomendador</p>
             </li>
             <li class="nav-item">
-                <p class="op" (click)="upPlataformasPeli()">Actualizar plataformas de las película</p>
+                <p class="op" (click)="modal = 'confirmPlataformPeli'">Actualizar plataformas de las película</p>
             </li>
             <li class="nav-item">
                 <p class="op" (click)="upPlataformasSerie()">Actualizar plataformas de las series</p>
@@ -90,6 +90,10 @@
 
 <app-confirm *ngIf="modal === 'ErrorProf'" mensaje="No se ha podido almacenar el profesional" status="alert"
 (aceptButton)="modal = null"></app-confirm>
+
+<app-confirm *ngIf="modal === 'confirmPlataformPeli'" mensaje="¿Estas seguro de actualizar las plataformas de streaming de las Películas?"
+status="confirm" (noButton)="modal = null" (yesButton)="upPlataformasPeli()">
+</app-confirm>
 
 <app-confirm *ngIf="modal === 'plataformaPeli'" mensaje="Se han actualizado las plataformas donde se puden ver las películas" 
 status="alert" (aceptButton)="modal = null"></app-confirm>

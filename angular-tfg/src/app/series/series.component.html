@@ -129,7 +129,7 @@
             </div>
             <button class="btn btn-primary" [disabled]="texto.invalid" (click)=addComentario()>Comentar</button>
 
-            <div *ngIf="usuario" class="comentarios">
+            <div *ngIf="usuario.rol == 'user'" class="comentarios">
                 <div *ngFor="let comentario of serie.comentarios">
                     <div #inputUpdate *ngIf="upComentario === comentario._id" class="comentario">
                         <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span
@@ -180,6 +180,20 @@
                     <p>{{comentario.nick}} <span *ngIf="comentario.editado">(Editado)</span> </p>
                     <p class="fecha">{{comentario.fecha | date: 'dd/MM/yyyy'}}</p>
                     <p>{{comentario.texto}}</p>
+                </div>
+            </div>
+
+            <div *ngIf="usuario.rol == 'admin'" class="comentarios">
+                <div *ngFor="let comentario of serie.comentarios">
+                    <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span *ngIf="comentario.editado">  (Editado)</span> </p>
+                    <p class="fecha">{{comentario.fecha | date: 'dd/MM/yyyy'}}</p>
+                    <p>
+                        <span class="comText"> {{comentario.texto}}  </span>
+                        <i (click)="modalEliminar(comentario._id)" class="material-icons btn-delete">delete_outline</i> 
+                    </p>
+                    <app-confirm *ngIf="modal === 'eliminarComentario'"
+                            mensaje="¿Estas seguro de eliminar el comentario?" status="confirm"
+                            (noButton)="modal = null" (yesButton)="deleteComentario()"></app-confirm>
                 </div>
             </div>
         </div>

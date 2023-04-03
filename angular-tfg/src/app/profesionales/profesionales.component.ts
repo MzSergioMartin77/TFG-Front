@@ -48,18 +48,6 @@ export class ProfesionalesComponent implements OnInit {
     )
   }
 
-  /*getProfesionalN(nombre){
-    this._profesionalService.getProfesionalN(nombre).subscribe(
-      response => {
-        this.profesionales = response.profesional;
-        this.profesional = this.profesionales[0];
-      },
-      error => {
-        console.log(<any>error);
-      }
-    )
-  }*/
-
   getPeliculaT(titulo){
     this._peliculaService.getPeliculaT(titulo).subscribe(
       response => {

@@ -1,5 +1,7 @@
-.container{
-    margin: 25px;
+.perfil{
+    margin-left: 8%;
+    margin-right: 8%;
+    margin-top: 3%;
 }
 
 .rounded{
@@ -37,4 +39,9 @@
 .btn{
     padding: 5px;
     margin: 20px;
+}
+
+.link:hover {
+    cursor: pointer;
+    color: blue;
 }
