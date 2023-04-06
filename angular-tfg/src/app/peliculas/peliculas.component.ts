@@ -218,6 +218,9 @@ export class PeliculasComponent implements OnInit {
 
   addComentario(): void {
     if (this.texto.value != "") {
+      console.log('-------')
+      console.log(this.usuario)
+      console.log('-------')
       if (this.usuario == null) {
         //alert("Necesitas iniciar sesión");
         //this._router.navigate(['/login']);
@@ -232,7 +235,7 @@ export class PeliculasComponent implements OnInit {
           response => {
             console.log(response);
             if (response.message == 'Guardado') {
-              window.location.reload();
+              this.ngOnInit();
             }
           },
           error => {
