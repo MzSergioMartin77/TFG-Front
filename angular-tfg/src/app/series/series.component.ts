@@ -156,7 +156,8 @@ export class SeriesComponent implements OnInit {
         this.identidad = response;
         console.log(this.identidad);
         localStorage.setItem('identidad', JSON.stringify(this.identidad.usuario));
-        window.location.reload();
+        this.modal = null;
+        this.ngOnInit();
       },
       error => {
         console.log(<any>error);
@@ -231,7 +232,8 @@ export class SeriesComponent implements OnInit {
           response => {
             console.log(response);
             if (response.message == 'Guardado') {
-              window.location.reload(); 
+              this.texto.setValue('');
+              this.ngOnInit(); 
             }
           },
           error => {
@@ -263,7 +265,8 @@ export class SeriesComponent implements OnInit {
             if (response.message == 'Modificado') {
               console.log('nada');
               this.upComentario = null;
-              window.location.reload(); 
+              this.uptexto.setValue('');
+              this.ngOnInit();
             }
           },
           error => {
@@ -286,7 +289,7 @@ export class SeriesComponent implements OnInit {
         response => {
           if(response.message == 'Eliminado'){
             //alert('El comentario se ha eliminado correctamente');
-            window.location.reload(); 
+            this.ngOnInit(); 
           }
         },
         error => {

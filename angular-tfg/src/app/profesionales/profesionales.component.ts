@@ -77,7 +77,6 @@ export class ProfesionalesComponent implements OnInit {
   }
 
   getPelicula(titulo): void{
-    console.log(titulo);
     this.getPeliculaT(titulo); 
   }
 

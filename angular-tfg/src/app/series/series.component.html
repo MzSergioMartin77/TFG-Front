@@ -136,7 +136,7 @@
                             <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span
                                     *ngIf="comentario.editado">(Editado)</span> </p>
                             <textarea class="texto" type="text" id="uptexto" name="uptexto" [formControl]="uptexto"
-                                value="{{comentario.texto}}"> </textarea>
+                                value="{{comentario.texto}}" placeholder="{{comentario.texto}}"> </textarea>
                             <div *ngIf="uptexto.invalid" class="alert alert-danger">
                                 <span *ngIf="uptexto.errors.maxlength">
                                     El comentario no pude ser mayor de 250 carácteres
