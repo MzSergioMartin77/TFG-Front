@@ -73,14 +73,6 @@ export class PeliculasComponent implements OnInit {
         break;
       }
     }
-    /*this.pelicula.criticas.forEach(element => {
-      if(element.usuario == this.usuario._id){
-        if(element.texto){
-          this.criticaUsuario = true;
-          this.miCritica = element;
-        }
-      }
-    });*/
   }
 
   updateVideoUrl(trailer: string) {
@@ -119,8 +111,7 @@ export class PeliculasComponent implements OnInit {
       error => {
         console.log(<any>error);
         if (error.status === 404 || error.status === 500) {
-          alert('Esta película no se encuentra en la base de datos');
-          this._router.navigate(['/']);
+          this._router.navigate(['/error']);
         }
       }
     )
@@ -154,8 +145,11 @@ export class PeliculasComponent implements OnInit {
     this._usuarioService.getPerfil(this.usuario._id, this.token).subscribe(
       response => {
         this.identidad = response;
-        console.log(this.identidad);
         localStorage.setItem('identidad', JSON.stringify(this.identidad.usuario));
+        if (this.modal === 'deleteCritica') {
+          this.criticaUsuario = false;
+          this.nota.setValue(null);
+        }
         this.modal = null;
         this.ngOnInit();
       },
@@ -165,15 +159,13 @@ export class PeliculasComponent implements OnInit {
     )
   }
 
-  deleteCritica() {
-    //if(window.confirm('¿Estas seguro de eliminar la crítica?')){
-    console.log('borrar');
-    this._peliculaService.deleteCritica(this.peliculaId, this.usuario._id, this.token).subscribe(
+  deleteCritica(critica) {
+    console.log('borrar='+critica);
+    console.log(critica);
+    this._peliculaService.deleteCritica(this.peliculaId, this.usuario._id, critica, this.token).subscribe(
       response => {
         if (response.message == 'Eliminada') {
-          //alert('La crítica se ha eliminado correctamente');
           this.modal = 'deleteCritica';
-          //this.reloadUsuario();
         }
       },
       error => {
@@ -200,8 +192,6 @@ export class PeliculasComponent implements OnInit {
       response => {
         console.log(response);
         if (response.message == 'Guardado') {
-          //alert("Nota guardada");
-          //this.reloadUsuario();
           this.modal = 'addNota';
         }
         if (response.message == 'Eliminada') {
@@ -223,8 +213,6 @@ export class PeliculasComponent implements OnInit {
       console.log(this.usuario)
       console.log('-------')
       if (this.usuario == null) {
-        //alert("Necesitas iniciar sesión");
-        //this._router.navigate(['/login']);
         this.modal = 'userComentario';
       } else {
         this.newComentario = {
@@ -279,7 +267,7 @@ export class PeliculasComponent implements OnInit {
     }
   }
 
-  modalEliminar(comentario) {
+  modalDelComen(comentario) {
     this.comentarioDel = comentario;
     this.modal = 'eliminarComentario';
   }

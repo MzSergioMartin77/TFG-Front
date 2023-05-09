@@ -58,7 +58,8 @@ export class UsuarioComponent implements OnInit {
         console.log(this.identidad);
         localStorage.setItem('identidad', JSON.stringify(this.identidad.usuario));
         //alert('Los cambios se han guardado correctamente');
-        window.location.reload();
+        this.modal = null;
+        this.ngOnInit();
       },
       error => {
         console.log(<any>error);

@@ -79,10 +79,10 @@ export class PeliculaService {
     return this._http.put(this.url+'criticaPupdate', params, {headers: headers});
   }
 
-  deleteCritica(pelicula, usuario, token) :Observable<any>{
+  deleteCritica(pelicula, usuario, critica, token) :Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json').set('Authorization', token);
 
-    return this._http.delete(this.url+'deletePcritica/'+pelicula+'/'+usuario, {headers: headers});
+    return this._http.delete(this.url+'deletePcritica/'+pelicula+'/'+usuario+'/'+critica, {headers: headers});
   }
 
   saveComentario(comentario, token) :Observable<any>{

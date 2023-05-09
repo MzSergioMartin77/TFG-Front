@@ -85,13 +85,15 @@
         <p class="fecha">{{miCritica.fecha | date: 'dd/MM/yyyy'}}</p>
         <p class="notaC">{{miCritica.nota}}</p>
         <p [innerHTML]="miCritica.texto"></p>
-        <button class="btn btn-primary" (click)="modal = 'eliminarCritica'">Eliminar</button>
+        <button class="btn btn-primary" (click)="modal='eliminarCritica'">Eliminar</button>
         <button class="btn btn-primary"
             routerLink="/updatecriticaP/{{pelicula._id}}/{{miCritica._id}}">Modificar</button>
+            
+        <app-confirm *ngIf="modal === 'eliminarCritica'" mensaje="¿Estas seguro de eliminar la crítica?" status="confirm"
+            (noButton)="modal = null" (yesButton)="deleteCritica(miCritica._id)"></app-confirm>
     </div>
 
-    <app-confirm *ngIf="modal === 'eliminarCritica'" mensaje="¿Estas seguro de eliminar la crítica?" status="confirm"
-        (noButton)="modal = null" (yesButton)="deleteCritica()"></app-confirm>
+    
 
     <div class="evaluar">
         <div *ngIf="status == 'critica'">
@@ -112,11 +114,18 @@
                             <h2>{{critica.titulo}}</h2>
                             <p>{{critica.fecha | date: 'dd/MM/yyyy'}}</p>
                             <p [innerHTML]="critica.texto"></p>
+                        </div>
+                        <div *ngIf="usuario.rol == 'admin'">
+                            <button class="btn btn-primary" (click)="modal = 'eliminarCritica'">Eliminar</button>
+                            
+                            <app-confirm *ngIf="modal === 'eliminarCritica'" mensaje="¿Estas seguro de eliminar la crítica?" status="confirm"
+                                (noButton)="modal = null" (yesButton)="deleteCritica(critica._id)"></app-confirm>
                         </div>   
                     </div>
                 </div>
             </div>
         </div>
+        
         <div *ngIf="status == 'comentario'">
             <div class="botones">
                 <p class="boton" (click)="status = 'critica'">Críticas</p>
@@ -161,7 +170,7 @@
                             <p class="fecha">{{comentario.fecha | date: 'dd/MM/yyyy'}}</p>
                             <p>
                                 <span class="comText" (click)="comentarioUp(comentario._id)"> {{comentario.texto}}  </span>
-                                <i (click)="modalEliminar(comentario._id)" class="material-icons btn-delete">delete_outline</i> 
+                                <i (click)="modalDelComen(comentario._id)" class="material-icons btn-delete">delete_outline</i> 
                             </p>
     
                             <app-confirm *ngIf="modal === 'eliminarComentario'"
@@ -178,7 +187,7 @@
                         <p class="fecha">{{comentario.fecha | date: 'dd/MM/yyyy'}}</p>
                         <p>
                             <span class="comText"> {{comentario.texto}}  </span>
-                            <i (click)="modalEliminar(comentario._id)" class="material-icons btn-delete">delete_outline</i> 
+                            <i (click)="modalDelComen(comentario._id)" class="material-icons btn-delete">delete_outline</i> 
                         </p>
                         <app-confirm *ngIf="modal === 'eliminarComentario'"
                                 mensaje="¿Estas seguro de eliminar el comentario?" status="confirm"
