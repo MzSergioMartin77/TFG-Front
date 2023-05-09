@@ -174,14 +174,6 @@ export class PeliculasComponent implements OnInit {
     )
   }
 
-  /*statusCritica(){
-    this.status = 'critica';
-  }
-
-  statusComentario(){
-    this.status = 'comentario';
-  }*/
-
   addNota(): void {
     this.newNota = {
       nota: this.nota.value,

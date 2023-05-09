@@ -115,8 +115,7 @@ export class SeriesComponent implements OnInit {
       error => {
         console.log(<any>error);
         if(error.status === 404 || error.status === 500){
-          alert('Esta serie no se encuentra en la base de datos');
-          this._router.navigate(['/']);
+          this._router.navigate(['/error']);
         }
       }
     )
@@ -140,10 +139,7 @@ export class SeriesComponent implements OnInit {
   }
 
   addCritica(){
-    //this.usuario = this._usuarioService.getIdentidad();
     if(this.usuario == null){
-      //alert("Necesitas iniciar sesión");
-      //this._router.navigate(['/login']);
       this.modal = 'userCritica';
     }else {
       this._router.navigate(['/addcriticaS/',this.serie._id]);
@@ -156,6 +152,10 @@ export class SeriesComponent implements OnInit {
         this.identidad = response;
         console.log(this.identidad);
         localStorage.setItem('identidad', JSON.stringify(this.identidad.usuario));
+        if (this.modal === 'deleteCritica') {
+          this.criticaUsuario = false;
+          this.nota.setValue(null);
+        }
         this.modal = null;
         this.ngOnInit();
       },
@@ -165,22 +165,18 @@ export class SeriesComponent implements OnInit {
     )
   }
 
-  deleteCritica(){
-    if(window.confirm('¿Estas seguro de eliminar la crítica?')){
-      console.log('borrar');
-      this._serieService.deleteCritica(this.serieId, this.usuario._id, this.token).subscribe(
-        response => {
-          if(response.message == 'Eliminada'){
-            //alert('La crítica se ha eliminado correctamente');
-            this.modal = 'deleteCritica';
-            //this.reloadUsuario();
-          }
-        },
-        error => {
-          console.log(<any>error);
+  deleteCritica(critica){
+    console.log('borrar');
+    this._serieService.deleteCritica(this.serieId, this.usuario._id, critica, this.token).subscribe(
+      response => {
+        if(response.message == 'Eliminada'){
+          this.modal = 'deleteCritica';
         }
-      )
-    }
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
   }
 
   /*statusCritica(){
@@ -201,8 +197,6 @@ export class SeriesComponent implements OnInit {
       response => {
         console.log(response);
         if(response.message == 'Guardado'){
-          //alert("Nota guardada");
-          //this.reloadUsuario();
           this.modal = 'addNota';
         }
         if (response.message == 'Eliminada') {
@@ -249,8 +243,6 @@ export class SeriesComponent implements OnInit {
     if(this.uptexto.value != ""){
       console.log(this.uptexto.value);
       if(this.usuario == null){
-        //alert("Necesitas iniciar sesión");
-        //this._router.navigate(['/login']);
         this.modal = 'userComentario';
       }else{
         this.newComentario = {
@@ -283,19 +275,17 @@ export class SeriesComponent implements OnInit {
   }
 
   deleteComentario(){
-    //if(window.confirm('¿Estas seguro de eliminar el comentario?')){
-      console.log('borrar');
-      this._serieService.deleteComentario(this.serieId, this.usuario._id, this.comentarioDel, this.token).subscribe(
-        response => {
-          if(response.message == 'Eliminado'){
-            //alert('El comentario se ha eliminado correctamente');
-            this.ngOnInit(); 
-          }
-        },
-        error => {
-          console.log(<any>error);
+    console.log('borrar');
+    this._serieService.deleteComentario(this.serieId, this.usuario._id, this.comentarioDel, this.token).subscribe(
+      response => {
+        if(response.message == 'Eliminado'){
+          this.ngOnInit(); 
         }
-      )
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
   }
 
   comentarioUp(comentarioId) {

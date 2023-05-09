@@ -83,10 +83,10 @@
         <p [innerHTML]="miCritica.texto"></p>
         <button class="btn btn-primary" (click)="modal = 'eliminarCritica'">Eliminar</button>
         <button class="btn btn-primary" routerLink="/updatecriticaP/{{serie._id}}/{{miCritica._id}}">Modificar</button>
+        <app-confirm *ngIf="modal === 'eliminarCritica'" mensaje="¿Estas seguro de eliminar la crítica?" status="confirm"
+            (noButton)="modal = null" (yesButton)="deleteCritica(miCritica._id)"></app-confirm>
     </div>
 
-    <app-confirm *ngIf="modal === 'eliminarCritica'" mensaje="¿Estas seguro de eliminar la crítica?" status="confirm"
-        (noButton)="modal = null" (yesButton)="deleteCritica()"></app-confirm>
 
     <div class="evaluar">
         <div *ngIf="status == 'critica'">
@@ -108,6 +108,12 @@
                             <h2>{{critica.titulo}}</h2>
                             <p>{{critica.fecha | date: 'dd/MM/yyyy'}}</p>
                             <p [innerHTML]="critica.texto"></p>
+                        </div>
+                        <div *ngIf="usuario.rol == 'admin'">
+                            <button class="btn btn-primary" (click)="modal = 'eliminarCritica'">Eliminar</button>
+                            
+                            <app-confirm *ngIf="modal === 'eliminarCritica'" mensaje="¿Estas seguro de eliminar la crítica?" status="confirm"
+                                (noButton)="modal = null" (yesButton)="deleteCritica(critica._id)"></app-confirm>
                         </div>
                     </div>
                 </div>
