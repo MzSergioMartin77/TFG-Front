@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +26,7 @@ import { ErrorComponent } from './error/error.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { AdminComponent } from './admin/admin.component';
 import { MenuAdminComponent } from './menu-admin/menu-admin.component';
+import { OrderByPipe } from './pipes/orderBy.pipe';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { MenuAdminComponent } from './menu-admin/menu-admin.component';
     ErrorComponent,
     ConfirmComponent,
     AdminComponent,
-    MenuAdminComponent
+    MenuAdminComponent,
+    OrderByPipe
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import { MenuAdminComponent } from './menu-admin/menu-admin.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

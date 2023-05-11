@@ -1,13 +1,18 @@
 
 .row{
-    margin: 50px;
-    margin-left: 100px;
+    margin-left: -10%;
 }
 
 .menu{
     background-color: white;
     padding-top: 15px;
     padding-bottom: 15px;
+    margin: 0;
+    text-align: left;
+}
+
+ul{
+    list-style-type: none;
 }
 
 p{

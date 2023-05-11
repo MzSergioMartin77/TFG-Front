@@ -1,66 +1,82 @@
 
-<div class="container">
-<h1>Busqueda: {{titulo}}</h1>
 
 <div class="row">
-<div class="col-4">    
-    <span  type="button" class="row .btn btn-primary" (click)="tipos = 'pelicula'">
-        <h2 class="col-sm">Películas</h2> 
-        <h2 *ngIf="peliculas" class="col-sm">{{peliculas.length}}</h2> 
-    </span> 
-
-    <span  type="button" class="row .btn btn-primary" (click)="tipos = 'serie'">
-        <h2 class="col-sm">Series</h2> 
-        <h2 *ngIf="series" class="col-sm">{{series.length}}</h2> 
-    </span>
-
-    <span  type="button" class="row .btn btn-primary" (click)="tipos = 'profesional'">
-        <h2 class="col-sm">Profesionales</h2> 
-        <h2 *ngIf="profesionales" class="col-sm">{{profesionales.length}}</h2> 
-    </span>
-
-    <span  type="button" class="row .btn btn-primary" (click)="tipos = 'usuario'">
-        <h2 class="col-sm">Usuarios</h2> 
-        <h2 *ngIf="usuarios" class="col-sm">{{usuarios.length}}</h2> 
-    </span>
-</div>
-
-<div class="col-8">
-<div class="row" *ngIf="tipos == 'all' || tipos == 'pelicula'">
-    <div class="col-sm" *ngFor="let pelicula of peliculas">
-        <img routerLink='/pelicula/{{pelicula._id}}' src={{pelicula.imagen}} alt="Imagen de la pelicula"> <br>
-        <a routerLink='/pelicula/{{pelicula._id}}'>{{pelicula.titulo}} </a> <br>
+    <div class="col-4 filter">
+        <h1>Busqueda: {{titulo}}</h1>    
+        <nav class="nav flex-column">
+            <span>
+                <label>Ordenar por: </label>
+                <select  name="order" [(ngModel)]='sortField' >
+                    <option [value]="'titulo'">Título</option>
+                    <option [value]="'titulo_original'">Título original</option>
+                    <option [value]="'fecha_estreno'">Fecha de estreno (Películas)</option>
+                    <option [value]="'inicio'">Fecha incio (Series)</option>
+                </select>
+            </span>
+            <span type="button" class="row .btn btn-primary" (click)="tipos = 'all'">
+                <h2 class="col-sm">Todo</h2> 
+                <h2 *ngIf="peliculas" class="col-sm">{{peliculas.length + series.length}}</h2> 
+            </span>
+            <span  type="button" class="row .btn btn-primary" (click)="tipos = 'pelicula'">
+                <h2 class="col-sm">Películas</h2> 
+                <h2 *ngIf="peliculas" class="col-sm">{{peliculas.length}}</h2> 
+            </span> 
+        
+            <span  type="button" class="row .btn btn-primary" (click)="tipos = 'serie'">
+                <h2 class="col-sm">Series</h2> 
+                <h2 *ngIf="series" class="col-sm">{{series.length}}</h2> 
+            </span>
+        
+            <span  type="button" class="row .btn btn-primary" (click)="tipos = 'profesional'">
+                <h2 class="col-sm">Profesionales</h2> 
+                <h2 *ngIf="profesionales" class="col-sm">{{profesionales.length}}</h2> 
+            </span>
+        
+            <span  type="button" class="row .btn btn-primary" (click)="tipos = 'usuario'">
+                <h2 class="col-sm">Usuarios</h2> 
+                <h2 *ngIf="usuarios" class="col-sm">{{usuarios.length}}</h2> 
+            </span>
+        </nav>
     </div>
-</div>
-
-<div class="row" *ngIf="tipos == 'all' || tipos == 'serie'">
-    <div class="col-sm" *ngFor="let serie of series">
-        <img routerLink='/serie/{{serie._id}}' src={{serie.imagen}} alt="Imagen de la serie"> <br>
-        <a routerLink='/serie/{{serie._id}}'>{{serie.titulo}} </a> <br>
-    </div>
-</div>
-
-<div class="row" *ngIf="tipos == 'all' || tipos == 'profesional'">
-    <div class="col-sm" *ngFor="let profesional of profesionales">
-        <img routerLink='/profesional/{{profesional._id}}' src={{profesional.imagen}} alt="Imagen del profesional"> <br>
-        <a routerLink='/profesional/{{profesional._id}}'>{{profesional.nombre}} </a> <br>
-    </div>
-</div>
-
-<div class="row" *ngIf="tipos == 'all' || tipos == 'usuario'">
-    <div class="col-sm" *ngFor="let usuario of usuarios">
-        <div *ngIf="usuario.imagen === null">
-            <img class="img-thumbnail" src="../../assets/perfil.png" alt="No sale"> <br>
-            <a routerLink='/usuario/{{usuario._id}}'>{{usuario.nick}}</a> <br>
-        </div>
-        <div *ngIf="usuario.imagen != null">
-            <img routerLink='/usuario/{{usuario._id}}' src="{{imagenUser+usuario.imagen}}" alt="Imagen del usuario"> <br>
-            <a routerLink='/usuario/{{usuario._id}}'>{{usuario.nick}}</a> <br>
+    
+    <div class="col-8 result">
+        <div class="row" *ngIf="tipos == 'all' || tipos == 'pelicula'">
+            <h2>Películas</h2>
+            <div class="col-sm" *ngFor="let pelicula of peliculas | orderBy:sortField:sortDirection">
+                <img routerLink='/pelicula/{{pelicula._id}}' src={{pelicula.imagen}} alt="Imagen de la pelicula"> <br>
+                <a routerLink='/pelicula/{{pelicula._id}}'>{{pelicula.titulo}} </a> <br>
+            </div>
         </div>
         
+        <div class="row" *ngIf="tipos == 'all' || tipos == 'serie'">
+            <h2>Series</h2>
+            <div class="col-sm" *ngFor="let serie of series | orderBy:sortField:sortDirection">
+                <img routerLink='/serie/{{serie._id}}' src={{serie.imagen}} alt="Imagen de la serie"> <br>
+                <a routerLink='/serie/{{serie._id}}'>{{serie.titulo}} </a> <br>
+            </div>
+        </div>
+        
+        <div class="row" *ngIf="tipos == 'all' || tipos == 'profesional'">
+            <div class="col-sm" *ngFor="let profesional of profesionales">
+                <img routerLink='/profesional/{{profesional._id}}' src={{profesional.imagen}} alt="Imagen del profesional"> <br>
+                <a routerLink='/profesional/{{profesional._id}}'>{{profesional.nombre}} </a> <br>
+            </div>
+        </div>
+        
+        <div class="row" *ngIf="tipos == 'all' || tipos == 'usuario'">
+            <div class="col-sm" *ngFor="let usuario of usuarios">
+                <div *ngIf="usuario.imagen === null">
+                    <img class="img-thumbnail" src="../../assets/perfil.png" alt="Imagen del usuario"> <br>
+                    <a routerLink='/usuario/{{usuario._id}}'>{{usuario.nick}}</a> <br>
+                </div>
+                <div *ngIf="usuario.imagen != null">
+                    <img routerLink='/usuario/{{usuario._id}}' src="{{imagenUser+usuario.imagen}}" alt="Imagen del usuario"> <br>
+                    <a routerLink='/usuario/{{usuario._id}}'>{{usuario.nick}}</a> <br>
+                </div>
+                
+            </div>
+        </div>
     </div>
 </div>
-</div>
 
-</div>
-</div>
+

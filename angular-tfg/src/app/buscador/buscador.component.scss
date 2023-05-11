@@ -1,14 +1,14 @@
 span {
     border-radius: 5px;
-    margin: 15px;
+    margin: 5px;
 }
 
-.container img{
+img{
     width: 150px;
     height: 200px;
 }
 
-.col-8 {
+.result {
     padding: 20px;
     border: solid black 1px;
     text-align: center;
@@ -16,19 +16,27 @@ span {
     background-color: rgb(209, 212, 250);
 }
 
-.col-4 {
-    padding: 20px;
+.filter {
     text-align: center;
-    margin-bottom: 50px;
 }
 
 .col-sm {
     margin: 15px 5px;
 }
 
-.container a{
+a {
     font-size: 20px;
     color: black;
     text-decoration: none;
 }
 
+a:hover {
+    color: blue;
+}
+
+@media screen and (max-width: 850px) {
+    .result{
+        margin-left: 80px;
+        text-align: center;
+    }
+}

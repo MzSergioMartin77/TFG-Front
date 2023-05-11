@@ -61,16 +61,6 @@
     padding: 0;
 }
 
-
-@media screen and (max-width: 780px) {
-    .nick{
-        display: none;
-    }
-    #titulo{
-        width: 150px;
-    }
-}
-
 #nombre {
     font-size: 40px;
 }
@@ -101,3 +91,16 @@ footer{
     color: white;
     margin-left: 20px;
   }
+
+  @media screen and (max-width: 780px) {
+    .nick{
+        display: none;
+    }
+    #titulo{
+        width: 150px;
+    }
+    footer .social{
+        margin: 30px 6px 10px 6px;
+        width: 32px;
+    }
+}

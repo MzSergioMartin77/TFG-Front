@@ -9,7 +9,6 @@ import { ProfesionalService } from '../services/profesional.service';
 import { Usuario } from '../models/usuario';
 import { UsuarioService } from '../services/usuario.service';
 
-
 @Component({
   selector: 'app-buscador',
   templateUrl: './buscador.component.html',
@@ -27,7 +26,9 @@ export class BuscadorComponent implements OnInit, DoCheck {
   public status = 'false';
   public tipos = 'all';
   public generos = ['comedia','drama','accion','aventura','romance','suspense','animacion','familia','fantasia',
-        'ciencia ficcion','crimen','historica','belica','western','misterio','terror','musica']
+        'ciencia ficcion','crimen','historica','belica','western','misterio','terror','musica'];
+  public sortField = 'titulo';
+  public sortDirection = 'asc';
 
   constructor(
     private _peliculaService: PeliculaService, 
@@ -66,7 +67,8 @@ export class BuscadorComponent implements OnInit, DoCheck {
 
   ngDoCheck(){
     if(this.titulo != this.prevTitulo){
-      window.location.reload();
+      console.log('entra');
+      this.ngOnInit();
     } 
   }
 
@@ -148,5 +150,18 @@ export class BuscadorComponent implements OnInit, DoCheck {
     )
   }
 
+  setSortField(field: string) {
+    this.sortField = field;
+  }
+
+  setSortDirection(direction: string) {
+    this.sortDirection = direction;
+  }
+
+  fecha(){
+    this.setSortField('inicio');
+    this.setSortField('fecha_estreno');
+    console.log('nasd')
+  }
 
 }

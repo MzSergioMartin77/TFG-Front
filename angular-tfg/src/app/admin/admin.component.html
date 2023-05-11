@@ -1,26 +1,14 @@
 <div class="row">
 
     <div class="col-sm-4 menu">
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <p class="op" (click)="option = 'addPeli'">Añadir una película</p>
-            </li>
-            <li class="nav-item">
-                <p class="op" (click)="option = 'addSerie'">Añadir una serie</p>
-            </li>
-            <li class="nav-item">
-                <p class="op" (click)="option = 'addProf'">Añadir un profesional</p>
-            </li>
-            <li class="nav-item">
-                <p class="op" (click)="upRecomendador()">Actualizar recomendador</p>
-            </li>
-            <li class="nav-item">
-                <p class="op" (click)="modal = 'confirmPlataformPeli'">Actualizar plataformas de las película</p>
-            </li>
-            <li class="nav-item">
-                <p class="op" (click)="upPlataformasSerie()">Actualizar plataformas de las series</p>
-            </li>
-        </ul>
+        <nav class="nav flex-column">
+            <p class="op nav-item" (click)="option = 'addPeli'">Añadir una película</p>
+            <p class="op nav-item" (click)="option = 'addSerie'">Añadir una serie</p>
+            <p class="op nav-item" (click)="option = 'addProf'">Añadir un profesional</p>
+            <p class="op nav-item" (click)="modal = 'confirmRecom'">Actualizar recomendador</p>
+            <p class="op nav-item" (click)="modal = 'confirmPlataformPeli'">Actualizar plataformas de las película</p>
+            <p class="op nav-item" (click)="modal = 'confirmPlataformSerie'">Actualizar plataformas de las series</p>
+        </nav>
     </div>
 
     <div class="col-sm-6">
@@ -91,9 +79,14 @@
 <app-confirm *ngIf="modal === 'ErrorProf'" mensaje="No se ha podido almacenar el profesional" status="alert"
 (aceptButton)="modal = null"></app-confirm>
 
+<app-confirm *ngIf="modal === 'confirmRecom'" mensaje="¿Estas seguro de actualizar el recomendador?"
+status="confirm" (noButton)="modal = null" (yesButton)="upRecomendador()"></app-confirm>
+
 <app-confirm *ngIf="modal === 'confirmPlataformPeli'" mensaje="¿Estas seguro de actualizar las plataformas de streaming de las Películas?"
-status="confirm" (noButton)="modal = null" (yesButton)="upPlataformasPeli()">
-</app-confirm>
+status="confirm" (noButton)="modal = null" (yesButton)="upPlataformasPeli()"></app-confirm>
+
+<app-confirm *ngIf="modal === 'confirmPlataformSerie'" mensaje="¿Estas seguro de actualizar las plataformas de streaming de las Serie?"
+status="confirm" (noButton)="modal = null" (yesButton)="upPlataformasSerie()"></app-confirm>
 
 <app-confirm *ngIf="modal === 'plataformaPeli'" mensaje="Se han actualizado las plataformas donde se puden ver las películas" 
 status="alert" (aceptButton)="modal = null"></app-confirm>
