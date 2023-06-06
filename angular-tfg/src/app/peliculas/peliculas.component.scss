@@ -3,6 +3,15 @@ h1{
     font-size: 40px;
 }
 
+a{
+    color: black;
+}
+
+a:hover{
+    color: blue;
+    cursor: pointer;
+}
+
 .container{
     max-width: 100%;
 }
@@ -19,6 +28,7 @@ h1{
 
 .nota{
     padding: 20px;
+    margin: 10px;
     border-radius: 10px;
     font-size: x-large;
     border: solid 1.5px black;
@@ -89,15 +99,6 @@ h1{
   border: solid black 1px;
   background-color: white;
   overflow: auto;
-}
-
-.actor a {
-    color: black;
-}
-
-.actor span a:hover{
-    color: blue;
-    cursor: pointer;
 }
 
 .botones{

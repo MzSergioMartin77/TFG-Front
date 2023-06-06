@@ -36,7 +36,7 @@
         {{identidad.nick}}
       </p>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-        <a *ngIf="identidad.rol == 'user'" class="dropdown-item" routerLink='/perfil'>Perfil</a>
+        <a class="dropdown-item" routerLink='/perfil'>Perfil</a>
         <a *ngIf="identidad.rol == 'admin'" class="dropdown-item" routerLink='/admin'>Administrador</a>
         <a class="dropdown-item" (click)="logout()">Cerrar sesión</a>
       </div>

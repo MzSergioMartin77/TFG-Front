@@ -5,7 +5,7 @@
         </div>
         <div class="col-sm">
             <h1>{{serie.titulo}}</h1>
-            <p>Título original: {{serie.titulo_original}}</p>
+            <p> <strong>Título original: </strong> {{serie.titulo_original}}</p>
             <div class="nota">
                 <div class="nota-cont" *ngIf="serie.nota_media != null">
                     <span *ngIf="serie.nota_media > 6" class="nota-m gr">
@@ -35,18 +35,18 @@
                     <button class="btn btn-primary" (click)=addNota()>Puntuar</button>
                 </div>
             </div>
-            <p>{{serie.inicio | date:"dd/MM/yyyy"}} | {{serie.final | date:"dd/MM/yyyy"}}</p>
+            <p> <strong>Estreno: </strong> {{serie.inicio | date:"dd/MM/yyyy"}}</p>
             <p>{{serie.sinopsis}}</p>
-            <p>Generos: {{generos}}</p>
-            <p>Temporadas: {{serie.temporadas}}</p>
-            <p>Capitulos: {{serie.capitulos}}</p>
+            <p> <strong>Generos: </strong> {{generos}}</p>
+            <p> <strong>Temporadas: </strong> {{serie.temporadas}}</p>
+            <p> <strong>Capitulos: </strong> {{serie.capitulos}}</p>
 
             <p *ngFor="let creador of serie.creadores">
-                <a (click)=getProfesional(creador)>Creador:  {{creador}}</a>
+                <a (click)=getProfesional(creador)> <strong>Creador: </strong> {{creador}}</a>
             </p>
 
             <div *ngIf="serie.plataformas.length >= 1">
-                <h3>Donde verlo:</h3>
+                <h3>Disponible en:</h3>
                 <ul class="row">
                     <li class="list-item col" *ngFor="let plataforma of serie.plataformas">
                         <img src="{{plataforma.icono}}" alt="{{plataforma.nombre}}">

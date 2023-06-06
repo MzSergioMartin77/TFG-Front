@@ -1,17 +1,16 @@
-.container{
-    padding: 50px 20px 10px 20px;
-}
-
 h1{
     margin-top: 30px;
     margin-bottom: 30px;
     font-size: 40px;
 }
 
+.container{
+    max-width: 100%;
+}
+
 .img-fluid{
     min-width: 250px;
-    max-width: 400px;
-    max-height: 600px;
+    max-height: 800px;
     margin-right: 10px;
 }
 

@@ -35,10 +35,15 @@ export class BuscadorComponent implements OnInit, DoCheck {
     private _serieService: SerieService,
     private _profesionalService: ProfesionalService,
     private _usuarioService: UsuarioService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
     ) { }
 
   ngOnInit(): void {
+    this.peliculas = [];
+    this.series = [];
+    this.usuarios = [];
+    this.profesionales = [];
+
     const removeAccents = (str) => {
       return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     } 

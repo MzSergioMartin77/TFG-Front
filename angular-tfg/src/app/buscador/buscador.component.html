@@ -15,7 +15,7 @@
             </span>
             <span type="button" class="row .btn btn-primary" (click)="tipos = 'all'">
                 <h2 class="col-sm">Todo</h2> 
-                <h2 *ngIf="peliculas" class="col-sm">{{peliculas.length + series.length}}</h2> 
+                <h2 class="col-sm">{{peliculas.length + series.length + usuarios.length + profesionales.length }}</h2> 
             </span>
             <span  type="button" class="row .btn btn-primary" (click)="tipos = 'pelicula'">
                 <h2 class="col-sm">Películas</h2> 
@@ -41,7 +41,6 @@
     
     <div class="col-8 result">
         <div class="row" *ngIf="tipos == 'all' || tipos == 'pelicula'">
-            <h2>Películas</h2>
             <div class="col-sm" *ngFor="let pelicula of peliculas | orderBy:sortField:sortDirection">
                 <img routerLink='/pelicula/{{pelicula._id}}' src={{pelicula.imagen}} alt="Imagen de la pelicula"> <br>
                 <a routerLink='/pelicula/{{pelicula._id}}'>{{pelicula.titulo}} </a> <br>
@@ -49,7 +48,6 @@
         </div>
         
         <div class="row" *ngIf="tipos == 'all' || tipos == 'serie'">
-            <h2>Series</h2>
             <div class="col-sm" *ngFor="let serie of series | orderBy:sortField:sortDirection">
                 <img routerLink='/serie/{{serie._id}}' src={{serie.imagen}} alt="Imagen de la serie"> <br>
                 <a routerLink='/serie/{{serie._id}}'>{{serie.titulo}} </a> <br>

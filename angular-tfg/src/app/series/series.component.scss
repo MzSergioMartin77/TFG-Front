@@ -2,6 +2,15 @@ h1{
     font-size: 40px;
 }
 
+a{
+    color: black;
+}
+
+a:hover{
+    color: blue;
+    cursor: pointer;
+}
+
 .container{
     max-width: 100%;
 }
@@ -88,15 +97,6 @@ h1{
   border: solid black 1px;
   background-color: white;
   overflow: auto;
-}
-
-.actor a {
-    color: black;
-}
-
-.actor span a:hover{
-    color: blue;
-    cursor: pointer;
 }
 
 .botones{
