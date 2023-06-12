@@ -1,7 +1,5 @@
-.perfil{
-    margin-left: 8%;
-    margin-right: 8%;
-    margin-top: 3%;
+.container{
+    max-width: 100%;
 }
 
 .rounded{
@@ -34,6 +32,7 @@
 .critica img{
     width: 150px;
     height: 200px;
+    border: solid black 1px;
 }
 
 .btn{

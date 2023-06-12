@@ -1,7 +1,5 @@
 .container{
-    margin-left: 25px;
-    margin-right: 25px;
-    margin-top: 35px;
+    max-width: 100%;
 }
 
 .rounded{
@@ -33,4 +31,5 @@
 .critica img{
     width: 150px;
     height: 200px;
+    border: solid black 1px;
 }

@@ -113,12 +113,14 @@
                             <p>{{critica.fecha | date: 'dd/MM/yyyy'}}</p>
                             <p [innerHTML]="critica.texto"></p>
                         </div>
-                        <div *ngIf="usuario.rol == 'admin'">
-                            <button class="btn btn-primary" (click)="modal = 'eliminarCritica'">Eliminar</button>
-                            
-                            <app-confirm *ngIf="modal === 'eliminarCritica'" mensaje="¿Estas seguro de eliminar la crítica?" status="confirm"
-                                (noButton)="modal = null" (yesButton)="deleteCritica(critica._id)"></app-confirm>
-                        </div>   
+                        <div *ngIf="usuario">
+                            <div *ngIf="usuario.rol == 'admin'">
+                                <button class="btn btn-primary" (click)="modal = 'eliminarCritica'">Eliminar</button>
+                                
+                                <app-confirm *ngIf="modal === 'eliminarCritica'" mensaje="¿Estas seguro de eliminar la crítica?" status="confirm"
+                                    (noButton)="modal = null" (yesButton)="deleteCritica(critica._id)"></app-confirm>
+                            </div>
+                        </div>        
                     </div>
                 </div>
             </div>
@@ -134,7 +136,7 @@
             <textarea class="texto" type="text" id="texto" name="texto" [formControl]="texto" placeholder="Escribe un comentario"> </textarea>
             <div *ngIf="texto.invalid" class="alert alert-danger">
                 <span *ngIf="texto.errors.maxlength">
-                    El comentario no pude ser mayor de 250 carácteres
+                    El comentario no pude ser mayor de 250 caracteres
                 </span>
             </div>
             <button class="btn btn-primary" [disabled]="texto.invalid" (click)=addComentario()>Comentar</button>
@@ -148,7 +150,7 @@
                                 value="{{comentario.texto}}" placeholder="{{comentario.texto}}" > </textarea>
                             <div *ngIf="uptexto.invalid" class="alert alert-danger">
                                 <span *ngIf="uptexto.errors.maxlength">
-                                    El comentario no pude ser mayor de 250 carácteres
+                                    El comentario no pude ser mayor de 250 caracteres
                                 </span>
                             </div>
                             <button class="btn btn-primary" [disabled]="uptexto.invalid" (click)=updateComentario(comentario._id)>Modificar</button>
@@ -180,7 +182,7 @@
                 </div>
 
                 <div *ngIf="usuario.rol == 'admin'" class="comentarios">
-                    <div *ngFor="let comentario of pelicula.comentarios">
+                    <div *ngFor="let comentario of pelicula.comentarios" class="comentario">
                         <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span *ngIf="comentario.editado">  (Editado)</span> </p>
                         <p class="fecha">{{comentario.fecha | date: 'dd/MM/yyyy'}}</p>
                         <p>
@@ -195,7 +197,7 @@
             </div>
             
             <div *ngIf="usuario == null" class="comentarios">
-                <div *ngFor="let comentario of pelicula.comentarios">
+                <div *ngFor="let comentario of pelicula.comentarios" class="comentario">
                     <p class="nick"><a routerLink='/usuario/{{comentario.usuario}}'>{{comentario.nick}}</a> <span *ngIf="comentario.editado">  (Editado)</span> </p>
                     <p class="fecha">{{comentario.fecha | date: 'dd/MM/yyyy'}}</p>
                     <p class="comText">{{comentario.texto}}</p>

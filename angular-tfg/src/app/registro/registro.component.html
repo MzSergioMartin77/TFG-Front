@@ -21,7 +21,7 @@
                     El nombre es obligatorio
                 </span>
                 <span *ngIf="nombre.errors.maxlength">
-                    El nombre debe de terner menos de 50 carácteres
+                    El nombre debe de terner menos de 50 caracteres
                 </span>
             </div>
         </div>
@@ -33,7 +33,7 @@
                     El nombre de usuario es obligatorio
                 </span>
                 <span *ngIf="nick.errors.maxlength">
-                    El nombre de usuario debe de tener al menos 50 carácteres <br>
+                    El nombre de usuario debe de tener al menos 50 caracteres <br>
                 </span>
             </div>
         </div>
@@ -57,10 +57,10 @@
                     La contraseña es obligatoria
                 </span>
                 <span *ngIf="pass.errors.minlength">
-                    La contraseña debe de tener al menos 8 carácteres <br>
+                    La contraseña debe de tener al menos 8 caracteres <br>
                 </span>
                 <span *ngIf="pass.errors.maxLength">
-                    La contraseña no puede tener más de 50 carácteres
+                    La contraseña no puede tener más de 50 caracteres
                 </span>
                 <span *ngIf="pass.errors.pattern">
                     La contraseña debe contener al menos una mayúscula, una minúscula y un número
@@ -85,10 +85,10 @@
                 formControlName="descripcion"></textarea>
             <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)" class="alert alert-danger">
                 <span *ngIf="descripcion.errors.minlength">
-                    La descripción debe de tener como mínimo 8 carácteres
+                    La descripción debe de tener como mínimo 8 caracteres
                 </span>
                 <span *ngIf="descripcion.errors.maxlength">
-                    La descripción no puede tener más 500 carácteres
+                    La descripción no puede tener más 500 caracteres
                 </span>
             </div>
         </div>

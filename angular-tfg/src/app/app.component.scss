@@ -1,4 +1,7 @@
 
+.contenedor{
+    min-height: calc(100% - 150px);
+}
 
 .navbar{
     background: #0f38c0d2;
@@ -66,7 +69,6 @@
 }
 
 .main{
-    min-height: calc(80% - 250px);
     margin: 5% 9% 5% 9%;
 }
 
