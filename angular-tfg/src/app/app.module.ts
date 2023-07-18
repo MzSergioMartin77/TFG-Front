@@ -25,7 +25,6 @@ import { BuscadorComponent } from './buscador/buscador.component';
 import { ErrorComponent } from './error/error.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { AdminComponent } from './admin/admin.component';
-import { MenuAdminComponent } from './menu-admin/menu-admin.component';
 import { OrderByPipe } from './pipes/orderBy.pipe';
 
 @NgModule({
@@ -48,7 +47,6 @@ import { OrderByPipe } from './pipes/orderBy.pipe';
     ErrorComponent,
     ConfirmComponent,
     AdminComponent,
-    MenuAdminComponent,
     OrderByPipe
   ],
   imports: [

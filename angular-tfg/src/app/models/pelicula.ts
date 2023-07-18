@@ -35,8 +35,8 @@ export class Pelicula {
             nick: String,
             texto: String,
             fecha: Date,
-            usuario: String,
-            respuesta:[String]
+            editado: Boolean,
+            usuario: String
         }]
     ){}
 }

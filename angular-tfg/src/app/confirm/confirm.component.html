@@ -5,7 +5,7 @@
         <h2>{{mensaje}}</h2>
         <div class="modal-footer">
           <div *ngIf="status == 'confirm'">
-            <button type="button" (click)="yesButton.emit()" class="btn btn-primary">Si</button>
+            <button type="button" (click)="yesButton.emit()" class="btn btn-primary">Sí</button>
             <button type="button" (click)="noButton.emit()" class="btn btn-primary">No</button>
           </div>
           <div *ngIf="status == 'alert'">

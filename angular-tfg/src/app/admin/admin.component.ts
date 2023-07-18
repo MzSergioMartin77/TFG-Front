@@ -3,6 +3,7 @@ import { UsuarioService } from '../services/usuario.service';
 import { AdminService } from '../services/admin.service';
 import { Usuario } from '../models/usuario';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -24,13 +25,14 @@ export class AdminComponent implements OnInit {
 
   constructor(
     private _usuarioService: UsuarioService,
-    private _adminService: AdminService
+    private _adminService: AdminService,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
     this.usuario = this._usuarioService.getIdentidad();
-    if(this.usuario.rol != 'admin'){
-      this.modal = 'denegado';
+    if(this.usuario == null || this.usuario.rol != 'admin'){
+      this._router.navigate(['/error']);
     }
     this.token = this._usuarioService.getToken();
   }

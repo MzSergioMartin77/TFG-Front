@@ -36,8 +36,8 @@ export class Serie {
             nick: String,
             texto: String,
             fecha: Date,
+            editado: Boolean,
             usuario: String,
-            respuesta:[String]
         }]
     ){}
 }
